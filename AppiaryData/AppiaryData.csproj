@@ -54,6 +54,12 @@
   <ItemGroup>
     <Compile Include="Context\DatabaseContext.cs" />
     <Compile Include="Models\BaseModel.cs" />
+    <Compile Include="Models\FrameSideInspection.cs" />
+    <Compile Include="Models\Inspection.cs" />
+    <Compile Include="Models\FrameInspection.cs" />
+    <Compile Include="Models\InspectionTakenAction.cs" />
+    <Compile Include="Models\Queen.cs" />
+    <Compile Include="Models\Hive.cs" />
     <Compile Include="Models\Box.cs" />
     <Compile Include="Models\Frame.cs" />
     <Compile Include="Models\Note.cs" />

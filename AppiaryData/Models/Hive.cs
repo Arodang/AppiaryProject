@@ -7,21 +7,19 @@ using System.Threading.Tasks;
 
 namespace AppiaryData.Models
 {
-    class Box : BaseModel
+    class Hive : BaseModel
     {
-        public enum BoxTypeEnum { Deep, Medium, Shallow, Feeder }
+        public enum HiveTypeEnum { Nuc, Langstroth10Frame, Langstroth8Frame, TopBar, Warre, NationalStandard }
 
         [Key, Required]
-        public int BoxId { get; set; }
+        public int HiveId { get; set; }
 
         public string Name { get; set; }
 
-        public BoxTypeEnum BoxType { get; set; }
+        public HiveTypeEnum BoxType { get; set; }
 
         public int Position { get; set; }
 
-        public int NumberOfFramesCanFit { get; set; }
-
-        public List<Frame> Frames { get; set; }
+        public List<Box> Boxes { get; set; }
     }
 }

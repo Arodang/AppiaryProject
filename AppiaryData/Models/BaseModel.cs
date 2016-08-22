@@ -9,6 +9,8 @@ namespace AppiaryData.Models
 {
     class BaseModel
     {
+        public enum AmountQualifiersEnum { High, Medium, Low, None }
+
         [Required]
         public DateTime CreatedDateTime { get; set; }
 
