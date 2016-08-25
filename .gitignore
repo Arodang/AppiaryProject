@@ -251,3 +251,4 @@ paket-files/
 .idea/
 *.sln.iml
 /Appiary/www/dist
+/Appiary/platforms/android/assets/www/dist/bundle.js
