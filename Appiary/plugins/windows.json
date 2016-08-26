@@ -1,0 +1,30 @@
+{
+    "prepare_queue": {
+        "installed": [],
+        "uninstalled": []
+    },
+    "config_munge": {
+        "files": {}
+    },
+    "installed_plugins": {
+        "cordova-plugin-console": {
+            "PACKAGE_NAME": "Appiary"
+        },
+        "cordova-plugin-device": {
+            "PACKAGE_NAME": "Appiary"
+        },
+        "cordova-plugin-splashscreen": {
+            "PACKAGE_NAME": "Appiary"
+        },
+        "cordova-plugin-statusbar": {
+            "PACKAGE_NAME": "Appiary"
+        },
+        "cordova-plugin-whitelist": {
+            "PACKAGE_NAME": "Appiary"
+        },
+        "ionic-plugin-keyboard": {
+            "PACKAGE_NAME": "Appiary"
+        }
+    },
+    "dependent_plugins": {}
+}

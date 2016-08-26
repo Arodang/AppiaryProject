@@ -63,6 +63,7 @@
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\BaseModel.cs" />
+    <Compile Include="Models\Apiary.cs" />
     <Compile Include="Models\FrameSideInspection.cs" />
     <Compile Include="Models\Inspection.cs" />
     <Compile Include="Models\FrameInspection.cs" />

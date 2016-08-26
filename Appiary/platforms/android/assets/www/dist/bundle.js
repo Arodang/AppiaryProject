@@ -59,7 +59,7 @@
 	// 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 	// the 2nd parameter is an array of 'requires'
 	// 'starter.controllers' is found in controllers.js
-	angular.module('starter', ['ionic', 'starter.controllers']).run(function ($ionicPlatform) {
+	angular.module('starter', ['ionic', 'starter.controllers', 'apiary.apiaryList']).run(function ($ionicPlatform) {
 	    $ionicPlatform.ready(function () {
 	        // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
 	        // for form inputs)
@@ -118,7 +118,7 @@
 	        }
 	    });
 	    // if none of the above states are matched, use this as the fallback
-	    $urlRouterProvider.otherwise('/app/playlists');
+	    $urlRouterProvider.otherwise('/app/apiaryList');
 	});
 
 /***/ },
@@ -172,9 +172,53 @@
 /* 3 */
 /***/ function(module, exports) {
 
-	angular.module('starter.controllers').controller('ApiaryListCtrl', function ($scope, $ionicModal, $timeout) {
+	angular.module('apiary.apiaryList', []).controller('ApiaryListCtrl', function ($scope, $ionicModal, $timeout, ApiaryListMockDataService) {
+	    function generateAddressNumber() {
+	        var min = 10;
+	        var max = 500;
+	        return Math.floor(Math.random() * (max - min) + min);
+	    };
 
-	  //test//
+	    var generateMockApiaryList = function (numToGenerate) {
+	        var apiaryList = [];
+	        if (!numToGenerate) {
+	            numToGenerate = 5;
+	        }
+	        for (var i = 1; i <= numToGenerate; i++) {
+	            var apiary = {};
+	            apiary.id = i;
+	            apiary.name = "Apiary #" + i;
+	            apiary.address = generateAddressNumber() + " Gleason Circle, Rochester, NY 14623";
+	            apiary.description = "A healthy apiary with hives in it.";
+	            apiaryList.push(apiary);
+	        };
+	        return apiaryList;
+	    };
+
+	    //ApiaryListMockDataService.GenerateMockApiaryList();
+	    $scope.$on('$ionicView.enter', function (e) {
+	        $scope.apiaryList = generateMockApiaryList(30);
+	    });
+	}).factory('ApiaryListMockDataService', function () {
+	    function generateAddressNumber() {
+	        var min = 10;
+	        var max = 500;
+	        return Math.floor(Math.random() * (max - min) + min);
+	    };
+
+	    var generateMockApiaryList = function (numToGenerate) {
+	        var apiaryList = [];
+	        for (var i = 1; i <= numToGenerate; i++) {
+	            var apiary = {};
+	            apiary.id = i;
+	            apiary.name = "Apiary #" + i;
+	            apiary.address = generateAddressNumber() + " Gleason Circle, Rochester, NY 14623";
+	            apiary.description = "A healthy apiary with hives in it.";
+	        };
+	    };
+	    return {
+	        GenerateMockApiaryList: generateMockApiaryList
+	    };
 	});
 
 /***/ }

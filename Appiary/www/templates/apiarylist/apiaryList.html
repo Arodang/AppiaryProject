@@ -1,5 +1,10 @@
 <ion-view view-title="Apiary List">
   <ion-content>
     <h1>Apiary List</h1>
+      <ion-list>
+          <ion-item ng-repeat="apiary in apiaryList">
+              <button class="button" href="#/app/apary/{{apiary.id}}" ng-bind="apiary.name"></button>
+          </ion-item>
+      </ion-list>
   </ion-content>
 </ion-view>
