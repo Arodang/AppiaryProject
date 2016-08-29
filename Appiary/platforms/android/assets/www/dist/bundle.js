@@ -46,7 +46,10 @@
 
 	__webpack_require__(1);
 	__webpack_require__(2);
-	module.exports = __webpack_require__(3);
+	__webpack_require__(3);
+	__webpack_require__(4);
+	__webpack_require__(5);
+	module.exports = __webpack_require__(6);
 
 
 /***/ },
@@ -59,7 +62,7 @@
 	// 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 	// the 2nd parameter is an array of 'requires'
 	// 'starter.controllers' is found in controllers.js
-	angular.module('starter', ['ionic', 'starter.controllers', 'apiary.apiaryList']).run(function ($ionicPlatform) {
+	angular.module('starter', ['ionic', 'starter.controllers', 'apiary.apiaryList', 'apiary.common', 'apiary.apiary', 'apiary.mock']).run(function ($ionicPlatform) {
 	    $ionicPlatform.ready(function () {
 	        // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
 	        // for form inputs)
@@ -114,6 +117,14 @@
 	            'menuContent': {
 	                templateUrl: 'templates/apiaryList/apiaryList.html',
 	                controller: 'ApiaryListCtrl'
+	            }
+	        }
+	    }).state('app.apiary', {
+	        url: '/apiary/:apiaryId',
+	        views: {
+	            'menuContent': {
+	                templateUrl: 'templates/apiary/apiary.html',
+	                controller: 'ApiaryCtrl'
 	            }
 	        }
 	    });
@@ -172,15 +183,59 @@
 /* 3 */
 /***/ function(module, exports) {
 
-	angular.module('apiary.apiaryList', []).controller('ApiaryListCtrl', function ($scope, $ionicModal, $timeout, ApiaryListMockDataService) {
+	angular.module('apiary.apiaryList', []).controller('ApiaryListCtrl', function ($scope, $ionicModal, $timeout, ApiaryMockDataService) {
+
+	    $scope.$on('$ionicView.enter', function (e) {
+	        $scope.apiaryList = ApiaryMockDataService.GetMockApiaryList();
+	    });
+	});
+
+/***/ },
+/* 4 */
+/***/ function(module, exports) {
+
+	angular.module('apiary.common', []).directive('goClick', function ($location) {
+	    return function (scope, element, attrs) {
+	        var path;
+
+	        attrs.$observe('goClick', function (val) {
+	            path = val;
+	        });
+
+	        element.bind('click', function () {
+	            scope.$apply(function () {
+	                $location.path(path);
+	            });
+	        });
+	    };
+	});
+
+/***/ },
+/* 5 */
+/***/ function(module, exports) {
+
+	angular.module('apiary.apiary', []).controller('ApiaryCtrl', function ($scope, $stateParams, ApiaryMockDataService) {
+	    $scope.$on('$ionicView.enter', function (e) {
+	        var apiary = ApiaryMockDataService.GetMockApiary($stateParams.apiaryId);
+
+	        $scope.apiaryName = apiary.name;
+	    });
+	});
+
+/***/ },
+/* 6 */
+/***/ function(module, exports) {
+
+	angular.module('apiary.mock', []).factory('ApiaryMockDataService', function () {
+	    var apiaryList = [];
+
 	    function generateAddressNumber() {
 	        var min = 10;
 	        var max = 500;
 	        return Math.floor(Math.random() * (max - min) + min);
 	    };
 
-	    var generateMockApiaryList = function (numToGenerate) {
-	        var apiaryList = [];
+	    function generateMockApiaryList(numToGenerate) {
 	        if (!numToGenerate) {
 	            numToGenerate = 5;
 	        }
@@ -192,32 +247,21 @@
 	            apiary.description = "A healthy apiary with hives in it.";
 	            apiaryList.push(apiary);
 	        };
+	    };
+
+	    generateMockApiaryList(8);
+
+	    var getMockApiaryList = function () {
 	        return apiaryList;
 	    };
 
-	    //ApiaryListMockDataService.GenerateMockApiaryList();
-	    $scope.$on('$ionicView.enter', function (e) {
-	        $scope.apiaryList = generateMockApiaryList(30);
-	    });
-	}).factory('ApiaryListMockDataService', function () {
-	    function generateAddressNumber() {
-	        var min = 10;
-	        var max = 500;
-	        return Math.floor(Math.random() * (max - min) + min);
+	    var getMockApiary = function (id) {
+	        return apiaryList[id - 1];
 	    };
 
-	    var generateMockApiaryList = function (numToGenerate) {
-	        var apiaryList = [];
-	        for (var i = 1; i <= numToGenerate; i++) {
-	            var apiary = {};
-	            apiary.id = i;
-	            apiary.name = "Apiary #" + i;
-	            apiary.address = generateAddressNumber() + " Gleason Circle, Rochester, NY 14623";
-	            apiary.description = "A healthy apiary with hives in it.";
-	        };
-	    };
 	    return {
-	        GenerateMockApiaryList: generateMockApiaryList
+	        GetMockApiaryList: getMockApiaryList,
+	        GetMockApiary: getMockApiary
 	    };
 	});
 
