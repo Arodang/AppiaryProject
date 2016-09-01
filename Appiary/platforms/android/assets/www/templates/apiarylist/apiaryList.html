@@ -1,11 +1,14 @@
 <ion-view view-title="Apiary List">
     <ion-content>
-        <div class="row" id="createDeleteButtons">
-            <button class="col button padding-right" ng-click="shouldShowDelete=!shouldShowDelete" ng-class="{'button-assertive': !shouldShowDelete, 'button-energized': shouldShowDelete}">
+        <button class="button-balanced button-full button icon-right ion-close-circled" ng-show="lastCreatedApiaryName.length > 0" ng-click="lastCreatedApiaryName = ''">
+            Success! An apiary has been created!
+        </button>
+        <div class="button-bar" id="createDeleteButtons">
+            <button class="col button" ng-click="shouldShowDelete=!shouldShowDelete" ng-class="{'button-assertive': !shouldShowDelete, 'button-energized': shouldShowDelete}">
                 Delete
             </button>
 
-            <a class="col button button-balanced" href="#/app/apiary/create">
+            <a class="button button-balanced" href="#/app/apiary/create">
                 Create Apiary
             </a>
         </div>

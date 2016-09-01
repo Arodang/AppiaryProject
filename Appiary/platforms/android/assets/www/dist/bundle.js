@@ -196,9 +196,16 @@
 	    $scope.apiaryList = [];
 	    $scope.shouldShowDelete = false;
 	    $scope.listCanSwipe = false;
+	    $scope.lastCreatedApiaryName = "";
 
 	    $scope.$on('$ionicView.enter', function (e) {
 	        $scope.apiaryList = ApiaryMockDataService.GetMockApiaryList();
+	        $scope.lastCreatedApiaryName = ApiaryMockDataService.GetLastCreatedApiary();
+	        $scope.$apply();
+	        setTimeout(function () {
+	            $scope.lastCreatedApiaryName = "";
+	            $scope.$apply();
+	        }, 3000);
 	    });
 
 	    $scope.deleteItem = function (apiaryId) {
@@ -226,12 +233,23 @@
 /* 5 */
 /***/ function(module, exports) {
 
-	angular.module('apiary.apiary').controller('ApiaryCreateCtrl', function ($scope, $stateParams, ApiaryMockDataService) {
+	angular.module('apiary.apiary').controller('ApiaryCreateCtrl', function ($scope, $stateParams, ApiaryMockDataService, $ionicHistory) {
 	    $scope.$on('$ionicView.enter', function (e) {
 	        //initialization
+	        $scope.apiary = {};
 	    });
 
-	    $scope.createApiary = function () {};
+	    $scope.createApiary = function () {
+	        var apiary = $scope.apiary;
+	        if ($scope.apiary) {
+	            apiary = ApiaryMockDataService.CreateMockApiary(apiary);
+	            $ionicHistory.goBack();
+	        }
+	    };
+
+	    $scope.goBack = function () {
+	        $ionicHistory.goBack();
+	    };
 	});
 
 /***/ },
@@ -240,6 +258,7 @@
 
 	angular.module('apiary.mock', []).factory('ApiaryMockDataService', function () {
 	    var apiaryList = [];
+	    var lastCreatedApiary = "";
 
 	    function generateAddressNumber() {
 	        var min = 10;
@@ -286,10 +305,31 @@
 	        return true;
 	    };
 
+	    var createMockApiary = function (apiary) {
+	        var maxId = 0;
+	        for (var i = 0; i < apiaryList.length; i++) {
+	            if (apiaryList[i].id > maxId) {
+	                maxId = apiaryList[i].id;
+	            }
+	        }
+	        apiary.id = maxId + 1;
+	        apiaryList.push(apiary);
+	        lastCreatedApiary = apiary.name;
+	        return apiary;
+	    };
+
+	    var getLastCreatedApiary = function () {
+	        var toReturn = lastCreatedApiary;
+	        lastCreatedApiary = "";
+	        return toReturn;
+	    };
+
 	    return {
 	        GetMockApiaryList: getMockApiaryList,
 	        GetMockApiary: getMockApiary,
-	        DeleteMockApiary: deleteMockApiary
+	        DeleteMockApiary: deleteMockApiary,
+	        CreateMockApiary: createMockApiary,
+	        GetLastCreatedApiary: getLastCreatedApiary
 	    };
 	});
 

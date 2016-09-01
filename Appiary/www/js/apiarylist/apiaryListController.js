@@ -5,9 +5,16 @@
     $scope.apiaryList = [];
     $scope.shouldShowDelete = false;
     $scope.listCanSwipe = false;
+    $scope.lastCreatedApiaryName = "";
 
     $scope.$on('$ionicView.enter', function (e) {
         $scope.apiaryList = ApiaryMockDataService.GetMockApiaryList();
+        $scope.lastCreatedApiaryName = ApiaryMockDataService.GetLastCreatedApiary();
+        $scope.$apply();
+        setTimeout(function () {
+            $scope.lastCreatedApiaryName = "";
+            $scope.$apply();
+        }, 3000)
     });
 
     $scope.deleteItem = function (apiaryId) {

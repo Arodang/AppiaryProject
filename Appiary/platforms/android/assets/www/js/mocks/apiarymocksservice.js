@@ -2,6 +2,7 @@
 
 .factory('ApiaryMockDataService', function () {
     var apiaryList = [];
+    var lastCreatedApiary = "";
 
     function generateAddressNumber() {
         var min = 10;
@@ -59,13 +60,21 @@
         }
         apiary.id = maxId + 1;
         apiaryList.push(apiary);
+        lastCreatedApiary = apiary.name;
         return apiary;
+    };
+
+    var getLastCreatedApiary = function () {
+        var toReturn = lastCreatedApiary;
+        lastCreatedApiary = "";
+        return toReturn;
     };
 
     return {
         GetMockApiaryList: getMockApiaryList,
         GetMockApiary: getMockApiary,
         DeleteMockApiary: deleteMockApiary,
-        CreateMockApiary: createMockApiary
+        CreateMockApiary: createMockApiary,
+        GetLastCreatedApiary: getLastCreatedApiary
     }
 });

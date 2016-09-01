@@ -1,27 +1,32 @@
 <ion-view view-title="Create An Apiary">
     <ion-content>
         <h1>New Apiary:</h1>
-        <div class="list">
+        <form class="list">
             <label class="item item-input item-floating-label">
-                <span class="input-label">Name</span>
-                <input type="text" placeholder="Name" ng-model="apiary.name">
+                <span class="input-label">
+                    Name <span class="assertive">*</span>
+                </span>
+                <input type="text" name="name" placeholder="Name *" ng-model="apiary.name" required>
             </label>
             <label class="item item-input item-floating-label">
                 <span class="input-label">Address</span>
-                <input type="text" placeholder="Address" ng-model="apiary.address">
+                <input type="text" name="address" placeholder="Address" ng-model="apiary.address">
             </label>
             <label class="item item-input item-floating-label">
                 <span class="input-label">Description</span>
-                <textarea rows="8" placeholder="Description" ng-model="apiary.description"></textarea>
+                <textarea rows="8" name="description" placeholder="Description" ng-model="apiary.description"></textarea>
             </label>
             <div class="row" id="cancelSaveButon">
-                <a class="col button button-positive" ng-click="goBack()">
+                <button class="col button button-positive" ng-click="goBack()">
                     Cancel
-                </a>
-                <a class="col button button-balanced" ng-click="createApiary()">
+                </button>
+                <button type="submit" class="col button" ng-click="createApiary()"
+                        ng-disabled="!apiary.name||apiary.name.length==0"
+                        ng-class="{'button-balanced': apiary.name&&apiary.name.length>0,
+                            'button-stable': !apiary.name||apiary.name.length==0 }">
                     Create Apiary
-                </a>
+                </button>
             </div>
-        </div>
+        </form>
     </ion-content>
 </ion-view>
