@@ -7,7 +7,6 @@
 angular.module('starter', ['ionic',
     'starter.controllers',
     'apiary.apiaryList',
-    'apiary.common',
     'apiary.apiary',
     'apiary.mock'
 ])
@@ -92,7 +91,31 @@ angular.module('starter', ['ionic',
                 controller: 'ApiaryCtrl'
             }
         }
-    });
+    })
+    .state('tabs', {
+        url: 'tabs',
+        abstract: true,
+        templateUrl: 'templates/tabs.html'
+    })
+    .state('tabs.apiaryDetails', {
+        url: 'tab/apiary-details/:apiaryId',
+        views: {
+            'apiary-details-tab': {
+                templateUrl: 'templates/apiary/apiaryDetails.html',
+                controller: 'ApiaryDetailsCtrl'
+            }
+        }
+    })
+    .state('tabs.apiaryHives', {
+        url: 'tab/apiary-hives/:apiaryId',
+        views: {
+            'apiary-hives-tab': {
+                templateUrl: 'templates/apiary/apiaryHives.html',
+                controller: 'ApiaryHivesCtrl'
+            }
+        }
+    })
+    ;
     // if none of the above states are matched, use this as the fallback
     $urlRouterProvider.otherwise('/app/apiaryList');
 });

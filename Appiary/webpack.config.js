@@ -2,9 +2,9 @@
 
 module.exports = {
     entry: {
-        app: ["./www/js/app", "./www/js/controllers",
+        app: ["./www/js/app",
+            "./www/js/controllers",
             "./www/js/apiarylist/apiaryListController",
-            "./www/js/common/goClickDirective",
             "./www/js/apiary/apiaryController",
             './www/js/mocks/apiaryMocksService'
         ]

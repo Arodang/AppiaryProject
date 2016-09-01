@@ -10,7 +10,8 @@ var sh = require('shelljs');
 var webpack = require('webpack-stream');
 
 var paths = {
-  sass: ['./scss/**/*.scss']
+    sass: ['./scss/**/*.scss'],
+    js: ['./www/js/**/*.js']
 };
 
 gulp.task('default', ['sass', 'webpack']);
@@ -35,7 +36,7 @@ gulp.task('webpack', function () {
 });
 
 gulp.task('watch', function() {
-  gulp.watch(paths.sass, ['sass', 'webpack']);
+  gulp.watch([paths.sass, paths.js], ['sass', 'webpack']);
 });
 
 gulp.task('install', ['git-check'], function() {

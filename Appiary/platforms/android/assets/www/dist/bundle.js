@@ -48,8 +48,7 @@
 	__webpack_require__(2);
 	__webpack_require__(3);
 	__webpack_require__(4);
-	__webpack_require__(5);
-	module.exports = __webpack_require__(6);
+	module.exports = __webpack_require__(5);
 
 
 /***/ },
@@ -62,7 +61,7 @@
 	// 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 	// the 2nd parameter is an array of 'requires'
 	// 'starter.controllers' is found in controllers.js
-	angular.module('starter', ['ionic', 'starter.controllers', 'apiary.apiaryList', 'apiary.common', 'apiary.apiary', 'apiary.mock']).run(function ($ionicPlatform) {
+	angular.module('starter', ['ionic', 'starter.controllers', 'apiary.apiaryList', 'apiary.apiary', 'apiary.mock']).run(function ($ionicPlatform) {
 	    $ionicPlatform.ready(function () {
 	        // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
 	        // for form inputs)
@@ -125,6 +124,26 @@
 	            'menuContent': {
 	                templateUrl: 'templates/apiary/apiary.html',
 	                controller: 'ApiaryCtrl'
+	            }
+	        }
+	    }).state('tabs', {
+	        url: 'tabs',
+	        abstract: true,
+	        templateUrl: 'templates/tabs.html'
+	    }).state('tabs.apiaryDetails', {
+	        url: 'tab/apiary-details/:apiaryId',
+	        views: {
+	            'apiary-details-tab': {
+	                templateUrl: 'templates/apiary/apiaryDetails.html',
+	                controller: 'ApiaryDetailsCtrl'
+	            }
+	        }
+	    }).state('tabs.apiaryHives', {
+	        url: 'tab/apiary-hives/:apiaryId',
+	        views: {
+	            'apiary-hives-tab': {
+	                templateUrl: 'templates/apiary/apiaryHives.html',
+	                controller: 'ApiaryHivesCtrl'
 	            }
 	        }
 	    });
@@ -194,26 +213,6 @@
 /* 4 */
 /***/ function(module, exports) {
 
-	angular.module('apiary.common', []).directive('goClick', function ($location) {
-	    return function (scope, element, attrs) {
-	        var path;
-
-	        attrs.$observe('goClick', function (val) {
-	            path = val;
-	        });
-
-	        element.bind('click', function () {
-	            scope.$apply(function () {
-	                $location.path(path);
-	            });
-	        });
-	    };
-	});
-
-/***/ },
-/* 5 */
-/***/ function(module, exports) {
-
 	angular.module('apiary.apiary', []).controller('ApiaryCtrl', function ($scope, $stateParams, ApiaryMockDataService) {
 	    $scope.$on('$ionicView.enter', function (e) {
 	        var apiary = ApiaryMockDataService.GetMockApiary($stateParams.apiaryId);
@@ -223,7 +222,7 @@
 	});
 
 /***/ },
-/* 6 */
+/* 5 */
 /***/ function(module, exports) {
 
 	angular.module('apiary.mock', []).factory('ApiaryMockDataService', function () {
