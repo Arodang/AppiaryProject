@@ -50,9 +50,22 @@
         return true;
     };
 
+    var createMockApiary = function (apiary) {
+        var maxId = 0;
+        for (var i = 0; i < apiaryList.length; i++) {
+            if (apiaryList[i].id > maxId) {
+                maxId = apiaryList[i].id;
+            }
+        }
+        apiary.id = maxId + 1;
+        apiaryList.push(apiary);
+        return apiary;
+    };
+
     return {
         GetMockApiaryList: getMockApiaryList,
         GetMockApiary: getMockApiary,
-        DeleteMockApiary: deleteMockApiary
+        DeleteMockApiary: deleteMockApiary,
+        CreateMockApiary: createMockApiary
     }
 });
