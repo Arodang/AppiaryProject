@@ -6,6 +6,7 @@ module.exports = {
             "./www/js/controllers",
             "./www/js/apiarylist/apiaryListController",
             "./www/js/apiary/apiaryController",
+            "./www/js/apiary/apiaryCreateController",
             './www/js/mocks/apiaryMocksService'
         ]
     },

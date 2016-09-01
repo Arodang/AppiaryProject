@@ -23,18 +23,36 @@
         };
     };
 
-    generateMockApiaryList(8);
+
 
     var getMockApiaryList = function () {
+        if (apiaryList.length == 0) {
+            generateMockApiaryList(15);
+        }
         return apiaryList;
     };
 
     var getMockApiary = function (id) {
-        return apiaryList[id-1];
+        if (apiaryList.length == 0) {
+            generateMockApiaryList(15);
+        }
+        var index = apiaryList.findIndex(x => x.id == id);
+        return apiaryList[index];
+    };
+
+    var deleteMockApiary = function (id) {
+        var index = apiaryList.findIndex(x => x.id == id);
+        if (apiaryList.length == 0 || index == -1) {
+            return false;
+        }
+
+        apiaryList.splice(index, 1);
+        return true;
     };
 
     return {
         GetMockApiaryList: getMockApiaryList,
-        GetMockApiary : getMockApiary
+        GetMockApiary: getMockApiary,
+        DeleteMockApiary: deleteMockApiary
     }
 });

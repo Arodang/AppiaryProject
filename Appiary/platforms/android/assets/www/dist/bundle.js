@@ -48,7 +48,8 @@
 	__webpack_require__(2);
 	__webpack_require__(3);
 	__webpack_require__(4);
-	module.exports = __webpack_require__(5);
+	__webpack_require__(5);
+	module.exports = __webpack_require__(6);
 
 
 /***/ },
@@ -119,31 +120,19 @@
 	            }
 	        }
 	    }).state('app.apiary', {
-	        url: '/apiary/:apiaryId',
+	        url: '/apiary/details/:apiaryId',
 	        views: {
 	            'menuContent': {
 	                templateUrl: 'templates/apiary/apiary.html',
 	                controller: 'ApiaryCtrl'
 	            }
 	        }
-	    }).state('tabs', {
-	        url: 'tabs',
-	        abstract: true,
-	        templateUrl: 'templates/tabs.html'
-	    }).state('tabs.apiaryDetails', {
-	        url: 'tab/apiary-details/:apiaryId',
+	    }).state('app.apiaryCreate', {
+	        url: '/apiary/create',
 	        views: {
-	            'apiary-details-tab': {
-	                templateUrl: 'templates/apiary/apiaryDetails.html',
-	                controller: 'ApiaryDetailsCtrl'
-	            }
-	        }
-	    }).state('tabs.apiaryHives', {
-	        url: 'tab/apiary-hives/:apiaryId',
-	        views: {
-	            'apiary-hives-tab': {
-	                templateUrl: 'templates/apiary/apiaryHives.html',
-	                controller: 'ApiaryHivesCtrl'
+	            'menuContent': {
+	                templateUrl: 'templates/apiary/apiaryCreate.html',
+	                controller: 'ApiaryCreateCtrl'
 	            }
 	        }
 	    });
@@ -204,9 +193,21 @@
 
 	angular.module('apiary.apiaryList', []).controller('ApiaryListCtrl', function ($scope, $ionicModal, $timeout, ApiaryMockDataService) {
 
+	    $scope.apiaryList = [];
+	    $scope.shouldShowDelete = false;
+	    $scope.listCanSwipe = false;
+
 	    $scope.$on('$ionicView.enter', function (e) {
 	        $scope.apiaryList = ApiaryMockDataService.GetMockApiaryList();
 	    });
+
+	    $scope.deleteItem = function (apiaryId) {
+	        if (ApiaryMockDataService.DeleteMockApiary(apiaryId)) {
+	            console.log("Removed apiary #" + apiaryId);
+	        } else {
+	            console.log("Failed to remove apiary #" + apiaryId);
+	        }
+	    };
 	});
 
 /***/ },
@@ -223,6 +224,18 @@
 
 /***/ },
 /* 5 */
+/***/ function(module, exports) {
+
+	angular.module('apiary.apiary').controller('ApiaryCreateCtrl', function ($scope, $stateParams, ApiaryMockDataService) {
+	    $scope.$on('$ionicView.enter', function (e) {
+	        //initialization
+	    });
+
+	    $scope.createApiary = function () {};
+	});
+
+/***/ },
+/* 6 */
 /***/ function(module, exports) {
 
 	angular.module('apiary.mock', []).factory('ApiaryMockDataService', function () {
@@ -248,19 +261,35 @@
 	        };
 	    };
 
-	    generateMockApiaryList(8);
-
 	    var getMockApiaryList = function () {
+	        if (apiaryList.length == 0) {
+	            generateMockApiaryList(15);
+	        }
 	        return apiaryList;
 	    };
 
 	    var getMockApiary = function (id) {
-	        return apiaryList[id - 1];
+	        if (apiaryList.length == 0) {
+	            generateMockApiaryList(15);
+	        }
+	        var index = apiaryList.findIndex(x => x.id == id);
+	        return apiaryList[index];
+	    };
+
+	    var deleteMockApiary = function (id) {
+	        var index = apiaryList.findIndex(x => x.id == id);
+	        if (apiaryList.length == 0 || index == -1) {
+	            return false;
+	        }
+
+	        apiaryList.splice(index, 1);
+	        return true;
 	    };
 
 	    return {
 	        GetMockApiaryList: getMockApiaryList,
-	        GetMockApiary: getMockApiary
+	        GetMockApiary: getMockApiary,
+	        DeleteMockApiary: deleteMockApiary
 	    };
 	});
 

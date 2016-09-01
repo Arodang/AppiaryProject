@@ -1,10 +1,26 @@
 <ion-view view-title="Apiary List">
     <ion-content>
-        <h1>Apiary List</h1>
-        <ion-list>
-            <ion-item ng-repeat="apiary in apiaryList" href="#/app/apiary/{{apiary.id}}">
-                <div ng-bind="apiary.name"></div>
-            </ion-item>
-        </ion-list>
+        <div class="row" id="createDeleteButtons">
+            <button class="col button padding-right" ng-click="shouldShowDelete=!shouldShowDelete" ng-class="{'button-assertive': !shouldShowDelete, 'button-energized': shouldShowDelete}">
+                Delete
+            </button>
+
+            <a class="col button button-balanced" href="#/app/apiary/create">
+                Create Apiary
+            </a>
+        </div>
+        <div id="apiaryList">
+            <h4>Apiaries:</h4>
+            <ion-list show-delete="shouldShowDelete" can-swipe="listCanSwipe">
+                <ion-item ng-repeat="apiary in apiaryList" class="item-button-right" href="#/app/apiary/details/{{apiary.id}}">
+                    <div ng-bind="apiary.name"></div>
+                    <button class="button button-positive">
+                        Open
+                    </button>
+                    <ion-delete-button class="ion-minus-circled" ng-click="deleteItem(apiary.id)">
+                    </ion-delete-button>
+                </ion-item>
+            </ion-list>
+        </div>
     </ion-content>
 </ion-view>

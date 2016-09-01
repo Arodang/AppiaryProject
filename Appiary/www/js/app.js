@@ -84,7 +84,7 @@ angular.module('starter', ['ionic',
         }
     })
     .state('app.apiary', {
-        url: '/apiary/:apiaryId',
+        url: '/apiary/details/:apiaryId',
         views: {
             'menuContent': {
                 templateUrl: 'templates/apiary/apiary.html',
@@ -92,26 +92,12 @@ angular.module('starter', ['ionic',
             }
         }
     })
-    .state('tabs', {
-        url: 'tabs',
-        abstract: true,
-        templateUrl: 'templates/tabs.html'
-    })
-    .state('tabs.apiaryDetails', {
-        url: 'tab/apiary-details/:apiaryId',
+    .state('app.apiaryCreate', {
+        url: '/apiary/create',
         views: {
-            'apiary-details-tab': {
-                templateUrl: 'templates/apiary/apiaryDetails.html',
-                controller: 'ApiaryDetailsCtrl'
-            }
-        }
-    })
-    .state('tabs.apiaryHives', {
-        url: 'tab/apiary-hives/:apiaryId',
-        views: {
-            'apiary-hives-tab': {
-                templateUrl: 'templates/apiary/apiaryHives.html',
-                controller: 'ApiaryHivesCtrl'
+            'menuContent': {
+                templateUrl: 'templates/apiary/apiaryCreate.html',
+                controller: 'ApiaryCreateCtrl'
             }
         }
     })

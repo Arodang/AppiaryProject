@@ -2,11 +2,12 @@
 
 module.exports = {
     entry: {
-        app: ["./www/js/app", "./www/js/controllers",
+        app: ["./www/js/app",
+            "./www/js/controllers",
             "./www/js/apiarylist/apiaryListController",
             "./www/js/apiary/apiaryController",
-            './www/js/mocks/apiaryMocksService',
-            './www/js/apiary/apiaryDetailsController'
+            "./www/js/apiary/apiaryCreateController",
+            './www/js/mocks/apiaryMocksService'
         ]
     },
     output: {

@@ -4,7 +4,12 @@
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
 // 'starter.controllers' is found in controllers.js
-angular.module('starter', ['ionic', 'starter.controllers', 'apiary.apiaryList', 'apiary.common', 'apiary.apiary'])
+angular.module('starter', ['ionic',
+    'starter.controllers',
+    'apiary.apiaryList',
+    'apiary.apiary',
+    'apiary.mock'
+])
 
 .run(function ($ionicPlatform) {
     $ionicPlatform.ready(function () {
@@ -79,14 +84,24 @@ angular.module('starter', ['ionic', 'starter.controllers', 'apiary.apiaryList', 
         }
     })
     .state('app.apiary', {
-        url: '/apiary/:apiaryId',
+        url: '/apiary/details/:apiaryId',
         views: {
             'menuContent': {
                 templateUrl: 'templates/apiary/apiary.html',
                 controller: 'ApiaryCtrl'
             }
         }
-    });
+    })
+    .state('app.apiaryCreate', {
+        url: '/apiary/create',
+        views: {
+            'menuContent': {
+                templateUrl: 'templates/apiary/apiaryCreate.html',
+                controller: 'ApiaryCreateCtrl'
+            }
+        }
+    })
+    ;
     // if none of the above states are matched, use this as the fallback
     $urlRouterProvider.otherwise('/app/apiaryList');
 });
