@@ -7,7 +7,8 @@ module.exports = {
             "./www/js/apiarylist/apiaryListController",
             "./www/js/apiary/apiaryController",
             "./www/js/apiary/apiaryCreateController",
-            './www/js/mocks/apiaryMocksService'
+            './www/js/mocks/apiaryMocksService',
+            './www/js/mocks/hiveMocksService'
         ]
     },
     output: {
