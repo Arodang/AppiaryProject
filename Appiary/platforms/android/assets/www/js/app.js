@@ -8,6 +8,7 @@ angular.module('starter', ['ionic',
     'starter.controllers',
     'apiary.apiaryList',
     'apiary.apiary',
+    'apiary.hive',
     'apiary.mock'
 ])
 
@@ -37,43 +38,7 @@ angular.module('starter', ['ionic',
           controller: 'AppCtrl'
       })
 
-    .state('app.search', {
-        url: '/search',
-        views: {
-            'menuContent': {
-                templateUrl: 'templates/search.html'
-            }
-        }
-    })
-
-    .state('app.browse', {
-        url: '/browse',
-        views: {
-            'menuContent': {
-                templateUrl: 'templates/browse.html'
-            }
-        }
-    })
-      .state('app.playlists', {
-          url: '/playlists',
-          views: {
-              'menuContent': {
-                  templateUrl: 'templates/playlists.html',
-                  controller: 'PlaylistsCtrl'
-              }
-          }
-      })
-
-    .state('app.single', {
-        url: '/playlists/:playlistId',
-        views: {
-            'menuContent': {
-                templateUrl: 'templates/playlist.html',
-                controller: 'PlaylistCtrl'
-            }
-        }
-    })
-
+    //APIARY
     .state('app.apiaryList', {
         url: '/apiaryList',
         views: {
@@ -98,6 +63,26 @@ angular.module('starter', ['ionic',
             'menuContent': {
                 templateUrl: 'templates/apiary/apiaryCreate.html',
                 controller: 'ApiaryCreateCtrl'
+            }
+        }
+    })
+
+    //HIVE
+    .state('app.hive', {
+        url: '/hive/details/:hiveId',
+        views: {
+            'menuContent': {
+                templateUrl: 'templates/hive/hive.html',
+                controller: 'HiveCtrl'
+            }
+        }
+    })
+    .state('app.hiveCreate', {
+        url: '/hive/create',
+        views: {
+            'menuContent': {
+                templateUrl: 'templates/hive/hiveCreate.html',
+                controller: 'HiveCreateCtrl'
             }
         }
     })

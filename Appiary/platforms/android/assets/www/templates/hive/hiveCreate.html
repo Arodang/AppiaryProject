@@ -1,0 +1,36 @@
+<ion-view view-title="Create A Hive">
+    <ion-content>
+        <h1>New Hive:</h1>
+        <form class="list">
+            <label class="item item-input item-floating-label">
+                <span class="input-label">
+                    Name <span class="assertive">*</span>
+                </span>
+                <input type="text" name="name" placeholder="Name *" ng-model="hive.name" required>
+            </label>
+            <label class="item item-input item-floating-label">
+                <span class="input-label">Address</span>
+                <input type="text" name="position" placeholder="Position" ng-model="hive.position">
+            </label>
+            <label class="item item-input item-select">
+                <span class="input-label">
+                    Hive Type
+                </span>
+                <select name="hiveType" ng-model="hive.hiveType">
+                    <option ng-repeat="option in hiveTypeOptions" value="{{option.name}}">{{option.name}}</option>
+                </select>
+            </label>
+            <div class="row" id="cancelSaveButon">
+                <button class="col button button-positive" ng-click="goBack()">
+                    Cancel
+                </button>
+                <button type="submit" class="col button" ng-click="createHive()"
+                        ng-disabled="!hive.name||hive.name.length==0"
+                        ng-class="{'button-balanced': hive.name&&hive.name.length>0,
+                            'button-stable': !hive.name||hive.name.length==0 }">
+                    Create Apiary
+                </button>
+            </div>
+        </form>
+    </ion-content>
+</ion-view>

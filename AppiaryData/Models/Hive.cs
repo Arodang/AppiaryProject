@@ -16,7 +16,7 @@ namespace AppiaryData.Models
 
         public string Name { get; set; }
 
-        public HiveTypeEnum BoxType { get; set; }
+        public HiveTypeEnum HiveType { get; set; }
 
         public int Position { get; set; }
 

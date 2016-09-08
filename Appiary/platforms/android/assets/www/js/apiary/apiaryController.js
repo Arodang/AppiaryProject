@@ -12,7 +12,7 @@
         $scope.apiary = apiary;
 
         $scope.hiveList = HiveMockDataService.GetMockHiveList();
-        $scope.lastCreatedHiveyName = HiveMockDataService.GetLastCreatedHive();
+        $scope.lastCreatedHiveName = HiveMockDataService.GetLastCreatedHive();
         $scope.$apply();
         setTimeout(function () {
             $scope.lastCreatedHiveName = "";

@@ -4,10 +4,12 @@
     var hiveList = [];
     var lastCreatedHive = "";
 
-    function generateAddressNumber() {
-        var min = 10;
-        var max = 500;
-        return Math.floor(Math.random() * (max - min) + min);
+    function generateHiveType() {
+        var hiveTypes = ["Nuc", "Langstroth 10 Frame", "Langstrong 8 Frame", "Top Bar", "Warre", "National Standard"]
+        var min = 0;
+        var max = 5;
+        var rand = Math.floor(Math.random() * (max - min) + min);
+        return hiveTypes[rand];
     };
 
     function generateMockHiveList(numToGenerate) {
@@ -18,13 +20,11 @@
             var hive = {};
             hive.id = i;
             hive.name = "Hive #" + i;
-            hive.address = generateAddressNumber() + " Gleason Circle, Rochester, NY 14623";
-            hive.description = "A healthy hive with hives in it.";
+            hive.hiveType = generateHiveType();
+            hive.position = "On the cement pad.";
             hiveList.push(hive);
         };
     };
-
-
 
     var getMockHiveList = function () {
         if (hiveList.length == 0) {

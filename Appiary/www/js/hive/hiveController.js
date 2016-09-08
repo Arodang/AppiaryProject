@@ -1,15 +1,15 @@
-﻿angular.module('apiary.apiary', [])
+﻿angular.module('apiary.hive', [])
 
-.controller('ApiaryCtrl', function ($scope, $stateParams, ApiaryMockDataService, HiveMockDataService) {
+.controller('HiveCtrl', function ($scope, $stateParams, HiveMockDataService) {
     $scope.hiveList = [];
     $scope.shouldShowDelete = false;
     $scope.listCanSwipe = false;
     $scope.lastCreatedHiveName = "";
 
     $scope.$on('$ionicView.enter', function (e) {
-        var apiary = ApiaryMockDataService.GetMockApiary($stateParams.apiaryId);
+        var hive = HiveMockDataService.GetMockHive($stateParams.hiveId);
 
-        $scope.apiary = apiary;
+        $scope.hive = hive;
 
         $scope.hiveList = HiveMockDataService.GetMockHiveList();
         $scope.lastCreatedHiveName = HiveMockDataService.GetLastCreatedHive();

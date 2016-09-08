@@ -50,7 +50,10 @@
 	__webpack_require__(4);
 	__webpack_require__(5);
 	__webpack_require__(6);
-	module.exports = __webpack_require__(7);
+	__webpack_require__(7);
+	__webpack_require__(8);
+	__webpack_require__(9);
+	module.exports = __webpack_require__(10);
 
 
 /***/ },
@@ -63,7 +66,7 @@
 	// 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 	// the 2nd parameter is an array of 'requires'
 	// 'starter.controllers' is found in controllers.js
-	angular.module('starter', ['ionic', 'starter.controllers', 'apiary.apiaryList', 'apiary.apiary', 'apiary.mock']).run(function ($ionicPlatform) {
+	angular.module('starter', ['ionic', 'starter.controllers', 'apiary.apiaryList', 'apiary.apiary', 'apiary.hive', 'apiary.hiveList', 'apiary.mock']).run(function ($ionicPlatform) {
 	    $ionicPlatform.ready(function () {
 	        // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
 	        // for form inputs)
@@ -82,37 +85,10 @@
 	        abstract: true,
 	        templateUrl: 'templates/menu.html',
 	        controller: 'AppCtrl'
-	    }).state('app.search', {
-	        url: '/search',
-	        views: {
-	            'menuContent': {
-	                templateUrl: 'templates/search.html'
-	            }
-	        }
-	    }).state('app.browse', {
-	        url: '/browse',
-	        views: {
-	            'menuContent': {
-	                templateUrl: 'templates/browse.html'
-	            }
-	        }
-	    }).state('app.playlists', {
-	        url: '/playlists',
-	        views: {
-	            'menuContent': {
-	                templateUrl: 'templates/playlists.html',
-	                controller: 'PlaylistsCtrl'
-	            }
-	        }
-	    }).state('app.single', {
-	        url: '/playlists/:playlistId',
-	        views: {
-	            'menuContent': {
-	                templateUrl: 'templates/playlist.html',
-	                controller: 'PlaylistCtrl'
-	            }
-	        }
-	    }).state('app.apiaryList', {
+	    })
+
+	    //APIARY
+	    .state('app.apiaryList', {
 	        url: '/apiaryList',
 	        views: {
 	            'menuContent': {
@@ -134,6 +110,33 @@
 	            'menuContent': {
 	                templateUrl: 'templates/apiary/apiaryCreate.html',
 	                controller: 'ApiaryCreateCtrl'
+	            }
+	        }
+	    })
+
+	    //HIVE
+	    .state('app.hiveList', {
+	        url: '/hiveList',
+	        views: {
+	            'menuContent': {
+	                templateUrl: 'templates/hiveList/hiveList.html',
+	                controller: 'HiveListCtrl'
+	            }
+	        }
+	    }).state('app.hive', {
+	        url: '/hive/details/:hiveId',
+	        views: {
+	            'menuContent': {
+	                templateUrl: 'templates/hive/hive.html',
+	                controller: 'HiveCtrl'
+	            }
+	        }
+	    }).state('app.hiveCreate', {
+	        url: '/hive/create',
+	        views: {
+	            'menuContent': {
+	                templateUrl: 'templates/hive/hiveCreate.html',
+	                controller: 'HiveCreateCtrl'
 	            }
 	        }
 	    });
@@ -234,7 +237,7 @@
 	        $scope.apiary = apiary;
 
 	        $scope.hiveList = HiveMockDataService.GetMockHiveList();
-	        $scope.lastCreatedHiveyName = HiveMockDataService.GetLastCreatedHive();
+	        $scope.lastCreatedHiveName = HiveMockDataService.GetLastCreatedHive();
 	        $scope.$apply();
 	        setTimeout(function () {
 	            $scope.lastCreatedHiveName = "";
@@ -363,10 +366,12 @@
 	    var hiveList = [];
 	    var lastCreatedHive = "";
 
-	    function generateAddressNumber() {
-	        var min = 10;
-	        var max = 500;
-	        return Math.floor(Math.random() * (max - min) + min);
+	    function generateHiveType() {
+	        var hiveTypes = ["Nuc", "Langstroth 10 Frame", "Langstrong 8 Frame", "Top Bar", "Warre", "National Standard"];
+	        var min = 0;
+	        var max = 5;
+	        var rand = Math.floor(Math.random() * (max - min) + min);
+	        return hiveTypes[rand];
 	    };
 
 	    function generateMockHiveList(numToGenerate) {
@@ -377,8 +382,8 @@
 	            var hive = {};
 	            hive.id = i;
 	            hive.name = "Hive #" + i;
-	            hive.address = generateAddressNumber() + " Gleason Circle, Rochester, NY 14623";
-	            hive.description = "A healthy hive with hives in it.";
+	            hive.hiveType = generateHiveType();
+	            hive.position = "On the cement pad.";
 	            hiveList.push(hive);
 	        };
 	    };
@@ -433,6 +438,92 @@
 	        DeleteMockHive: deleteMockHive,
 	        CreateMockHive: createMockHive,
 	        GetLastCreatedHive: getLastCreatedHive
+	    };
+	});
+
+/***/ },
+/* 8 */
+/***/ function(module, exports) {
+
+	angular.module('apiary.hive', []).controller('HiveCtrl', function ($scope, $stateParams, HiveMockDataService) {
+	    $scope.hiveList = [];
+	    $scope.shouldShowDelete = false;
+	    $scope.listCanSwipe = false;
+	    $scope.lastCreatedHiveName = "";
+
+	    $scope.$on('$ionicView.enter', function (e) {
+	        var hive = HiveMockDataService.GetMockHive($stateParams.hiveId);
+
+	        $scope.hive = hive;
+
+	        $scope.hiveList = HiveMockDataService.GetMockHiveList();
+	        $scope.lastCreatedHiveName = HiveMockDataService.GetLastCreatedHive();
+	        $scope.$apply();
+	        setTimeout(function () {
+	            $scope.lastCreatedHiveName = "";
+	            $scope.$apply();
+	        }, 3000);
+
+	        $scope.deleteItem = function (hiveId) {
+	            if (HiveMockDataService.DeleteMockHive(hiveId)) {
+	                console.log("Removed hive #" + hiveId);
+	            } else {
+	                console.log("Failed to remove hive #" + hiveId);
+	            }
+	        };
+	    });
+	});
+
+/***/ },
+/* 9 */
+/***/ function(module, exports) {
+
+	angular.module('apiary.hive').controller('HiveCreateCtrl', function ($scope, $stateParams, HiveMockDataService, $ionicHistory) {
+	    $scope.$on('$ionicView.enter', function (e) {
+	        //initialization
+	        $scope.hive = {};
+	    });
+
+	    $scope.createHive = function () {
+	        var hive = $scope.hive;
+	        if ($scope.hive) {
+	            hive = HiveMockDataService.CreateMockHive(hive);
+	            $ionicHistory.goBack();
+	        }
+	    };
+
+	    $scope.goBack = function () {
+	        $ionicHistory.goBack();
+	    };
+	});
+
+/***/ },
+/* 10 */
+/***/ function(module, exports) {
+
+	angular.module('apiary.hiveList', []).controller('HiveListCtrl', function ($scope, $ionicModal, $timeout, HiveMockDataService) {
+
+	    $scope.hiveList = [];
+	    $scope.shouldShowDelete = false;
+	    $scope.listCanSwipe = false;
+	    $scope.lastCreatedHiveName = "";
+
+	    $scope.$on('$ionicView.enter', function (e) {
+	        $scope.hiveList = HiveMockDataService.GetMockHiveList();
+	        $scope.lastCreatedHiveName = HiveMockDataService.GetLastCreatedHive();
+	        $scope.$apply();
+	        setTimeout(function () {
+	            $scope.lastCreatedHiveName = "";
+	            $scope.$apply();
+	        }, 3000);
+	    });
+
+	    $scope.deleteItem = function (hiveId) {
+	        if (HiveMockDataService.DeleteMockHive(hiveId)) {
+	            console.log("Removed hive #" + hiveId);
+	        } else {
+	            console.log("Failed to remove hive #" + hiveId);
+	        }
 	    };
 	});
 
