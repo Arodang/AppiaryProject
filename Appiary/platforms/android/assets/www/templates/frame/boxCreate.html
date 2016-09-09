@@ -1,34 +1,34 @@
-<ion-view view-title="Create A Hive">
+<ion-view view-title="Create A Box">
     <ion-content>
-        <h1>New Hive:</h1>
+        <h1>New Box:</h1>
         <form class="list">
             <label class="item item-input item-floating-label">
                 <span class="input-label">
                     Name <span class="assertive">*</span>
                 </span>
-                <input type="text" name="name" placeholder="Name *" ng-model="hive.name" required>
+                <input type="text" name="name" placeholder="Name *" ng-model="box.name" required>
             </label>
             <label class="item item-input item-floating-label">
                 <span class="input-label">Address</span>
-                <input type="text" name="position" placeholder="Position" ng-model="hive.position">
+                <input type="text" name="position" placeholder="Position" ng-model="box.position">
             </label>
             <label class="item item-input item-select">
                 <span class="input-label">
-                    Hive Type
+                    Box Type
                 </span>
-                <select name="hiveType" ng-model="hive.hiveType">
-                    <option ng-repeat="option in hiveTypeOptions" value="{{option}}" ng-bind="option"></option>
+                <select name="boxType" ng-model="box.boxType">
+                    <option ng-repeat="option in boxTypeOptions" value="{{option}}" ng-bind="option"></option>
                 </select>
             </label>
             <div class="row" id="cancelSaveButon">
                 <button class="col button button-positive" ng-click="goBack()">
                     Cancel
                 </button>
-                <button type="submit" class="col button" ng-click="createHive()"
-                        ng-disabled="!hive.name||hive.name.length==0"
-                        ng-class="{'button-balanced': hive.name&&hive.name.length>0,
-                            'button-stable': !hive.name||hive.name.length==0 }">
-                    Create Hive
+                <button type="submit" class="col button" ng-click="createBox()"
+                        ng-disabled="!box.name||box.name.length==0"
+                        ng-class="{'button-balanced': box.name&&box.name.length>0,
+                            'button-stable': !box.name||box.name.length==0 }">
+                    Create Apiary
                 </button>
             </div>
         </form>

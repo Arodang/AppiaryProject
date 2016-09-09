@@ -10,8 +10,13 @@ module.exports = {
             './www/js/mocks/apiaryMocksService',
             './www/js/mocks/hiveMocksService',
             './www/js/mocks/boxMocksService',
+            './www/js/mocks/frameMocksService',
             './www/js/hive/hiveController',
-            './www/js/hive/hiveCreateController'
+            './www/js/hive/hiveCreateController',
+            './www/js/box/boxController',
+            './www/js/box/boxCreateController',
+            './www/js/frame/frameController',
+            './www/js/frame/frameCreateController'
         ]
     },
     output: {

@@ -1,10 +1,10 @@
 ﻿angular.module('apiary.hive', [])
 
 .controller('HiveCtrl', function ($scope, $stateParams, HiveMockDataService, BoxMockDataService) {
-    $scope.hiveList = [];
+    $scope.boxList = [];
     $scope.shouldShowDelete = false;
     $scope.listCanSwipe = false;
-    $scope.lastCreatedHiveName = "";
+    $scope.lastCreatedBoxName = "";
 
     $scope.$on('$ionicView.enter', function (e) {
         var hive = HiveMockDataService.GetMockHive($stateParams.hiveId);
@@ -15,17 +15,17 @@
         $scope.lastCreatedBoxName = BoxMockDataService.GetLastCreatedBox();
         $scope.$apply();
         setTimeout(function () {
-            $scope.lastCreatedHiveName = "";
+            $scope.lastCreatedBoxName = "";
             $scope.$apply();
         }, 3000)
 
 
-        $scope.deleteItem = function (hiveId) {
-            if (HiveMockDataService.DeleteMockHive(hiveId)) {
-                console.log("Removed hive #" + hiveId);
+        $scope.deleteItem = function (boxId) {
+            if (BoxMockDataService.DeleteMockBox(boxId)) {
+                console.log("Removed box #" + boxId);
             }
             else {
-                console.log("Failed to remove hive #" + hiveId);
+                console.log("Failed to remove box #" + boxId);
             }
         }
     });

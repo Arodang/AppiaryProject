@@ -52,7 +52,13 @@
 	__webpack_require__(6);
 	__webpack_require__(7);
 	__webpack_require__(8);
-	module.exports = __webpack_require__(9);
+	__webpack_require__(9);
+	__webpack_require__(10);
+	__webpack_require__(11);
+	__webpack_require__(12);
+	__webpack_require__(13);
+	__webpack_require__(14);
+	module.exports = __webpack_require__(15);
 
 
 /***/ },
@@ -65,7 +71,7 @@
 	// 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 	// the 2nd parameter is an array of 'requires'
 	// 'starter.controllers' is found in controllers.js
-	angular.module('starter', ['ionic', 'starter.controllers', 'apiary.apiaryList', 'apiary.apiary', 'apiary.hive', 'apiary.mock']).run(function ($ionicPlatform) {
+	angular.module('starter', ['ionic', 'starter.controllers', 'apiary.apiaryList', 'apiary.apiary', 'apiary.hive', 'apiary.box', 'apiary.frame', 'apiary.mock']).run(function ($ionicPlatform) {
 	    $ionicPlatform.ready(function () {
 	        // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
 	        // for form inputs)
@@ -128,6 +134,44 @@
 	            'menuContent': {
 	                templateUrl: 'templates/hive/hiveCreate.html',
 	                controller: 'HiveCreateCtrl'
+	            }
+	        }
+	    })
+
+	    //BOX
+	    .state('app.box', {
+	        url: '/box/details/:boxId',
+	        views: {
+	            'menuContent': {
+	                templateUrl: 'templates/box/box.html',
+	                controller: 'BoxCtrl'
+	            }
+	        }
+	    }).state('app.boxCreate', {
+	        url: '/box/create',
+	        views: {
+	            'menuContent': {
+	                templateUrl: 'templates/box/boxCreate.html',
+	                controller: 'BoxCreateCtrl'
+	            }
+	        }
+	    })
+
+	    //FRAME
+	    .state('app.frame', {
+	        url: '/frame/details/:frameId',
+	        views: {
+	            'menuContent': {
+	                templateUrl: 'templates/frame/frame.html',
+	                controller: 'FrameCtrl'
+	            }
+	        }
+	    }).state('app.frameCreate', {
+	        url: '/frame/create',
+	        views: {
+	            'menuContent': {
+	                templateUrl: 'templates/frame/frameCreate.html',
+	                controller: 'FrameCreateCtrl'
 	            }
 	        }
 	    });
@@ -441,37 +485,204 @@
 /* 8 */
 /***/ function(module, exports) {
 
-	angular.module('apiary.hive', []).controller('HiveCtrl', function ($scope, $stateParams, HiveMockDataService) {
-	    $scope.hiveList = [];
+	angular.module('apiary.mock').factory('BoxMockDataService', function () {
+	    var boxList = [];
+	    var lastCreatedBox = "";
+	    var boxTypes = ["Shallow", "Medium", "Deep", "Feeder"];
+
+	    function generateBoxType() {
+	        var min = 0;
+	        var max = 4;
+	        var rand = Math.floor(Math.random() * (max - min) + min);
+	        return boxTypes[rand];
+	    };
+
+	    function generateMockBoxList(numToGenerate) {
+	        if (!numToGenerate) {
+	            numToGenerate = 5;
+	        }
+	        for (var i = 1; i <= numToGenerate; i++) {
+	            var box = {};
+	            box.id = i;
+	            box.name = "Box #" + i;
+	            box.boxType = generateBoxType();
+	            box.position = "Bottom 1";
+	            boxList.push(box);
+	        };
+	    };
+
+	    var getMockBoxList = function () {
+	        if (boxList.length == 0) {
+	            generateMockBoxList(15);
+	        }
+	        return boxList;
+	    };
+
+	    var getMockBox = function (id) {
+	        if (boxList.length == 0) {
+	            generateMockBoxList(15);
+	        }
+	        var index = boxList.findIndex(x => x.id == id);
+	        return boxList[index];
+	    };
+
+	    var deleteMockBox = function (id) {
+	        var index = boxList.findIndex(x => x.id == id);
+	        if (boxList.length == 0 || index == -1) {
+	            return false;
+	        }
+
+	        boxList.splice(index, 1);
+	        return true;
+	    };
+
+	    var createMockBox = function (box) {
+	        var maxId = 0;
+	        for (var i = 0; i < boxList.length; i++) {
+	            if (boxList[i].id > maxId) {
+	                maxId = boxList[i].id;
+	            }
+	        }
+	        box.id = maxId + 1;
+	        boxList.push(box);
+	        lastCreatedBox = box.name;
+	        return box;
+	    };
+
+	    var getLastCreatedBox = function () {
+	        var toReturn = lastCreatedBox;
+	        lastCreatedBox = "";
+	        return toReturn;
+	    };
+
+	    var getBoxTypes = function () {
+	        return boxTypes;
+	    };
+
+	    return {
+	        GetMockBoxList: getMockBoxList,
+	        GetMockBox: getMockBox,
+	        DeleteMockBox: deleteMockBox,
+	        CreateMockBox: createMockBox,
+	        GetLastCreatedBox: getLastCreatedBox,
+	        GetBoxTypes: getBoxTypes
+	    };
+	});
+
+/***/ },
+/* 9 */
+/***/ function(module, exports) {
+
+	angular.module('apiary.mock').factory('FrameMockDataService', function () {
+	    var frameList = [];
+	    var lastCreatedFrame = "";
+
+	    function generateMockFrameList(numToGenerate) {
+	        if (!numToGenerate) {
+	            numToGenerate = 5;
+	        }
+	        for (var i = 1; i <= numToGenerate; i++) {
+	            var frame = {};
+	            frame.id = i;
+	            frame.position = i;
+	            frame.isHaveFoundation = true;
+	            frame.isFoundationPlastic = false;
+	            frameList.push(frame);
+	        };
+	    };
+
+	    var getMockFrameList = function () {
+	        if (frameList.length == 0) {
+	            generateMockFrameList(15);
+	        }
+	        return frameList;
+	    };
+
+	    var getMockFrame = function (id) {
+	        if (frameList.length == 0) {
+	            generateMockFrameList(15);
+	        }
+	        var index = frameList.findIndex(x => x.id == id);
+	        return frameList[index];
+	    };
+
+	    var deleteMockFrame = function (id) {
+	        var index = frameList.findIndex(x => x.id == id);
+	        if (frameList.length == 0 || index == -1) {
+	            return false;
+	        }
+
+	        frameList.splice(index, 1);
+	        return true;
+	    };
+
+	    var createMockFrame = function (frame) {
+	        var maxId = 0;
+	        for (var i = 0; i < frameList.length; i++) {
+	            if (frameList[i].id > maxId) {
+	                maxId = frameList[i].id;
+	            }
+	        }
+	        frame.id = maxId + 1;
+	        frameList.push(frame);
+	        lastCreatedFrame = frame.name;
+	        return frame;
+	    };
+
+	    var getLastCreatedFrame = function () {
+	        var toReturn = lastCreatedFrame;
+	        lastCreatedFrame = "";
+	        return toReturn;
+	    };
+
+	    var getFrameTypes = function () {
+	        return frameTypes;
+	    };
+
+	    return {
+	        GetMockFrameList: getMockFrameList,
+	        GetMockFrame: getMockFrame,
+	        DeleteMockFrame: deleteMockFrame,
+	        CreateMockFrame: createMockFrame,
+	        GetLastCreatedFrame: getLastCreatedFrame
+	    };
+	});
+
+/***/ },
+/* 10 */
+/***/ function(module, exports) {
+
+	angular.module('apiary.hive', []).controller('HiveCtrl', function ($scope, $stateParams, HiveMockDataService, BoxMockDataService) {
+	    $scope.boxList = [];
 	    $scope.shouldShowDelete = false;
 	    $scope.listCanSwipe = false;
-	    $scope.lastCreatedHiveName = "";
+	    $scope.lastCreatedBoxName = "";
 
 	    $scope.$on('$ionicView.enter', function (e) {
 	        var hive = HiveMockDataService.GetMockHive($stateParams.hiveId);
 
 	        $scope.hive = hive;
 
-	        $scope.hiveList = HiveMockDataService.GetMockHiveList();
-	        $scope.lastCreatedHiveName = HiveMockDataService.GetLastCreatedHive();
+	        $scope.boxList = BoxMockDataService.GetMockBoxList();
+	        $scope.lastCreatedBoxName = BoxMockDataService.GetLastCreatedBox();
 	        $scope.$apply();
 	        setTimeout(function () {
-	            $scope.lastCreatedHiveName = "";
+	            $scope.lastCreatedBoxName = "";
 	            $scope.$apply();
 	        }, 3000);
 
-	        $scope.deleteItem = function (hiveId) {
-	            if (HiveMockDataService.DeleteMockHive(hiveId)) {
-	                console.log("Removed hive #" + hiveId);
+	        $scope.deleteItem = function (boxId) {
+	            if (BoxMockDataService.DeleteMockBox(boxId)) {
+	                console.log("Removed box #" + boxId);
 	            } else {
-	                console.log("Failed to remove hive #" + hiveId);
+	                console.log("Failed to remove box #" + boxId);
 	            }
 	        };
 	    });
 	});
 
 /***/ },
-/* 9 */
+/* 11 */
 /***/ function(module, exports) {
 
 	angular.module('apiary.hive').controller('HiveCreateCtrl', function ($scope, $stateParams, HiveMockDataService, $ionicHistory) {
@@ -485,6 +696,101 @@
 	        var hive = $scope.hive;
 	        if ($scope.hive) {
 	            hive = HiveMockDataService.CreateMockHive(hive);
+	            $ionicHistory.goBack();
+	        }
+	    };
+
+	    $scope.goBack = function () {
+	        $ionicHistory.goBack();
+	    };
+	});
+
+/***/ },
+/* 12 */
+/***/ function(module, exports) {
+
+	angular.module('apiary.box', []).controller('BoxCtrl', function ($scope, $stateParams, BoxMockDataService, FrameMockDataService) {
+	    $scope.frameList = [];
+	    $scope.shouldShowDelete = false;
+	    $scope.listCanSwipe = false;
+	    $scope.lastCreatedFrameName = "";
+
+	    $scope.$on('$ionicView.enter', function (e) {
+	        var box = BoxMockDataService.GetMockBox($stateParams.boxId);
+
+	        $scope.box = box;
+
+	        $scope.frameList = FrameMockDataService.GetMockFrameList();
+	        $scope.lastCreatedFrameName = FrameMockDataService.GetLastCreatedFrame();
+	        $scope.$apply();
+	        setTimeout(function () {
+	            $scope.lastCreatedFrameName = "";
+	            $scope.$apply();
+	        }, 3000);
+
+	        $scope.deleteItem = function (frameId) {
+	            if (FrameMockDataService.DeleteMockFrame(frameId)) {
+	                console.log("Removed frame #" + frameId);
+	            } else {
+	                console.log("Failed to remove frame #" + frameId);
+	            }
+	        };
+	    });
+	});
+
+/***/ },
+/* 13 */
+/***/ function(module, exports) {
+
+	angular.module('apiary.box').controller('BoxCreateCtrl', function ($scope, $stateParams, BoxMockDataService, $ionicHistory) {
+	    $scope.$on('$ionicView.enter', function (e) {
+	        //initialization
+	        $scope.box = {};
+	        $scope.boxTypeOptions = BoxMockDataService.GetBoxTypes();
+	    });
+
+	    $scope.createBox = function () {
+	        var box = $scope.box;
+	        if ($scope.box) {
+	            box = BoxMockDataService.CreateMockBox(box);
+	            $ionicHistory.goBack();
+	        }
+	    };
+
+	    $scope.goBack = function () {
+	        $ionicHistory.goBack();
+	    };
+	});
+
+/***/ },
+/* 14 */
+/***/ function(module, exports) {
+
+	angular.module('apiary.frame', []).controller('FrameCtrl', function ($scope, $stateParams, FrameMockDataService) {
+	    $scope.shouldShowDelete = false;
+	    $scope.listCanSwipe = false;
+
+	    $scope.$on('$ionicView.enter', function (e) {
+	        var frame = FrameMockDataService.GetMockFrame($stateParams.frameId);
+
+	        $scope.frame = frame;
+	    });
+	});
+
+/***/ },
+/* 15 */
+/***/ function(module, exports) {
+
+	angular.module('apiary.frame').controller('FrameCreateCtrl', function ($scope, $stateParams, FrameMockDataService, $ionicHistory) {
+	    $scope.$on('$ionicView.enter', function (e) {
+	        //initialization
+	        $scope.frame = {};
+	    });
+
+	    $scope.createFrame = function () {
+	        var frame = $scope.frame;
+	        if ($scope.frame) {
+	            frame = FrameMockDataService.CreateMockFrame(frame);
 	            $ionicHistory.goBack();
 	        }
 	    };

@@ -9,6 +9,8 @@ angular.module('starter', ['ionic',
     'apiary.apiaryList',
     'apiary.apiary',
     'apiary.hive',
+    'apiary.box',
+    'apiary.frame',
     'apiary.mock'
 ])
 
@@ -83,6 +85,46 @@ angular.module('starter', ['ionic',
             'menuContent': {
                 templateUrl: 'templates/hive/hiveCreate.html',
                 controller: 'HiveCreateCtrl'
+            }
+        }
+    })
+
+    //BOX
+    .state('app.box', {
+        url: '/box/details/:boxId',
+        views: {
+            'menuContent': {
+                templateUrl: 'templates/box/box.html',
+                controller: 'BoxCtrl'
+            }
+        }
+    })
+    .state('app.boxCreate', {
+        url: '/box/create',
+        views: {
+            'menuContent': {
+                templateUrl: 'templates/box/boxCreate.html',
+                controller: 'BoxCreateCtrl'
+            }
+        }
+    })
+
+    //FRAME
+    .state('app.frame', {
+        url: '/frame/details/:frameId',
+        views: {
+            'menuContent': {
+                templateUrl: 'templates/frame/frame.html',
+                controller: 'FrameCtrl'
+            }
+        }
+    })
+    .state('app.frameCreate', {
+        url: '/frame/create',
+        views: {
+            'menuContent': {
+                templateUrl: 'templates/frame/frameCreate.html',
+                controller: 'FrameCreateCtrl'
             }
         }
     })

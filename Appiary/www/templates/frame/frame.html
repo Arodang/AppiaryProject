@@ -1,0 +1,26 @@
+<ion-view view-title="Frame {{frameName}}">
+    <ion-content>
+        <div id="frameInfo">
+            <h1 class="title">Frame Info</h1>
+
+            <div class="card">
+                <div class="item item-text-wrap">
+                    <div>
+                        <h2>Position:</h2> <span ng-bind="frame.position" />
+                    </div>
+                    <div>
+                        <h2>Has Foundation:</h2> <span ng-bind="frame.isHaveFoundation" />
+                    </div>
+                    <div ng-show="frame.isHaveFoundation">
+                        <h2>Foundation is Plastic:</h2> <span ng-bind="frame.isFoundationPlastic" />
+                    </div>
+                </div>
+            </div>
+            <div class="button-bar" id="editFrameButtons">
+                <a class="button button-energized" href="#/app/frame/edit">
+                    Edit Frame
+                </a>
+            </div>
+        </div>
+    </ion-content>
+</ion-view>

@@ -3,9 +3,9 @@
 .factory('HiveMockDataService', function () {
     var hiveList = [];
     var lastCreatedHive = "";
+    var hiveTypes = ["Nuc", "Langstroth 10 Frame", "Langstrong 8 Frame", "Top Bar", "Warre", "National Standard"]
 
     function generateHiveType() {
-        var hiveTypes = ["Nuc", "Langstroth 10 Frame", "Langstrong 8 Frame", "Top Bar", "Warre", "National Standard"]
         var min = 0;
         var max = 5;
         var rand = Math.floor(Math.random() * (max - min) + min);
@@ -70,11 +70,16 @@
         return toReturn;
     };
 
+    var getHiveTypes = function () {
+        return hiveTypes;
+    }
+
     return {
         GetMockHiveList: getMockHiveList,
         GetMockHive: getMockHive,
         DeleteMockHive: deleteMockHive,
         CreateMockHive: createMockHive,
-        GetLastCreatedHive: getLastCreatedHive
+        GetLastCreatedHive: getLastCreatedHive,
+        GetHiveTypes: getHiveTypes
     }
 });
