@@ -52,8 +52,7 @@
 	__webpack_require__(6);
 	__webpack_require__(7);
 	__webpack_require__(8);
-	__webpack_require__(9);
-	module.exports = __webpack_require__(10);
+	module.exports = __webpack_require__(9);
 
 
 /***/ },
@@ -66,7 +65,7 @@
 	// 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 	// the 2nd parameter is an array of 'requires'
 	// 'starter.controllers' is found in controllers.js
-	angular.module('starter', ['ionic', 'starter.controllers', 'apiary.apiaryList', 'apiary.apiary', 'apiary.hive', 'apiary.hiveList', 'apiary.mock']).run(function ($ionicPlatform) {
+	angular.module('starter', ['ionic', 'starter.controllers', 'apiary.apiaryList', 'apiary.apiary', 'apiary.hive', 'apiary.mock']).run(function ($ionicPlatform) {
 	    $ionicPlatform.ready(function () {
 	        // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
 	        // for form inputs)
@@ -115,15 +114,7 @@
 	    })
 
 	    //HIVE
-	    .state('app.hiveList', {
-	        url: '/hiveList',
-	        views: {
-	            'menuContent': {
-	                templateUrl: 'templates/hiveList/hiveList.html',
-	                controller: 'HiveListCtrl'
-	            }
-	        }
-	    }).state('app.hive', {
+	    .state('app.hive', {
 	        url: '/hive/details/:hiveId',
 	        views: {
 	            'menuContent': {
@@ -365,9 +356,9 @@
 	angular.module('apiary.mock').factory('HiveMockDataService', function () {
 	    var hiveList = [];
 	    var lastCreatedHive = "";
+	    var hiveTypes = ["Nuc", "Langstroth 10 Frame", "Langstrong 8 Frame", "Top Bar", "Warre", "National Standard"];
 
 	    function generateHiveType() {
-	        var hiveTypes = ["Nuc", "Langstroth 10 Frame", "Langstrong 8 Frame", "Top Bar", "Warre", "National Standard"];
 	        var min = 0;
 	        var max = 5;
 	        var rand = Math.floor(Math.random() * (max - min) + min);
@@ -432,12 +423,17 @@
 	        return toReturn;
 	    };
 
+	    var getHiveTypes = function () {
+	        return hiveTypes;
+	    };
+
 	    return {
 	        GetMockHiveList: getMockHiveList,
 	        GetMockHive: getMockHive,
 	        DeleteMockHive: deleteMockHive,
 	        CreateMockHive: createMockHive,
-	        GetLastCreatedHive: getLastCreatedHive
+	        GetLastCreatedHive: getLastCreatedHive,
+	        GetHiveTypes: getHiveTypes
 	    };
 	});
 
@@ -482,6 +478,7 @@
 	    $scope.$on('$ionicView.enter', function (e) {
 	        //initialization
 	        $scope.hive = {};
+	        $scope.hiveTypeOptions = HiveMockDataService.GetHiveTypes();
 	    });
 
 	    $scope.createHive = function () {
@@ -494,36 +491,6 @@
 
 	    $scope.goBack = function () {
 	        $ionicHistory.goBack();
-	    };
-	});
-
-/***/ },
-/* 10 */
-/***/ function(module, exports) {
-
-	angular.module('apiary.hiveList', []).controller('HiveListCtrl', function ($scope, $ionicModal, $timeout, HiveMockDataService) {
-
-	    $scope.hiveList = [];
-	    $scope.shouldShowDelete = false;
-	    $scope.listCanSwipe = false;
-	    $scope.lastCreatedHiveName = "";
-
-	    $scope.$on('$ionicView.enter', function (e) {
-	        $scope.hiveList = HiveMockDataService.GetMockHiveList();
-	        $scope.lastCreatedHiveName = HiveMockDataService.GetLastCreatedHive();
-	        $scope.$apply();
-	        setTimeout(function () {
-	            $scope.lastCreatedHiveName = "";
-	            $scope.$apply();
-	        }, 3000);
-	    });
-
-	    $scope.deleteItem = function (hiveId) {
-	        if (HiveMockDataService.DeleteMockHive(hiveId)) {
-	            console.log("Removed hive #" + hiveId);
-	        } else {
-	            console.log("Failed to remove hive #" + hiveId);
-	        }
 	    };
 	});
 

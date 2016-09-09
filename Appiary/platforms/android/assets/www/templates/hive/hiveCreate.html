@@ -17,7 +17,7 @@
                     Hive Type
                 </span>
                 <select name="hiveType" ng-model="hive.hiveType">
-                    <option ng-repeat="option in hiveTypeOptions" value="{{option.name}}">{{option.name}}</option>
+                    <option ng-repeat="option in hiveTypeOptions" value="{{option}}" ng-bind="option"></option>
                 </select>
             </label>
             <div class="row" id="cancelSaveButon">

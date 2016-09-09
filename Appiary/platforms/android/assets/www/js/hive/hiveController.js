@@ -1,6 +1,6 @@
 ﻿angular.module('apiary.hive', [])
 
-.controller('HiveCtrl', function ($scope, $stateParams, HiveMockDataService) {
+.controller('HiveCtrl', function ($scope, $stateParams, HiveMockDataService, BoxMockDataService) {
     $scope.hiveList = [];
     $scope.shouldShowDelete = false;
     $scope.listCanSwipe = false;
@@ -11,8 +11,8 @@
 
         $scope.hive = hive;
 
-        $scope.hiveList = HiveMockDataService.GetMockHiveList();
-        $scope.lastCreatedHiveName = HiveMockDataService.GetLastCreatedHive();
+        $scope.boxList = BoxMockDataService.GetMockBoxList();
+        $scope.lastCreatedBoxName = BoxMockDataService.GetLastCreatedBox();
         $scope.$apply();
         setTimeout(function () {
             $scope.lastCreatedHiveName = "";

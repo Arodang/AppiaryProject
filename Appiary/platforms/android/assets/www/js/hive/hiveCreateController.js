@@ -4,6 +4,7 @@
     $scope.$on('$ionicView.enter', function (e) {
         //initialization
         $scope.hive = {};
+        $scope.hiveTypeOptions = HiveMockDataService.GetHiveTypes();
     });
 
     $scope.createHive = function () {
