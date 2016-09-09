@@ -10,11 +10,11 @@
     $scope.$on('$ionicView.enter', function (e) {
         $scope.apiaryList = ApiaryMockDataService.GetMockApiaryList();
         $scope.lastCreatedApiaryName = ApiaryMockDataService.GetLastCreatedApiary();
-        $scope.$apply();
         setTimeout(function () {
-            $scope.lastCreatedApiaryName = "";
-            $scope.$apply();
-        }, 3000)
+            $scope.$apply(function () {
+                $scope.lastCreatedApiaryName = "";
+            });
+        }, 3000);
     });
 
     $scope.deleteItem = function (apiaryId) {

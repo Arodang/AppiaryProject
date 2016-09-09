@@ -240,10 +240,10 @@
 	    $scope.$on('$ionicView.enter', function (e) {
 	        $scope.apiaryList = ApiaryMockDataService.GetMockApiaryList();
 	        $scope.lastCreatedApiaryName = ApiaryMockDataService.GetLastCreatedApiary();
-	        $scope.$apply();
 	        setTimeout(function () {
-	            $scope.lastCreatedApiaryName = "";
-	            $scope.$apply();
+	            $scope.$apply(function () {
+	                $scope.lastCreatedApiaryName = "";
+	            });
 	        }, 3000);
 	    });
 
@@ -273,20 +273,20 @@
 
 	        $scope.hiveList = HiveMockDataService.GetMockHiveList();
 	        $scope.lastCreatedHiveName = HiveMockDataService.GetLastCreatedHive();
-	        $scope.$apply();
 	        setTimeout(function () {
-	            $scope.lastCreatedHiveName = "";
-	            $scope.$apply();
+	            $scope.$apply(function () {
+	                $scope.lastCreatedHiveName = "";
+	            });
 	        }, 3000);
-
-	        $scope.deleteItem = function (hiveId) {
-	            if (HiveMockDataService.DeleteMockHive(hiveId)) {
-	                console.log("Removed hive #" + hiveId);
-	            } else {
-	                console.log("Failed to remove hive #" + hiveId);
-	            }
-	        };
 	    });
+
+	    $scope.deleteItem = function (hiveId) {
+	        if (HiveMockDataService.DeleteMockHive(hiveId)) {
+	            console.log("Removed hive #" + hiveId);
+	        } else {
+	            console.log("Failed to remove hive #" + hiveId);
+	        }
+	    };
 	});
 
 /***/ },
@@ -665,20 +665,20 @@
 
 	        $scope.boxList = BoxMockDataService.GetMockBoxList();
 	        $scope.lastCreatedBoxName = BoxMockDataService.GetLastCreatedBox();
-	        $scope.$apply();
 	        setTimeout(function () {
-	            $scope.lastCreatedBoxName = "";
-	            $scope.$apply();
+	            $scope.$apply(function () {
+	                $scope.lastCreatedBoxName = "";
+	            });
 	        }, 3000);
-
-	        $scope.deleteItem = function (boxId) {
-	            if (BoxMockDataService.DeleteMockBox(boxId)) {
-	                console.log("Removed box #" + boxId);
-	            } else {
-	                console.log("Failed to remove box #" + boxId);
-	            }
-	        };
 	    });
+
+	    $scope.deleteItem = function (boxId) {
+	        if (BoxMockDataService.DeleteMockBox(boxId)) {
+	            console.log("Removed box #" + boxId);
+	        } else {
+	            console.log("Failed to remove box #" + boxId);
+	        }
+	    };
 	});
 
 /***/ },
@@ -722,20 +722,20 @@
 
 	        $scope.frameList = FrameMockDataService.GetMockFrameList();
 	        $scope.lastCreatedFrameName = FrameMockDataService.GetLastCreatedFrame();
-	        $scope.$apply();
 	        setTimeout(function () {
-	            $scope.lastCreatedFrameName = "";
-	            $scope.$apply();
+	            $scope.$apply(function () {
+	                $scope.lastCreatedFrameName = "";
+	            });
 	        }, 3000);
-
-	        $scope.deleteItem = function (frameId) {
-	            if (FrameMockDataService.DeleteMockFrame(frameId)) {
-	                console.log("Removed frame #" + frameId);
-	            } else {
-	                console.log("Failed to remove frame #" + frameId);
-	            }
-	        };
 	    });
+
+	    $scope.deleteItem = function (frameId) {
+	        if (FrameMockDataService.DeleteMockFrame(frameId)) {
+	            console.log("Removed frame #" + frameId);
+	        } else {
+	            console.log("Failed to remove frame #" + frameId);
+	        }
+	    };
 	});
 
 /***/ },

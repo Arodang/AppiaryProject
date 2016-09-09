@@ -13,21 +13,20 @@
 
         $scope.boxList = BoxMockDataService.GetMockBoxList();
         $scope.lastCreatedBoxName = BoxMockDataService.GetLastCreatedBox();
-        $scope.$apply();
         setTimeout(function () {
-            $scope.lastCreatedBoxName = "";
-            $scope.$apply();
-        }, 3000)
-
-
-        $scope.deleteItem = function (boxId) {
-            if (BoxMockDataService.DeleteMockBox(boxId)) {
-                console.log("Removed box #" + boxId);
-            }
-            else {
-                console.log("Failed to remove box #" + boxId);
-            }
-        }
+            $scope.$apply(function () {
+                $scope.lastCreatedBoxName = "";
+            });
+        }, 3000);
     });
+
+    $scope.deleteItem = function (boxId) {
+        if (BoxMockDataService.DeleteMockBox(boxId)) {
+            console.log("Removed box #" + boxId);
+        }
+        else {
+            console.log("Failed to remove box #" + boxId);
+        }
+    };
 
 });
