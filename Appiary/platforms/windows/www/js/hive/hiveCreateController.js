@@ -1,9 +1,10 @@
-﻿angular.module('apiary.hive', [])
+﻿angular.module('apiary.hive')
 
-.controller('HiveCreateCtrl', function ($scope, $stateParams, HiveMockDataService, $ionicHistory) {
+.controller('HiveCreateCtrl', ['$scope', '$stateParams', 'HiveMockDataService', '$ionicHistory', function ($scope, $stateParams, HiveMockDataService, $ionicHistory) {
     $scope.$on('$ionicView.enter', function (e) {
         //initialization
         $scope.hive = {};
+        $scope.hiveTypeOptions = HiveMockDataService.GetHiveTypes();
     });
 
     $scope.createHive = function () {
@@ -17,4 +18,4 @@
     $scope.goBack = function () {
         $ionicHistory.goBack();
     };
-});
+}]);

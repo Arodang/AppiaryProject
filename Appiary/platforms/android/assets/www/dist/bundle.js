@@ -58,7 +58,9 @@
 	__webpack_require__(12);
 	__webpack_require__(13);
 	__webpack_require__(14);
-	module.exports = __webpack_require__(15);
+	__webpack_require__(15);
+	__webpack_require__(16);
+	module.exports = __webpack_require__(17);
 
 
 /***/ },
@@ -71,7 +73,7 @@
 	// 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 	// the 2nd parameter is an array of 'requires'
 	// 'starter.controllers' is found in controllers.js
-	angular.module('starter', ['ionic', 'starter.controllers', 'apiary.apiaryList', 'apiary.apiary', 'apiary.hive', 'apiary.box', 'apiary.frame', 'apiary.mock']).run(function ($ionicPlatform) {
+	angular.module('starter', ['ionic', 'starter.controllers', 'apiary.apiaryList', 'apiary.apiary', 'apiary.hive', 'apiary.box', 'apiary.frame', 'apiary.mock', 'apiary.common', 'apiary.database']).run(function ($ionicPlatform) {
 	    $ionicPlatform.ready(function () {
 	        // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
 	        // for form inputs)
@@ -316,7 +318,7 @@
 /* 6 */
 /***/ function(module, exports) {
 
-	angular.module('apiary.mock', []).factory('ApiaryMockDataService', function () {
+	angular.module('apiary.mock', []).factory('ApiaryMockDataService', function (DatabaseTest) {
 	    var apiaryList = [];
 	    var lastCreatedApiary = "";
 
@@ -685,7 +687,7 @@
 /* 11 */
 /***/ function(module, exports) {
 
-	angular.module('apiary.hive').controller('HiveCreateCtrl', function ($scope, $stateParams, HiveMockDataService, $ionicHistory) {
+	angular.module('apiary.hive').controller('HiveCreateCtrl', ['$scope', '$stateParams', 'HiveMockDataService', '$ionicHistory', function ($scope, $stateParams, HiveMockDataService, $ionicHistory) {
 	    $scope.$on('$ionicView.enter', function (e) {
 	        //initialization
 	        $scope.hive = {};
@@ -703,7 +705,7 @@
 	    $scope.goBack = function () {
 	        $ionicHistory.goBack();
 	    };
-	});
+	}]);
 
 /***/ },
 /* 12 */
@@ -798,6 +800,47 @@
 	    $scope.goBack = function () {
 	        $ionicHistory.goBack();
 	    };
+	});
+
+/***/ },
+/* 16 */
+/***/ function(module, exports) {
+
+	angular.module('apiary.common', []).constant('googleLogin', {
+	    'clientId': '1062484540187-9vkejq16ec2ladmu7cn0gk0cesj7dfla.apps.googleusercontent.com',
+	    'clientSecret': 'iV3LwUqsaXlfddN5JbM_c7U5',
+	    'redirectURL': 'http://localhost/appiary/www'
+	});
+
+/***/ },
+/* 17 */
+/***/ function(module, exports) {
+
+	angular.module('apiary.database', []).factory('DatabaseTest', function () {
+	    document.addEventListener('deviceready', function () {
+	        console.log("TESTING SQL?");
+	        window.sqlitePlugin.echoTest(function () {
+	            console.log('ECHO test OK');
+	        });
+
+	        window.sqlitePlugin.selfTest(function () {
+	            console.log('SELF test OK');
+	        });
+
+	        var db = window.sqlitePlugin.openDatabase({ name: 'test.db', location: 'default' });
+	        db.transaction(function (tr) {
+	            tr.executeSql("SELECT upper('Test string') AS upperString", [], function (tr, rs) {
+	                console.log('Got upperString result: ' + rs.rows.item(0).upperString);
+	            });
+	        });
+
+	        db.transaction(function (tr) {
+	            tr.executeSql('SELECT upper(?) AS upperString', ['Test string'], function (tr, rs) {
+	                console.log('Got upperString result: ' + rs.rows.item(0).upperString);
+	            });
+	        });
+	    });
+	    return true;
 	});
 
 /***/ }

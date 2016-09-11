@@ -1,6 +1,6 @@
 ﻿angular.module('apiary.mock', [])
 
-.factory('ApiaryMockDataService', function () {
+.factory('ApiaryMockDataService', function (DatabaseTest) {
     var apiaryList = [];
     var lastCreatedApiary = "";
 

@@ -1,4 +1,4 @@
-﻿cordova.define('cordova/plugin_list', function(require, exports, module) {
+cordova.define('cordova/plugin_list', function(require, exports, module) {
 module.exports = [
     {
         "file": "plugins/cordova-plugin-console/www/logger.js",
@@ -70,6 +70,47 @@ module.exports = [
             "cordova.plugins.Keyboard"
         ],
         "runs": true
+    },
+    {
+        "file": "plugins/cordova-plugin-inappbrowser/www/inappbrowser.js",
+        "id": "cordova-plugin-inappbrowser.inappbrowser",
+        "pluginId": "cordova-plugin-inappbrowser",
+        "clobbers": [
+            "cordova.InAppBrowser.open",
+            "window.open"
+        ]
+    },
+    {
+        "file": "plugins/cordova-plugin-inappbrowser/src/windows/InAppBrowserProxy.js",
+        "id": "cordova-plugin-inappbrowser.InAppBrowserProxy",
+        "pluginId": "cordova-plugin-inappbrowser",
+        "merges": [
+            ""
+        ]
+    },
+    {
+        "file": "plugins/cordova-sqlite-storage/www/SQLitePlugin.js",
+        "id": "cordova-sqlite-storage.SQLitePlugin",
+        "pluginId": "cordova-sqlite-storage",
+        "clobbers": [
+            "SQLitePlugin"
+        ]
+    },
+    {
+        "file": "plugins/cordova-sqlite-storage/src/windows/sqlite-proxy.js",
+        "id": "cordova-sqlite-storage.SQLiteProxy",
+        "pluginId": "cordova-sqlite-storage",
+        "merges": [
+            ""
+        ]
+    },
+    {
+        "file": "plugins/cordova-sqlite-storage/src/windows/SQLite3-Win-RT/SQLite3JS/js/SQLite3.js",
+        "id": "cordova-sqlite-storage.SQLite3",
+        "pluginId": "cordova-sqlite-storage",
+        "merges": [
+            ""
+        ]
     }
 ];
 module.exports.metadata = 
@@ -80,7 +121,9 @@ module.exports.metadata =
     "cordova-plugin-splashscreen": "3.2.2",
     "cordova-plugin-statusbar": "2.1.3",
     "cordova-plugin-whitelist": "1.2.2",
-    "ionic-plugin-keyboard": "2.2.1"
+    "ionic-plugin-keyboard": "2.2.1",
+    "cordova-plugin-inappbrowser": "1.4.0",
+    "cordova-sqlite-storage": "1.4.7"
 };
 // BOTTOM OF METADATA
 });

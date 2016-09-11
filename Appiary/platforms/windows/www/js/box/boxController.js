@@ -13,21 +13,20 @@
 
         $scope.frameList = FrameMockDataService.GetMockFrameList();
         $scope.lastCreatedFrameName = FrameMockDataService.GetLastCreatedFrame();
-        $scope.$apply();
         setTimeout(function () {
-            $scope.lastCreatedFrameName = "";
-            $scope.$apply();
-        }, 3000)
-
-
-        $scope.deleteItem = function (frameId) {
-            if (FrameMockDataService.DeleteMockFrame(frameId)) {
-                console.log("Removed frame #" + frameId);
-            }
-            else {
-                console.log("Failed to remove frame #" + frameId);
-            }
-        }
+            $scope.$apply(function () {
+                $scope.lastCreatedFrameName = "";
+            });
+        }, 3000);
     });
+
+    $scope.deleteItem = function (frameId) {
+        if (FrameMockDataService.DeleteMockFrame(frameId)) {
+            console.log("Removed frame #" + frameId);
+        }
+        else {
+            console.log("Failed to remove frame #" + frameId);
+        }
+    };
 
 });

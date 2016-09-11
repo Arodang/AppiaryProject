@@ -1,42 +1,32 @@
-﻿angular.module('appiary.apiary', [])
+﻿angular.module('apiary.apiary', [])
 
-.controller('ApiaryCtrl', function ($scope, $ionicModal, $timeout) {
+.controller('ApiaryCtrl', function ($scope, $stateParams, ApiaryMockDataService, HiveMockDataService) {
+    $scope.hiveList = [];
+    $scope.shouldShowDelete = false;
+    $scope.listCanSwipe = false;
+    $scope.lastCreatedHiveName = "";
 
-    // With the new view caching in Ionic, Controllers are only called
-    // when they are recreated or on app start, instead of every page change.
-    // To listen for when this page is active (for example, to refresh data),
-    // listen for the $ionicView.enter event:
-    //$scope.$on('$ionicView.enter', function(e) {
-    //});
+    $scope.$on('$ionicView.enter', function (e) {
+        var apiary = ApiaryMockDataService.GetMockApiary($stateParams.apiaryId);
 
-    // Form data for the login modal
-    $scope.loginData = {};
+        $scope.apiary = apiary;
 
-    // Create the login modal that we will use later
-    $ionicModal.fromTemplateUrl('templates/login.html', {
-        scope: $scope
-    }).then(function (modal) {
-        $scope.modal = modal;
+        $scope.hiveList = HiveMockDataService.GetMockHiveList();
+        $scope.lastCreatedHiveName = HiveMockDataService.GetLastCreatedHive();
+        setTimeout(function () {
+            $scope.$apply(function () {
+                $scope.lastCreatedHiveName = "";
+            });
+        }, 3000);
     });
 
-    // Triggered in the login modal to close it
-    $scope.closeLogin = function () {
-        $scope.modal.hide();
-    };
+    $scope.deleteItem = function (hiveId) {
+        if (HiveMockDataService.DeleteMockHive(hiveId)) {
+            console.log("Removed hive #" + hiveId);
+        }
+        else {
+            console.log("Failed to remove hive #" + hiveId);
+        }
+    }
 
-    // Open the login modal
-    $scope.login = function () {
-        $scope.modal.show();
-    };
-
-    // Perform the login action when the user submits the login form
-    $scope.doLogin = function () {
-        console.log('Doing login', $scope.loginData);
-
-        // Simulate a login delay. Remove this and replace with your login
-        // code if using a login system
-        $timeout(function () {
-            $scope.closeLogin();
-        }, 1000);
-    };
 });

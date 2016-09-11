@@ -16,7 +16,9 @@ module.exports = {
             './www/js/box/boxController',
             './www/js/box/boxCreateController',
             './www/js/frame/frameController',
-            './www/js/frame/frameCreateController'
+            './www/js/frame/frameCreateController',
+            './www/js/common/constants',
+            './www/js/localdatabase/databaseTest'
         ]
     },
     output: {

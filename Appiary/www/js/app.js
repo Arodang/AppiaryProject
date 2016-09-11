@@ -11,7 +11,9 @@ angular.module('starter', ['ionic',
     'apiary.hive',
     'apiary.box',
     'apiary.frame',
-    'apiary.mock'
+    'apiary.mock',
+    'apiary.common',
+    'apiary.database'
 ])
 
 .run(function ($ionicPlatform) {

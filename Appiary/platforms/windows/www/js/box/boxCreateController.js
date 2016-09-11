@@ -4,6 +4,7 @@
     $scope.$on('$ionicView.enter', function (e) {
         //initialization
         $scope.box = {};
+        $scope.boxTypeOptions = BoxMockDataService.GetBoxTypes();
     });
 
     $scope.createBox = function () {

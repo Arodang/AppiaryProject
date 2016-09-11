@@ -3,7 +3,7 @@
 .factory('HiveMockDataService', function () {
     var hiveList = [];
     var lastCreatedHive = "";
-    var hiveTypes = ["Nuc", "Langstroth 10 Frame", "Langstrong 8 Frame", "Top Bar", "Warre", "National Standard"];
+    var hiveTypes = ["Nuc", "Langstroth 10 Frame", "Langstrong 8 Frame", "Top Bar", "Warre", "National Standard"]
 
     function generateHiveType() {
         var min = 0;
