@@ -24,6 +24,12 @@
         },
         "ionic-plugin-keyboard": {
             "PACKAGE_NAME": "Appiary"
+        },
+        "cordova-plugin-inappbrowser": {
+            "PACKAGE_NAME": "Appiary"
+        },
+        "cordova-sqlite-storage": {
+            "PACKAGE_NAME": "Appiary"
         }
     },
     "dependent_plugins": {}
