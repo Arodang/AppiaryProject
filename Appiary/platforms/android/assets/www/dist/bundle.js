@@ -232,7 +232,7 @@
 /* 3 */
 /***/ function(module, exports) {
 
-	angular.module('apiary.apiaryList', []).controller('ApiaryListCtrl', function ($scope, $ionicModal, $timeout, ApiaryMockDataService) {
+	angular.module('apiary.apiaryList', []).controller('ApiaryListCtrl', ['$scope', '$timeout', 'ApiaryMockDataService', function ($scope, $timeout, ApiaryMockDataService) {
 
 	    $scope.apiaryList = [];
 	    $scope.shouldShowDelete = false;
@@ -256,13 +256,13 @@
 	            console.log("Failed to remove apiary #" + apiaryId);
 	        }
 	    };
-	});
+	}]);
 
 /***/ },
 /* 4 */
 /***/ function(module, exports) {
 
-	angular.module('apiary.apiary', []).controller('ApiaryCtrl', function ($scope, $stateParams, ApiaryMockDataService, HiveMockDataService) {
+	angular.module('apiary.apiary', []).controller('ApiaryCtrl', ['$scope', '$stateParams', 'ApiaryMockDataService', 'HiveMockDataService', function ($scope, $stateParams, ApiaryMockDataService, HiveMockDataService) {
 	    $scope.hiveList = [];
 	    $scope.shouldShowDelete = false;
 	    $scope.listCanSwipe = false;
@@ -289,13 +289,13 @@
 	            console.log("Failed to remove hive #" + hiveId);
 	        }
 	    };
-	});
+	}]);
 
 /***/ },
 /* 5 */
 /***/ function(module, exports) {
 
-	angular.module('apiary.apiary').controller('ApiaryCreateCtrl', function ($scope, $stateParams, ApiaryMockDataService, $ionicHistory) {
+	angular.module('apiary.apiary').controller('ApiaryCreateCtrl', ['$scope', '$stateParams', 'ApiaryMockDataService', '$ionicHistory', function ($scope, $stateParams, ApiaryMockDataService, $ionicHistory) {
 	    $scope.$on('$ionicView.enter', function (e) {
 	        //initialization
 	        $scope.apiary = {};
@@ -312,13 +312,13 @@
 	    $scope.goBack = function () {
 	        $ionicHistory.goBack();
 	    };
-	});
+	}]);
 
 /***/ },
 /* 6 */
 /***/ function(module, exports) {
 
-	angular.module('apiary.mock', []).factory('ApiaryMockDataService', function (DatabaseTest) {
+	angular.module('apiary.mock', []).factory('ApiaryMockDataService', function () {
 	    var apiaryList = [];
 	    var lastCreatedApiary = "";
 
@@ -654,7 +654,7 @@
 /* 10 */
 /***/ function(module, exports) {
 
-	angular.module('apiary.hive', []).controller('HiveCtrl', function ($scope, $stateParams, HiveMockDataService, BoxMockDataService) {
+	angular.module('apiary.hive', []).controller('HiveCtrl', ['$scope', '$stateParams', 'HiveMockDataService', 'BoxMockDataService', function ($scope, $stateParams, HiveMockDataService, BoxMockDataService) {
 	    $scope.boxList = [];
 	    $scope.shouldShowDelete = false;
 	    $scope.listCanSwipe = false;
@@ -681,7 +681,7 @@
 	            console.log("Failed to remove box #" + boxId);
 	        }
 	    };
-	});
+	}]);
 
 /***/ },
 /* 11 */
@@ -711,7 +711,7 @@
 /* 12 */
 /***/ function(module, exports) {
 
-	angular.module('apiary.box', []).controller('BoxCtrl', function ($scope, $stateParams, BoxMockDataService, FrameMockDataService) {
+	angular.module('apiary.box', []).controller('BoxCtrl', ['$scope', '$stateParams', 'BoxMockDataService', 'FrameMockDataService', function ($scope, $stateParams, BoxMockDataService, FrameMockDataService) {
 	    $scope.frameList = [];
 	    $scope.shouldShowDelete = false;
 	    $scope.listCanSwipe = false;
@@ -738,13 +738,13 @@
 	            console.log("Failed to remove frame #" + frameId);
 	        }
 	    };
-	});
+	}]);
 
 /***/ },
 /* 13 */
 /***/ function(module, exports) {
 
-	angular.module('apiary.box').controller('BoxCreateCtrl', function ($scope, $stateParams, BoxMockDataService, $ionicHistory) {
+	angular.module('apiary.box').controller('BoxCreateCtrl', ['$scope', '$stateParams', 'BoxMockDataService', '$ionicHistory', function ($scope, $stateParams, BoxMockDataService, $ionicHistory) {
 	    $scope.$on('$ionicView.enter', function (e) {
 	        //initialization
 	        $scope.box = {};
@@ -762,13 +762,13 @@
 	    $scope.goBack = function () {
 	        $ionicHistory.goBack();
 	    };
-	});
+	}]);
 
 /***/ },
 /* 14 */
 /***/ function(module, exports) {
 
-	angular.module('apiary.frame', []).controller('FrameCtrl', function ($scope, $stateParams, FrameMockDataService) {
+	angular.module('apiary.frame', []).controller('FrameCtrl', ['$scope', '$stateParams', 'FrameMockDataService', function ($scope, $stateParams, FrameMockDataService) {
 	    $scope.shouldShowDelete = false;
 	    $scope.listCanSwipe = false;
 
@@ -777,13 +777,13 @@
 
 	        $scope.frame = frame;
 	    });
-	});
+	}]);
 
 /***/ },
 /* 15 */
 /***/ function(module, exports) {
 
-	angular.module('apiary.frame').controller('FrameCreateCtrl', function ($scope, $stateParams, FrameMockDataService, $ionicHistory) {
+	angular.module('apiary.frame').controller('FrameCreateCtrl', ['$scope', '$stateParams', 'FrameMockDataService', function ($scope, $stateParams, FrameMockDataService, $ionicHistory) {
 	    $scope.$on('$ionicView.enter', function (e) {
 	        //initialization
 	        $scope.frame = {};
@@ -800,7 +800,7 @@
 	    $scope.goBack = function () {
 	        $ionicHistory.goBack();
 	    };
-	});
+	}]);
 
 /***/ },
 /* 16 */
@@ -816,32 +816,34 @@
 /* 17 */
 /***/ function(module, exports) {
 
-	angular.module('apiary.database', []).factory('DatabaseTest', function () {
-	    document.addEventListener('deviceready', function () {
-	        console.log("TESTING SQL?");
-	        window.sqlitePlugin.echoTest(function () {
-	            console.log('ECHO test OK');
-	        });
+	angular.module('apiary.database', [])
+	//.factory('DatabaseTest', function () {
+	//    document.addEventListener('deviceready', function () {
+	//        console.log("TESTING SQL?");
+	//        window.sqlitePlugin.echoTest(function () {
+	//            console.log('ECHO test OK');
+	//        });
 
-	        window.sqlitePlugin.selfTest(function () {
-	            console.log('SELF test OK');
-	        });
+	//        window.sqlitePlugin.selfTest(function () {
+	//            console.log('SELF test OK');
+	//        });
 
-	        var db = window.sqlitePlugin.openDatabase({ name: 'test.db', location: 'default' });
-	        db.transaction(function (tr) {
-	            tr.executeSql("SELECT upper('Test string') AS upperString", [], function (tr, rs) {
-	                console.log('Got upperString result: ' + rs.rows.item(0).upperString);
-	            });
-	        });
+	//        var db = window.sqlitePlugin.openDatabase({ name: 'test.db', location: 'default' });
+	//        db.transaction(function (tr) {
+	//            tr.executeSql("SELECT upper('Test string') AS upperString", [], function (tr, rs) {
+	//                console.log('Got upperString result: ' + rs.rows.item(0).upperString);
+	//            });
+	//        });
 
-	        db.transaction(function (tr) {
-	            tr.executeSql('SELECT upper(?) AS upperString', ['Test string'], function (tr, rs) {
-	                console.log('Got upperString result: ' + rs.rows.item(0).upperString);
-	            });
-	        });
-	    });
-	    return true;
-	});
+	//        db.transaction(function (tr) {
+	//            tr.executeSql('SELECT upper(?) AS upperString', ['Test string'], function (tr, rs) {
+	//                console.log('Got upperString result: ' + rs.rows.item(0).upperString);
+	//            });
+	//        });
+	//    });
+	//    return true;
+	//})
+	;
 
 /***/ }
 /******/ ]);

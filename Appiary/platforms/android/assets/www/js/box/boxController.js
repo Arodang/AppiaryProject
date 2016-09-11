@@ -1,6 +1,6 @@
 ﻿angular.module('apiary.box', [])
 
-.controller('BoxCtrl', function ($scope, $stateParams, BoxMockDataService, FrameMockDataService) {
+.controller('BoxCtrl', ['$scope', '$stateParams', 'BoxMockDataService', 'FrameMockDataService', function ($scope, $stateParams, BoxMockDataService, FrameMockDataService) {
     $scope.frameList = [];
     $scope.shouldShowDelete = false;
     $scope.listCanSwipe = false;
@@ -29,4 +29,4 @@
         }
     };
 
-});
+}]);

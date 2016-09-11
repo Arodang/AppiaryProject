@@ -1,6 +1,6 @@
 ﻿angular.module('apiary.apiary', [])
 
-.controller('ApiaryCtrl', function ($scope, $stateParams, ApiaryMockDataService, HiveMockDataService) {
+.controller('ApiaryCtrl', ['$scope', '$stateParams', 'ApiaryMockDataService', 'HiveMockDataService', function ($scope, $stateParams, ApiaryMockDataService, HiveMockDataService) {
     $scope.hiveList = [];
     $scope.shouldShowDelete = false;
     $scope.listCanSwipe = false;
@@ -29,4 +29,4 @@
         }
     }
 
-});
+}]);

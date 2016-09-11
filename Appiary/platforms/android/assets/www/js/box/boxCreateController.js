@@ -1,6 +1,6 @@
 ﻿angular.module('apiary.box')
 
-.controller('BoxCreateCtrl', function ($scope, $stateParams, BoxMockDataService, $ionicHistory) {
+.controller('BoxCreateCtrl', ['$scope', '$stateParams', 'BoxMockDataService', '$ionicHistory', function ($scope, $stateParams, BoxMockDataService, $ionicHistory) {
     $scope.$on('$ionicView.enter', function (e) {
         //initialization
         $scope.box = {};
@@ -19,4 +19,4 @@
     $scope.goBack = function () {
         $ionicHistory.goBack();
     };
-});
+}]);

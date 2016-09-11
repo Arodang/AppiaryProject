@@ -1,6 +1,6 @@
 ﻿angular.module('apiary.frame')
 
-.controller('FrameCreateCtrl', function ($scope, $stateParams, FrameMockDataService, $ionicHistory) {
+.controller('FrameCreateCtrl', ['$scope', '$stateParams', 'FrameMockDataService', function ($scope, $stateParams, FrameMockDataService, $ionicHistory) {
     $scope.$on('$ionicView.enter', function (e) {
         //initialization
         $scope.frame = {};
@@ -18,4 +18,4 @@
     $scope.goBack = function () {
         $ionicHistory.goBack();
     };
-});
+}]);

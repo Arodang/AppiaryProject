@@ -1,6 +1,6 @@
 ﻿angular.module('apiary.apiaryList', [])
 
-.controller('ApiaryListCtrl', function ($scope, $ionicModal, $timeout, ApiaryMockDataService) {
+.controller('ApiaryListCtrl', ['$scope', '$timeout', 'ApiaryMockDataService', function ($scope, $timeout, ApiaryMockDataService) {
 
     $scope.apiaryList = [];
     $scope.shouldShowDelete = false;
@@ -25,4 +25,4 @@
             console.log("Failed to remove apiary #" + apiaryId);
         }
     }
-});
+}]);

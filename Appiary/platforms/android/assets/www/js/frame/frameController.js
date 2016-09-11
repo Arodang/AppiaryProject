@@ -1,6 +1,6 @@
 ﻿angular.module('apiary.frame', [])
 
-.controller('FrameCtrl', function ($scope, $stateParams, FrameMockDataService) {
+.controller('FrameCtrl', ['$scope', '$stateParams', 'FrameMockDataService', function ($scope, $stateParams, FrameMockDataService) {
     $scope.shouldShowDelete = false;
     $scope.listCanSwipe = false;
 
@@ -9,4 +9,4 @@
 
         $scope.frame = frame;
     });
-});
+}]);
