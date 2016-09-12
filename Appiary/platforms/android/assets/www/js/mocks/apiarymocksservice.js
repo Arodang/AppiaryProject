@@ -1,6 +1,6 @@
 ﻿angular.module('apiary.mock', [])
 
-.factory('ApiaryMockDataService', function () {
+.factory('ApiaryMockDataService', ['Polyfill', function (Polyfill) {
     var apiaryList = [];
     var lastCreatedApiary = "";
 
@@ -37,12 +37,12 @@
         if (apiaryList.length == 0) {
             generateMockApiaryList(15);
         }
-        var index = apiaryList.findIndex(x => x.id == id);
+        var index = Polyfill.GetIndexById(apiaryList, id);
         return apiaryList[index];
     };
 
     var deleteMockApiary = function (id) {
-        var index = apiaryList.findIndex(x => x.id == id);
+        var index = Polyfill.GetIndexById(apiaryList, id);
         if (apiaryList.length == 0 || index == -1) {
             return false;
         }
@@ -77,4 +77,4 @@
         CreateMockApiary: createMockApiary,
         GetLastCreatedApiary: getLastCreatedApiary
     }
-});
+}]);

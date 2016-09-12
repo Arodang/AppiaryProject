@@ -18,7 +18,9 @@ module.exports = {
             './www/js/frame/frameController',
             './www/js/frame/frameCreateController',
             './www/js/common/constants',
-            './www/js/localdatabase/databaseTest'
+            './www/js/common/polyfill',
+            './www/js/localdatabase/databaseTest',
+            './www/js/login/loginController'
         ]
     },
     output: {

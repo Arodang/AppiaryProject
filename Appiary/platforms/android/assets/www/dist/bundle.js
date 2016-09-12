@@ -60,7 +60,9 @@
 	__webpack_require__(14);
 	__webpack_require__(15);
 	__webpack_require__(16);
-	module.exports = __webpack_require__(17);
+	__webpack_require__(17);
+	__webpack_require__(18);
+	module.exports = __webpack_require__(19);
 
 
 /***/ },
@@ -73,7 +75,7 @@
 	// 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 	// the 2nd parameter is an array of 'requires'
 	// 'starter.controllers' is found in controllers.js
-	angular.module('starter', ['ionic', 'starter.controllers', 'apiary.apiaryList', 'apiary.apiary', 'apiary.hive', 'apiary.box', 'apiary.frame', 'apiary.mock', 'apiary.common', 'apiary.database']).run(function ($ionicPlatform) {
+	angular.module('starter', ['ionic', 'starter.controllers', 'apiary.apiaryList', 'apiary.apiary', 'apiary.hive', 'apiary.box', 'apiary.frame', 'apiary.mock', 'apiary.common', 'apiary.login', 'ngCordova', 'ngCordovaOauth']).run(function ($ionicPlatform) {
 	    $ionicPlatform.ready(function () {
 	        // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
 	        // for form inputs)
@@ -85,13 +87,24 @@
 	            // org.apache.cordova.statusbar required
 	            StatusBar.styleDefault();
 	        }
+
+	        webview.getSettings().setJavaScriptEnabled(true);
+	        webview.getSettings().setDomStorageEnabled(true);
 	    });
 	}).config(function ($stateProvider, $urlRouterProvider) {
 	    $stateProvider.state('app', {
 	        url: '/app',
 	        abstract: true,
 	        templateUrl: 'templates/menu.html',
-	        controller: 'AppCtrl'
+	        controller: 'MenuCtrl'
+	    }).state('app.login', {
+	        url: '/login',
+	        views: {
+	            'menuContent': {
+	                templateUrl: 'templates/login/login.html',
+	                controller: 'LoginCtrl'
+	            }
+	        }
 	    })
 
 	    //APIARY
@@ -99,7 +112,7 @@
 	        url: '/apiaryList',
 	        views: {
 	            'menuContent': {
-	                templateUrl: 'templates/apiaryList/apiaryList.html',
+	                templateUrl: 'templates/apiarylist/apiaryList.html',
 	                controller: 'ApiaryListCtrl'
 	            }
 	        }
@@ -185,48 +198,7 @@
 /* 2 */
 /***/ function(module, exports) {
 
-	angular.module('starter.controllers', []).controller('AppCtrl', function ($scope, $ionicModal, $timeout) {
-
-	  // With the new view caching in Ionic, Controllers are only called
-	  // when they are recreated or on app start, instead of every page change.
-	  // To listen for when this page is active (for example, to refresh data),
-	  // listen for the $ionicView.enter event:
-	  //$scope.$on('$ionicView.enter', function(e) {
-	  //});
-
-	  // Form data for the login modal
-	  $scope.loginData = {};
-	  //test
-	  // Create the login modal that we will use later
-	  $ionicModal.fromTemplateUrl('templates/login.html', {
-	    scope: $scope
-	  }).then(function (modal) {
-	    $scope.modal = modal;
-	  });
-
-	  // Triggered in the login modal to close it
-	  $scope.closeLogin = function () {
-	    $scope.modal.hide();
-	  };
-
-	  // Open the login modal
-	  $scope.login = function () {
-	    $scope.modal.show();
-	  };
-
-	  // Perform the login action when the user submits the login form
-	  $scope.doLogin = function () {
-	    console.log('Doing login', $scope.loginData);
-
-	    // Simulate a login delay. Remove this and replace with your login
-	    // code if using a login system
-	    $timeout(function () {
-	      $scope.closeLogin();
-	    }, 1000);
-	  };
-	}).controller('PlaylistsCtrl', function ($scope) {
-	  $scope.playlists = [{ title: 'Reggae', id: 1 }, { title: 'Chill', id: 2 }, { title: 'Dubstep', id: 3 }, { title: 'Indie', id: 4 }, { title: 'Rap', id: 5 }, { title: 'Cowbell', id: 6 }];
-	}).controller('PlaylistCtrl', function ($scope, $stateParams) {});
+	angular.module('starter.controllers', []).controller('MenuCtrl', function ($scope, $ionicModal, $timeout) {});
 
 /***/ },
 /* 3 */
@@ -318,7 +290,7 @@
 /* 6 */
 /***/ function(module, exports) {
 
-	angular.module('apiary.mock', []).factory('ApiaryMockDataService', function () {
+	angular.module('apiary.mock', []).factory('ApiaryMockDataService', ['Polyfill', function (Polyfill) {
 	    var apiaryList = [];
 	    var lastCreatedApiary = "";
 
@@ -353,12 +325,12 @@
 	        if (apiaryList.length == 0) {
 	            generateMockApiaryList(15);
 	        }
-	        var index = apiaryList.findIndex(x => x.id == id);
+	        var index = Polyfill.GetIndexById(apiaryList, id);
 	        return apiaryList[index];
 	    };
 
 	    var deleteMockApiary = function (id) {
-	        var index = apiaryList.findIndex(x => x.id == id);
+	        var index = Polyfill.GetIndexById(apiaryList, id);
 	        if (apiaryList.length == 0 || index == -1) {
 	            return false;
 	        }
@@ -393,13 +365,13 @@
 	        CreateMockApiary: createMockApiary,
 	        GetLastCreatedApiary: getLastCreatedApiary
 	    };
-	});
+	}]);
 
 /***/ },
 /* 7 */
 /***/ function(module, exports) {
 
-	angular.module('apiary.mock').factory('HiveMockDataService', function () {
+	angular.module('apiary.mock').factory('HiveMockDataService', ['Polyfill', function (Polyfill) {
 	    var hiveList = [];
 	    var lastCreatedHive = "";
 	    var hiveTypes = ["Nuc", "Langstroth 10 Frame", "Langstrong 8 Frame", "Top Bar", "Warre", "National Standard"];
@@ -436,12 +408,12 @@
 	        if (hiveList.length == 0) {
 	            generateMockHiveList(15);
 	        }
-	        var index = hiveList.findIndex(x => x.id == id);
+	        var index = Polyfill.GetIndexById(hiveList, id);
 	        return hiveList[index];
 	    };
 
 	    var deleteMockHive = function (id) {
-	        var index = hiveList.findIndex(x => x.id == id);
+	        var index = Polyfill.GetIndexById(hiveList, id);
 	        if (hiveList.length == 0 || index == -1) {
 	            return false;
 	        }
@@ -481,13 +453,13 @@
 	        GetLastCreatedHive: getLastCreatedHive,
 	        GetHiveTypes: getHiveTypes
 	    };
-	});
+	}]);
 
 /***/ },
 /* 8 */
 /***/ function(module, exports) {
 
-	angular.module('apiary.mock').factory('BoxMockDataService', function () {
+	angular.module('apiary.mock').factory('BoxMockDataService', ['Polyfill', function (Polyfill) {
 	    var boxList = [];
 	    var lastCreatedBox = "";
 	    var boxTypes = ["Shallow", "Medium", "Deep", "Feeder"];
@@ -524,12 +496,12 @@
 	        if (boxList.length == 0) {
 	            generateMockBoxList(15);
 	        }
-	        var index = boxList.findIndex(x => x.id == id);
+	        var index = Polyfill.GetIndexById(boxList, id);
 	        return boxList[index];
 	    };
 
 	    var deleteMockBox = function (id) {
-	        var index = boxList.findIndex(x => x.id == id);
+	        var index = Polyfill.GetIndexById(boxList, id);
 	        if (boxList.length == 0 || index == -1) {
 	            return false;
 	        }
@@ -569,13 +541,13 @@
 	        GetLastCreatedBox: getLastCreatedBox,
 	        GetBoxTypes: getBoxTypes
 	    };
-	});
+	}]);
 
 /***/ },
 /* 9 */
 /***/ function(module, exports) {
 
-	angular.module('apiary.mock').factory('FrameMockDataService', function () {
+	angular.module('apiary.mock').factory('FrameMockDataService', ['Polyfill', function (Polyfill) {
 	    var frameList = [];
 	    var lastCreatedFrame = "";
 
@@ -604,12 +576,12 @@
 	        if (frameList.length == 0) {
 	            generateMockFrameList(15);
 	        }
-	        var index = frameList.findIndex(x => x.id == id);
+	        var index = Polyfill.GetIndexById(frameList, id);
 	        return frameList[index];
 	    };
 
 	    var deleteMockFrame = function (id) {
-	        var index = frameList.findIndex(x => x.id == id);
+	        var index = Polyfill.GetIndexById(frameList, id);
 	        if (frameList.length == 0 || index == -1) {
 	            return false;
 	        }
@@ -648,7 +620,7 @@
 	        CreateMockFrame: createMockFrame,
 	        GetLastCreatedFrame: getLastCreatedFrame
 	    };
-	});
+	}]);
 
 /***/ },
 /* 10 */
@@ -806,14 +778,39 @@
 /* 16 */
 /***/ function(module, exports) {
 
-	angular.module('apiary.common', []).constant('googleLogin', {
-	    'clientId': '1062484540187-9vkejq16ec2ladmu7cn0gk0cesj7dfla.apps.googleusercontent.com',
-	    'clientSecret': 'iV3LwUqsaXlfddN5JbM_c7U5',
-	    'redirectURL': 'http://localhost/appiary/www'
+	angular.module('apiary.common', []).constant('LoginAuths', {
+	    'google': {
+	        'clientId': '1062484540187-9vkejq16ec2ladmu7cn0gk0cesj7dfla.apps.googleusercontent.com',
+	        'clientSecret': 'iV3LwUqsaXlfddN5JbM_c7U5'
+	    },
+	    'facebook': {
+	        'clientId': '159318631179311',
+	        'clientSecret': '982a3518aae3df5ecb6eebb8ccaf0514'
+	    }
 	});
 
 /***/ },
 /* 17 */
+/***/ function(module, exports) {
+
+	angular.module('apiary.common').factory('Polyfill', function () {
+	    //array.findIndex doesn't work on older versions of android
+	    var getIndexById = function (array, id) {
+	        for (var i = 0; i < array.length; i++) {
+	            if (array[i].id == id) {
+	                return i;
+	            }
+	        }
+	        return -1;
+	    };
+
+	    return {
+	        GetIndexById: getIndexById
+	    };
+	});
+
+/***/ },
+/* 18 */
 /***/ function(module, exports) {
 
 	angular.module('apiary.database', [])
@@ -844,6 +841,34 @@
 	//    return true;
 	//})
 	;
+
+/***/ },
+/* 19 */
+/***/ function(module, exports) {
+
+	angular.module('apiary.login', []).controller('LoginCtrl', ['$scope', '$cordovaOauth', 'LoginAuths', function ($scope, $cordovaOauth, LoginAuths) {
+	    $scope.$on('$ionicView.enter', function (e) {
+	        $scope.facebookLogin = function () {
+	            document.addEventListener("deviceready", function () {
+	                $cordovaOauth.facebook(LoginAuths.facebook.clientId, ["email"]).then(function (result) {
+	                    console.log("Response Object -> " + JSON.stringify(result));
+	                }, function (error) {
+	                    console.log("Error -> " + error);
+	                });
+	            }, false);
+	        };
+
+	        $scope.googleLogin = function () {
+	            document.addEventListener("deviceready", function () {
+	                $cordovaOauth.google(LoginAuths.google.clientId, ["email"]).then(function (result) {
+	                    console.log("Response Object -> " + JSON.stringify(result));
+	                }, function (error) {
+	                    console.log("Error -> " + error);
+	                });
+	            }, false);
+	        };
+	    });
+	}]);
 
 /***/ }
 /******/ ]);

@@ -13,7 +13,9 @@ angular.module('starter', ['ionic',
     'apiary.frame',
     'apiary.mock',
     'apiary.common',
-    'apiary.database'
+    'apiary.login',
+    'ngCordova',
+    'ngCordovaOauth'
 ])
 
 .run(function ($ionicPlatform) {
@@ -35,19 +37,29 @@ angular.module('starter', ['ionic',
 .config(function ($stateProvider, $urlRouterProvider) {
     $stateProvider
 
-      .state('app', {
-          url: '/app',
-          abstract: true,
-          templateUrl: 'templates/menu.html',
-          controller: 'AppCtrl'
-      })
+    .state('app', {
+        url: '/app',
+        abstract: true,
+        templateUrl: 'templates/menu.html',
+        controller: 'MenuCtrl'
+    })
+
+    .state('app.login', {
+        url: '/login',
+        views: {
+            'menuContent': {
+                templateUrl: 'templates/login/login.html',
+                controller: 'LoginCtrl'
+            }
+        }
+    })
 
     //APIARY
     .state('app.apiaryList', {
         url: '/apiaryList',
         views: {
             'menuContent': {
-                templateUrl: 'templates/apiaryList/apiaryList.html',
+                templateUrl: 'templates/apiarylist/apiaryList.html',
                 controller: 'ApiaryListCtrl'
             }
         }
