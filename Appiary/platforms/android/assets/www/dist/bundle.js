@@ -87,9 +87,6 @@
 	            // org.apache.cordova.statusbar required
 	            StatusBar.styleDefault();
 	        }
-
-	        webview.getSettings().setJavaScriptEnabled(true);
-	        webview.getSettings().setDomStorageEnabled(true);
 	    });
 	}).config(function ($stateProvider, $urlRouterProvider) {
 	    $stateProvider.state('app', {
