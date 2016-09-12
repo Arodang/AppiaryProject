@@ -14,6 +14,7 @@ angular.module('starter', ['ionic',
     'apiary.mock',
     'apiary.common',
     'apiary.login',
+    'apiary.authentication',
     'ngCordova',
     'ngCordovaOauth'
 ])

@@ -62,7 +62,8 @@
 	__webpack_require__(16);
 	__webpack_require__(17);
 	__webpack_require__(18);
-	module.exports = __webpack_require__(19);
+	__webpack_require__(19);
+	module.exports = __webpack_require__(20);
 
 
 /***/ },
@@ -75,7 +76,7 @@
 	// 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 	// the 2nd parameter is an array of 'requires'
 	// 'starter.controllers' is found in controllers.js
-	angular.module('starter', ['ionic', 'starter.controllers', 'apiary.apiaryList', 'apiary.apiary', 'apiary.hive', 'apiary.box', 'apiary.frame', 'apiary.mock', 'apiary.common', 'apiary.login', 'ngCordova', 'ngCordovaOauth']).run(function ($ionicPlatform) {
+	angular.module('starter', ['ionic', 'starter.controllers', 'apiary.apiaryList', 'apiary.apiary', 'apiary.hive', 'apiary.box', 'apiary.frame', 'apiary.mock', 'apiary.common', 'apiary.login', 'apiary.authentication', 'ngCordova', 'ngCordovaOauth']).run(function ($ionicPlatform) {
 	    $ionicPlatform.ready(function () {
 	        // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
 	        // for form inputs)
@@ -843,28 +844,78 @@
 /* 19 */
 /***/ function(module, exports) {
 
-	angular.module('apiary.login', []).controller('LoginCtrl', ['$scope', '$cordovaOauth', 'LoginAuths', function ($scope, $cordovaOauth, LoginAuths) {
+	angular.module('apiary.login', []).controller('LoginCtrl', ['$scope', 'AuthenticationService', function ($scope, AuthenticationService) {
 	    $scope.$on('$ionicView.enter', function (e) {
 	        $scope.facebookLogin = function () {
-	            document.addEventListener("deviceready", function () {
-	                $cordovaOauth.facebook(LoginAuths.facebook.clientId, ["email"]).then(function (result) {
-	                    console.log("Response Object -> " + JSON.stringify(result));
-	                }, function (error) {
-	                    console.log("Error -> " + error);
-	                });
-	            }, false);
+	            AuthenticationService.FacebookSignIn();
 	        };
 
 	        $scope.googleLogin = function () {
-	            document.addEventListener("deviceready", function () {
-	                $cordovaOauth.google(LoginAuths.google.clientId, ["email"]).then(function (result) {
-	                    console.log("Response Object -> " + JSON.stringify(result));
-	                }, function (error) {
-	                    console.log("Error -> " + error);
-	                });
-	            }, false);
+	            AuthenticationService.GoogleSignIn();
 	        };
 	    });
+	}]);
+
+/***/ },
+/* 20 */
+/***/ function(module, exports) {
+
+	angular.module('apiary.authentication', []).factory('AuthenticationService', ['$http', '$cordovaOauth', 'LoginAuths', function ($http, $cordovaOauth, LoginAuths) {
+	    var signIn = {};
+
+	    var googleSignIn = function () {
+	        $cordovaOauth.google(LoginAuths.google.clientId, ["email", "profile"]).then(function (result) {
+	            console.log("Google Response Object -> " + JSON.stringify(result));
+	            signIn.isGoogle = true;
+	            signIn.accessToken = result.access_token;
+
+	            $http.get("https://www.googleapis.com/plus/v1/people/me", { params: { access_token: signIn.accessToken } }).then(function (result) {
+	                signIn.profileData = result.data;
+	                console.log(signIn.profileData);
+	            }, function (error) {
+	                alert("There was a problem getting your profile.  Check the logs for details.");
+	                console.log(error);
+	            });
+	        }, function (error) {
+	            console.log("Error -> " + error);
+	        });
+	    };
+
+	    var facebookSignIn = function () {
+	        $cordovaOauth.facebook(LoginAuths.facebook.clientId, ["email"]).then(function (result) {
+	            signIn.isFacebook = true;
+	            signIn.accessToken = result.access_token;
+
+	            $http.get("https://graph.facebook.com/v2.2/me", { params: { access_token: signIn.accessToken, fields: "id,name,email", format: "json" } }).then(function (result) {
+
+	                signIn.profileData = result.data;
+	                console.log(signIn.profileData);
+	            }, function (error) {
+	                alert("There was a problem getting your profile.  Check the logs for details.");
+	                console.log(error);
+	            });
+	            console.log("Response Object -> " + JSON.stringify(result));
+	        }, function (error) {
+	            console.log("Error -> " + error);
+	        });
+	    };
+
+	    var refreshGoogleToken = function () {};
+
+	    var refreshFacebookToken = function () {};
+
+	    var logOut = function () {};
+
+	    var isUserLoggedIn = function () {};
+
+	    return {
+	        FacebookSignIn: facebookSignIn,
+	        GoogleSignIn: googleSignIn,
+	        RefreshGoogleToken: refreshGoogleToken,
+	        RefreshFacebookToken: refreshFacebookToken,
+	        LogOut: logOut,
+	        IsUserLoggedIn: isUserLoggedIn
+	    };
 	}]);
 
 /***/ }

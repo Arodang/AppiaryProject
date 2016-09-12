@@ -20,7 +20,8 @@ module.exports = {
             './www/js/common/constants',
             './www/js/common/polyfill',
             './www/js/localdatabase/databaseTest',
-            './www/js/login/loginController'
+            './www/js/login/loginController',
+            './www/js/authentication/authenticationService'
         ]
     },
     output: {
