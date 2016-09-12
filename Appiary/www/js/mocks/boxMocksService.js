@@ -1,6 +1,6 @@
 ﻿angular.module('apiary.mock')
 
-.factory('BoxMockDataService', function () {
+.factory('BoxMockDataService', ['Polyfill', function (Polyfill) {
     var boxList = [];
     var lastCreatedBox = "";
     var boxTypes = ["Shallow", "Medium", "Deep", "Feeder"];
@@ -37,12 +37,12 @@
         if (boxList.length == 0) {
             generateMockBoxList(15);
         }
-        var index = boxList.findIndex(x => x.id == id);
+        var index = Polyfill.GetIndexById(boxList, id);
         return boxList[index];
     };
 
     var deleteMockBox = function (id) {
-        var index = boxList.findIndex(x => x.id == id);
+        var index = Polyfill.GetIndexById(boxList, id);
         if (boxList.length == 0 || index == -1) {
             return false;
         }
@@ -82,4 +82,4 @@
         GetLastCreatedBox: getLastCreatedBox,
         GetBoxTypes: getBoxTypes
     }
-});
+}]);

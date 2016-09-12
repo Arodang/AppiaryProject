@@ -1,6 +1,6 @@
 ﻿angular.module('apiary.mock')
 
-.factory('FrameMockDataService', function () {
+.factory('FrameMockDataService', ['Polyfill', function (Polyfill) {
     var frameList = [];
     var lastCreatedFrame = "";
 
@@ -29,12 +29,12 @@
         if (frameList.length == 0) {
             generateMockFrameList(15);
         }
-        var index = frameList.findIndex(x => x.id == id);
+        var index = Polyfill.GetIndexById(frameList, id);
         return frameList[index];
     };
 
     var deleteMockFrame = function (id) {
-        var index = frameList.findIndex(x => x.id == id);
+        var index = Polyfill.GetIndexById(frameList, id);
         if (frameList.length == 0 || index == -1) {
             return false;
         }
@@ -73,4 +73,4 @@
         CreateMockFrame: createMockFrame,
         GetLastCreatedFrame: getLastCreatedFrame,
     }
-});
+}]);

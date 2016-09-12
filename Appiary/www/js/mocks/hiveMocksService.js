@@ -1,6 +1,6 @@
 ﻿angular.module('apiary.mock')
 
-.factory('HiveMockDataService', function () {
+.factory('HiveMockDataService', ['Polyfill', function (Polyfill) {
     var hiveList = [];
     var lastCreatedHive = "";
     var hiveTypes = ["Nuc", "Langstroth 10 Frame", "Langstrong 8 Frame", "Top Bar", "Warre", "National Standard"]
@@ -37,12 +37,12 @@
         if (hiveList.length == 0) {
             generateMockHiveList(15);
         }
-        var index = hiveList.findIndex(x => x.id == id);
+        var index = Polyfill.GetIndexById(hiveList, id);
         return hiveList[index];
     };
 
     var deleteMockHive = function (id) {
-        var index = hiveList.findIndex(x => x.id == id);
+        var index = Polyfill.GetIndexById(hiveList, id);
         if (hiveList.length == 0 || index == -1) {
             return false;
         }
@@ -82,4 +82,4 @@
         GetLastCreatedHive: getLastCreatedHive,
         GetHiveTypes: getHiveTypes
     }
-});
+}]);
