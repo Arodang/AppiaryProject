@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace AppiaryData.Models
 {
-    class FrameSideInspection : BaseModel
+    public class FrameSideInspection : BaseModel
     {
         [Key, Required]
         public int FrameSideInspectionId { get; set; }

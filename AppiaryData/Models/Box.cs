@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace AppiaryData.Models
 {
-    class Box : BaseModel
+    public class Box : BaseModel
     {
         public enum BoxTypeEnum { Deep, Medium, Shallow, Feeder }
 

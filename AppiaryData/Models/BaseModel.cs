@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace AppiaryData.Models
 {
-    class BaseModel
+    public class BaseModel
     {
         public enum AmountQualifiersEnum { High, Medium, Low, None }
 

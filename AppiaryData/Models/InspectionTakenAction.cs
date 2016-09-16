@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace AppiaryData.Models
 {
-    class InspectionTakenAction : BaseModel
+    public class InspectionTakenAction : BaseModel
     {
         [Key, Required]
         public int InspectionTakenActionId { get; set; }

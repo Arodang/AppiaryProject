@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace AppiaryData.Models
 {
-    class Frame : BaseModel
+    public class Frame : BaseModel
     {
         [Key, Required]
         public int BoxId { get; set; }

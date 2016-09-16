@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace AppiaryData.Models
 {
-    class Apiary : BaseModel
+    public class Apiary : BaseModel
     {
         [Key, Required]
         public int ApiaryId { get; set; }

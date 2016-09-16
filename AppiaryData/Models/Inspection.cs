@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace AppiaryData.Models
 {
-    class Inspection : BaseModel
+    public class Inspection : BaseModel
     {
         public enum WeatherEnum { Sunny, Cloudy, PartlyCloudy, Rain, Humid, Dry, Still, SlightBreeze, Windy }
 

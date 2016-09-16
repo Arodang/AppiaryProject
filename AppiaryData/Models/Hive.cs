@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace AppiaryData.Models
 {
-    class Hive : BaseModel
+    public class Hive : BaseModel
     {
         public enum HiveTypeEnum { Nuc, Langstroth10Frame, Langstroth8Frame, TopBar, Warre, NationalStandard }
 

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace AppiaryData.Models
 {
-    class Queen : BaseModel
+    public class Queen : BaseModel
     {
 
         [Key, Required]
