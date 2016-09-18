@@ -21,7 +21,7 @@
   },
 
   "frameworks": {
-    "dnx451": {
+    "net451": {
       "dependencies": {
         "AppiaryData": "1.0.0-*"
       }
