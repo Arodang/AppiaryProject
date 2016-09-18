@@ -8,7 +8,7 @@ using AppiaryData.Models;
 
 namespace AppiaryData.Context
 {
-    class DatabaseContext : DbContext
+    public class DatabaseContext : DbContext
     {
         public DbSet<Box> Boxes { get; set; }
 

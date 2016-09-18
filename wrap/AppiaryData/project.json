@@ -1,0 +1,15 @@
+{
+  "version": "1.0.0-*",
+  "frameworks": {
+    "net451": {
+      "wrappedProject": "../../AppiaryData/AppiaryData.csproj",
+      "bin": {
+        "assembly": "../../AppiaryData/obj/{configuration}/AppiaryData.exe",
+        "pdb": "../../AppiaryData/obj/{configuration}/AppiaryData.pdb"
+      },
+      "dependencies": {
+        "EntityFramework": "6.1.3"
+      }
+    }
+  }
+}

@@ -3,17 +3,25 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Mvc;
+using AppiaryData.Models;
 
 namespace AppiaryServer.Controllers
 {
     [Route("api/[controller]")]
     public class ValuesController : Controller
     {
+        public ValuesController(AppiaryData.Context.DatabaseContext db)
+        {
+
+        }
+
         // GET: api/values
         [HttpGet]
         public IEnumerable<string> Get()
         {
+            var test = new Box();
             return new string[] { "value1", "value2" };
+
         }
 
         // GET api/values/5
