@@ -10,16 +10,18 @@ namespace AppiaryServer.Controllers
     [Route("api/[controller]")]
     public class ValuesController : Controller
     {
-        public ValuesController(AppiaryData.Context.DatabaseContext db)
-        {
+        AppiaryData.Context.DatabaseContext db;
 
+        public ValuesController(AppiaryData.Context.DatabaseContext context)
+        {
+            db = context;
         }
 
         // GET: api/values
         [HttpGet]
         public IEnumerable<string> Get()
         {
-            var test = new Box();
+
             return new string[] { "value1", "value2" };
 
         }

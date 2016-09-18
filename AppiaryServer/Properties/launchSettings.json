@@ -13,7 +13,6 @@
       "launchBrowser": true,
       "launchUrl": "api/values",
       "environmentVariables": {
-        "DNX_IIS_RUNTIME_FRAMEWORK": "dnx46",
         "Hosting:Environment": "Development"
       }
     },
