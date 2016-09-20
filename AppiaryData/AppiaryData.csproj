@@ -63,6 +63,7 @@
       <DependentUpon>201608221812052_InspectionsMigration.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\User.cs" />
     <Compile Include="Models\BaseModel.cs" />
     <Compile Include="Models\Apiary.cs" />
     <Compile Include="Models\FrameSideInspection.cs" />
