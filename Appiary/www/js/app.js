@@ -16,10 +16,11 @@ angular.module('starter', ['ionic',
     'apiary.login',
     'apiary.authentication',
     'ngCordova',
-    'ngCordovaOauth'
+    'ngCordovaOauth',
+    'ngStorage'
 ])
 
-.run(function ($ionicPlatform) {
+.run(function ($ionicPlatform, AuthenticationService, $rootScope, $state) {
     $ionicPlatform.ready(function () {
         // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
         // for form inputs)
@@ -32,7 +33,16 @@ angular.module('starter', ['ionic',
             // org.apache.cordova.statusbar required
             StatusBar.styleDefault();
         }
+
+        $rootScope.$on("$stateChangeStart", function (event, toState, toParams, fromState, fromParams) {
+            if (toState.data.authRequired && !AuthenticationService.IsAuthenticated()) {
+                // User isn’t authenticated
+                $state.go("app.login");
+                event.preventDefault();
+            }
+        });
     });
+
 })
 
 .config(function ($stateProvider, $urlRouterProvider) {
@@ -42,11 +52,14 @@ angular.module('starter', ['ionic',
         url: '/app',
         abstract: true,
         templateUrl: 'templates/menu.html',
-        controller: 'MenuCtrl'
+        controller: 'MenuCtrl',
+        data: { authRequired: false },
     })
 
+    //LOGIN
     .state('app.login', {
         url: '/login',
+        data: { authRequired: false },
         views: {
             'menuContent': {
                 templateUrl: 'templates/login/login.html',
@@ -55,95 +68,101 @@ angular.module('starter', ['ionic',
         }
     })
 
-    //APIARY
-    .state('app.apiaryList', {
-        url: '/apiaryList',
-        views: {
-            'menuContent': {
-                templateUrl: 'templates/apiarylist/apiaryList.html',
-                controller: 'ApiaryListCtrl'
-            }
-        }
-    })
-    .state('app.apiary', {
-        url: '/apiary/details/:apiaryId',
-        views: {
-            'menuContent': {
-                templateUrl: 'templates/apiary/apiary.html',
-                controller: 'ApiaryCtrl'
-            }
-        }
-    })
-    .state('app.apiaryCreate', {
-        url: '/apiary/create',
-        views: {
-            'menuContent': {
-                templateUrl: 'templates/apiary/apiaryCreate.html',
-                controller: 'ApiaryCreateCtrl'
-            }
-        }
-    })
+	//APIARY
+	.state('app.apiaryList', {
+	    url: '/apiaryList',
+	    data: { authRequired: true },
+	    views: {
+	        'menuContent': {
+	            templateUrl: 'templates/apiarylist/apiaryList.html',
+	            controller: 'ApiaryListCtrl'
+	        }
+	    }
+	}).state('app.apiary', {
+	    url: '/apiary/details/:apiaryId',
+	    data: { authRequired: true },
+	    views: {
+	        'menuContent': {
+	            templateUrl: 'templates/apiary/apiary.html',
+	            controller: 'ApiaryCtrl'
+	        }
+	    }
+	}).state('app.apiaryCreate', {
+	    url: '/apiary/create',
+	    data: { authRequired: true },
+	    views: {
+	        'menuContent': {
+	            templateUrl: 'templates/apiary/apiaryCreate.html',
+	            controller: 'ApiaryCreateCtrl'
+	        }
+	    }
+	})
 
-    //HIVE
-    .state('app.hive', {
-        url: '/hive/details/:hiveId',
-        views: {
-            'menuContent': {
-                templateUrl: 'templates/hive/hive.html',
-                controller: 'HiveCtrl'
-            }
-        }
-    })
-    .state('app.hiveCreate', {
-        url: '/hive/create',
-        views: {
-            'menuContent': {
-                templateUrl: 'templates/hive/hiveCreate.html',
-                controller: 'HiveCreateCtrl'
-            }
-        }
-    })
+	//HIVE
+	.state('app.hive', {
+	    url: '/hive/details/:hiveId',
+	    data: { authRequired: true },
+	    views: {
+	        'menuContent': {
+	            templateUrl: 'templates/hive/hive.html',
+	            controller: 'HiveCtrl'
+	        }
+	    }
+	}).state('app.hiveCreate', {
+	    url: '/hive/create',
+	    data: { authRequired: true },
+	    views: {
+	        'menuContent': {
+	            templateUrl: 'templates/hive/hiveCreate.html',
+	            controller: 'HiveCreateCtrl'
+	        }
+	    }
+	})
 
-    //BOX
-    .state('app.box', {
-        url: '/box/details/:boxId',
-        views: {
-            'menuContent': {
-                templateUrl: 'templates/box/box.html',
-                controller: 'BoxCtrl'
-            }
-        }
-    })
-    .state('app.boxCreate', {
-        url: '/box/create',
-        views: {
-            'menuContent': {
-                templateUrl: 'templates/box/boxCreate.html',
-                controller: 'BoxCreateCtrl'
-            }
-        }
-    })
+	//BOX
+	.state('app.box', {
+	    url: '/box/details/:boxId',
+	    data: { authRequired: true },
+	    views: {
+	        'menuContent': {
+	            templateUrl: 'templates/box/box.html',
+	            controller: 'BoxCtrl'
+	        }
+	    }
+	}).state('app.boxCreate', {
+	    url: '/box/create',
+	    data: { authRequired: true },
+	    views: {
+	        'menuContent': {
+	            templateUrl: 'templates/box/boxCreate.html',
+	            controller: 'BoxCreateCtrl'
+	        }
+	    }
+	})
 
-    //FRAME
-    .state('app.frame', {
-        url: '/frame/details/:frameId',
-        views: {
-            'menuContent': {
-                templateUrl: 'templates/frame/frame.html',
-                controller: 'FrameCtrl'
-            }
-        }
-    })
-    .state('app.frameCreate', {
-        url: '/frame/create',
-        views: {
-            'menuContent': {
-                templateUrl: 'templates/frame/frameCreate.html',
-                controller: 'FrameCreateCtrl'
-            }
-        }
-    })
-    ;
+	//FRAME
+	.state('app.frame', {
+	    url: '/frame/details/:frameId',
+	    data: { authRequired: true },
+	    views: {
+	        'menuContent': {
+	            templateUrl: 'templates/frame/frame.html',
+	            controller: 'FrameCtrl'
+	        }
+	    }
+	}).state('app.frameCreate', {
+	    url: '/frame/create',
+	    data: { authRequired: true },
+	    views: {
+	        'menuContent': {
+	            templateUrl: 'templates/frame/frameCreate.html',
+	            controller: 'FrameCreateCtrl'
+	        }
+	    }
+	});
     // if none of the above states are matched, use this as the fallback
-    $urlRouterProvider.otherwise('/app/apiaryList');
+    $urlRouterProvider.otherwise(function ($injector) {
+        var authService = $injector.get("AuthenticationService");
+        return authService.IsAuthenticated() ? '/app/apiaryList' : '/app/login';
+    });
 });

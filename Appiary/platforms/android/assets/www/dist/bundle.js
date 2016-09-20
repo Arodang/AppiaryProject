@@ -76,127 +76,159 @@
 	// 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 	// the 2nd parameter is an array of 'requires'
 	// 'starter.controllers' is found in controllers.js
-	angular.module('starter', ['ionic', 'starter.controllers', 'apiary.apiaryList', 'apiary.apiary', 'apiary.hive', 'apiary.box', 'apiary.frame', 'apiary.mock', 'apiary.common', 'apiary.login', 'apiary.authentication', 'ngCordova', 'ngCordovaOauth']).run(function ($ionicPlatform) {
-	    $ionicPlatform.ready(function () {
-	        // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
-	        // for form inputs)
-	        if (cordova.platformId === "ios" && window.cordova && window.cordova.plugins.Keyboard) {
-	            cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
-	            cordova.plugins.Keyboard.disableScroll(true);
-	        }
-	        if (window.StatusBar) {
-	            // org.apache.cordova.statusbar required
-	            StatusBar.styleDefault();
-	        }
-	    });
+	angular.module('starter', ['ionic', 'starter.controllers', 'apiary.apiaryList', 'apiary.apiary', 'apiary.hive', 'apiary.box', 'apiary.frame', 'apiary.mock', 'apiary.common', 'apiary.login', 'apiary.authentication', 'ngCordova', 'ngCordovaOauth', 'ngStorage']).run(function ($ionicPlatform, AuthenticationService, $rootScope, $state) {
+					$ionicPlatform.ready(function () {
+									// Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
+									// for form inputs)
+									if (cordova.platformId === "ios" && window.cordova && window.cordova.plugins.Keyboard) {
+													cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
+													cordova.plugins.Keyboard.disableScroll(true);
+									}
+									if (window.StatusBar) {
+													// org.apache.cordova.statusbar required
+													StatusBar.styleDefault();
+									}
+
+									$rootScope.$on("$stateChangeStart", function (event, toState, toParams, fromState, fromParams) {
+													if (toState.data.authRequired && !AuthenticationService.IsAuthenticated()) {
+																	// User isn�t authenticated
+																	$state.go("app.login");
+																	event.preventDefault();
+													}
+									});
+					});
 	}).config(function ($stateProvider, $urlRouterProvider) {
-	    $stateProvider.state('app', {
-	        url: '/app',
-	        abstract: true,
-	        templateUrl: 'templates/menu.html',
-	        controller: 'MenuCtrl'
-	    }).state('app.login', {
-	        url: '/login',
-	        views: {
-	            'menuContent': {
-	                templateUrl: 'templates/login/login.html',
-	                controller: 'LoginCtrl'
-	            }
-	        }
-	    })
+					$stateProvider.state('app', {
+									url: '/app',
+									abstract: true,
+									templateUrl: 'templates/menu.html',
+									controller: 'MenuCtrl',
+									data: { authRequired: false }
+					})
 
-	    //APIARY
-	    .state('app.apiaryList', {
-	        url: '/apiaryList',
-	        views: {
-	            'menuContent': {
-	                templateUrl: 'templates/apiarylist/apiaryList.html',
-	                controller: 'ApiaryListCtrl'
-	            }
-	        }
-	    }).state('app.apiary', {
-	        url: '/apiary/details/:apiaryId',
-	        views: {
-	            'menuContent': {
-	                templateUrl: 'templates/apiary/apiary.html',
-	                controller: 'ApiaryCtrl'
-	            }
-	        }
-	    }).state('app.apiaryCreate', {
-	        url: '/apiary/create',
-	        views: {
-	            'menuContent': {
-	                templateUrl: 'templates/apiary/apiaryCreate.html',
-	                controller: 'ApiaryCreateCtrl'
-	            }
-	        }
-	    })
+					//LOGIN
+					.state('app.login', {
+									url: '/login',
+									data: { authRequired: false },
+									views: {
+													'menuContent': {
+																	templateUrl: 'templates/login/login.html',
+																	controller: 'LoginCtrl'
+													}
+									}
+					})
 
-	    //HIVE
-	    .state('app.hive', {
-	        url: '/hive/details/:hiveId',
-	        views: {
-	            'menuContent': {
-	                templateUrl: 'templates/hive/hive.html',
-	                controller: 'HiveCtrl'
-	            }
-	        }
-	    }).state('app.hiveCreate', {
-	        url: '/hive/create',
-	        views: {
-	            'menuContent': {
-	                templateUrl: 'templates/hive/hiveCreate.html',
-	                controller: 'HiveCreateCtrl'
-	            }
-	        }
-	    })
+					//APIARY
+					.state('app.apiaryList', {
+									url: '/apiaryList',
+									data: { authRequired: true },
+									views: {
+													'menuContent': {
+																	templateUrl: 'templates/apiarylist/apiaryList.html',
+																	controller: 'ApiaryListCtrl'
+													}
+									}
+					}).state('app.apiary', {
+									url: '/apiary/details/:apiaryId',
+									data: { authRequired: true },
+									views: {
+													'menuContent': {
+																	templateUrl: 'templates/apiary/apiary.html',
+																	controller: 'ApiaryCtrl'
+													}
+									}
+					}).state('app.apiaryCreate', {
+									url: '/apiary/create',
+									data: { authRequired: true },
+									views: {
+													'menuContent': {
+																	templateUrl: 'templates/apiary/apiaryCreate.html',
+																	controller: 'ApiaryCreateCtrl'
+													}
+									}
+					})
 
-	    //BOX
-	    .state('app.box', {
-	        url: '/box/details/:boxId',
-	        views: {
-	            'menuContent': {
-	                templateUrl: 'templates/box/box.html',
-	                controller: 'BoxCtrl'
-	            }
-	        }
-	    }).state('app.boxCreate', {
-	        url: '/box/create',
-	        views: {
-	            'menuContent': {
-	                templateUrl: 'templates/box/boxCreate.html',
-	                controller: 'BoxCreateCtrl'
-	            }
-	        }
-	    })
+					//HIVE
+					.state('app.hive', {
+									url: '/hive/details/:hiveId',
+									data: { authRequired: true },
+									views: {
+													'menuContent': {
+																	templateUrl: 'templates/hive/hive.html',
+																	controller: 'HiveCtrl'
+													}
+									}
+					}).state('app.hiveCreate', {
+									url: '/hive/create',
+									data: { authRequired: true },
+									views: {
+													'menuContent': {
+																	templateUrl: 'templates/hive/hiveCreate.html',
+																	controller: 'HiveCreateCtrl'
+													}
+									}
+					})
 
-	    //FRAME
-	    .state('app.frame', {
-	        url: '/frame/details/:frameId',
-	        views: {
-	            'menuContent': {
-	                templateUrl: 'templates/frame/frame.html',
-	                controller: 'FrameCtrl'
-	            }
-	        }
-	    }).state('app.frameCreate', {
-	        url: '/frame/create',
-	        views: {
-	            'menuContent': {
-	                templateUrl: 'templates/frame/frameCreate.html',
-	                controller: 'FrameCreateCtrl'
-	            }
-	        }
-	    });
-	    // if none of the above states are matched, use this as the fallback
-	    $urlRouterProvider.otherwise('/app/apiaryList');
+					//BOX
+					.state('app.box', {
+									url: '/box/details/:boxId',
+									data: { authRequired: true },
+									views: {
+													'menuContent': {
+																	templateUrl: 'templates/box/box.html',
+																	controller: 'BoxCtrl'
+													}
+									}
+					}).state('app.boxCreate', {
+									url: '/box/create',
+									data: { authRequired: true },
+									views: {
+													'menuContent': {
+																	templateUrl: 'templates/box/boxCreate.html',
+																	controller: 'BoxCreateCtrl'
+													}
+									}
+					})
+
+					//FRAME
+					.state('app.frame', {
+									url: '/frame/details/:frameId',
+									data: { authRequired: true },
+									views: {
+													'menuContent': {
+																	templateUrl: 'templates/frame/frame.html',
+																	controller: 'FrameCtrl'
+													}
+									}
+					}).state('app.frameCreate', {
+									url: '/frame/create',
+									data: { authRequired: true },
+									views: {
+													'menuContent': {
+																	templateUrl: 'templates/frame/frameCreate.html',
+																	controller: 'FrameCreateCtrl'
+													}
+									}
+					});
+					// if none of the above states are matched, use this as the fallback
+					$urlRouterProvider.otherwise(function ($injector) {
+									var authService = $injector.get("AuthenticationService");
+									return authService.IsAuthenticated() ? '/app/apiaryList' : '/app/login';
+					});
 	});
 
 /***/ },
 /* 2 */
 /***/ function(module, exports) {
 
-	angular.module('starter.controllers', []).controller('MenuCtrl', function ($scope, $ionicModal, $timeout) {});
+	angular.module('starter.controllers', []).controller('MenuCtrl', function ($scope, $ionicModal, $timeout, AuthenticationService) {
+	    $scope.isAuthenticated = AuthenticationService.IsAuthenticated();
+
+	    $scope.logout = function () {
+	        AuthenticationService.LogOut();
+	        //If URL link doesn't call this properly, try $state.go('app.login')
+	    };
+	});
 
 /***/ },
 /* 3 */
@@ -860,18 +892,25 @@
 /* 20 */
 /***/ function(module, exports) {
 
-	angular.module('apiary.authentication', []).factory('AuthenticationService', ['$http', '$cordovaOauth', 'LoginAuths', function ($http, $cordovaOauth, LoginAuths) {
+	angular.module('apiary.authentication', []).factory('AuthenticationService', ['$http', '$cordovaOauth', 'LoginAuths', '$localStorage', function ($http, $cordovaOauth, LoginAuths, $localStorage) {
 	    var signIn = {};
 
 	    var googleSignIn = function () {
-	        $cordovaOauth.google(LoginAuths.google.clientId, ["email", "profile"]).then(function (result) {
+	        $cordovaOauth.google(LoginAuths.google.clientId, ["profile", "email"]).then(function (result) {
 	            console.log("Google Response Object -> " + JSON.stringify(result));
-	            signIn.isGoogle = true;
 	            signIn.accessToken = result.access_token;
-
 	            $http.get("https://www.googleapis.com/plus/v1/people/me", { params: { access_token: signIn.accessToken } }).then(function (result) {
-	                signIn.profileData = result.data;
-	                console.log(signIn.profileData);
+	                signIn.name = result.data.displayname;
+	                for (var i = 0; i < result.data.emails.length; i++) {
+	                    if (result.data.emails[i].type == "account") {
+	                        signIn.email = result.data.emails[i].value;
+	                        break;
+	                    }
+	                }
+	                signIn.id = result.data.id;
+
+	                $localStorage.userProfile = signIn;
+	                console.log("Google profile info: ", JSON.stringify(signIn));
 	            }, function (error) {
 	                alert("There was a problem getting your profile.  Check the logs for details.");
 	                console.log(error);
@@ -883,38 +922,40 @@
 
 	    var facebookSignIn = function () {
 	        $cordovaOauth.facebook(LoginAuths.facebook.clientId, ["email"]).then(function (result) {
-	            signIn.isFacebook = true;
+	            console.log("Facebook Response Object -> " + JSON.stringify(result));
 	            signIn.accessToken = result.access_token;
-
 	            $http.get("https://graph.facebook.com/v2.2/me", { params: { access_token: signIn.accessToken, fields: "id,name,email", format: "json" } }).then(function (result) {
+	                signIn.name = result.data.name;
+	                signIn.id = result.data.id;
+	                signIn.email = result.data.email;
 
-	                signIn.profileData = result.data;
-	                console.log(signIn.profileData);
+	                $localStorage.userProfile = signIn;
+	                console.log("Facebook profile info: ", JSON.stringify(signIn));
 	            }, function (error) {
 	                alert("There was a problem getting your profile.  Check the logs for details.");
 	                console.log(error);
 	            });
-	            console.log("Response Object -> " + JSON.stringify(result));
 	        }, function (error) {
 	            console.log("Error -> " + error);
 	        });
 	    };
 
-	    var refreshGoogleToken = function () {};
+	    var logOut = function () {
+	        $localStorage.userProfile = undefined;
+	    };
 
-	    var refreshFacebookToken = function () {};
-
-	    var logOut = function () {};
-
-	    var isUserLoggedIn = function () {};
+	    var isAuthenticated = function () {
+	        if (!!$localStorage.userProfile) {
+	            return true;
+	        }
+	        return false;
+	    };
 
 	    return {
 	        FacebookSignIn: facebookSignIn,
 	        GoogleSignIn: googleSignIn,
-	        RefreshGoogleToken: refreshGoogleToken,
-	        RefreshFacebookToken: refreshFacebookToken,
 	        LogOut: logOut,
-	        IsUserLoggedIn: isUserLoggedIn
+	        IsAuthenticated: isAuthenticated
 	    };
 	}]);
 

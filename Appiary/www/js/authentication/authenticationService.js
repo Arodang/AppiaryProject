@@ -1,20 +1,27 @@
 ﻿angular.module('apiary.authentication', [])
-.factory('AuthenticationService', ['$http', '$cordovaOauth', 'LoginAuths', function ($http, $cordovaOauth, LoginAuths) {
+.factory('AuthenticationService', ['$http', '$cordovaOauth', 'LoginAuths', '$localStorage', function ($http, $cordovaOauth, LoginAuths, $localStorage) {
     var signIn = {
     };
 
     var googleSignIn = function () {
-        $cordovaOauth.google(LoginAuths.google.clientId, ["email", "profile"]).then(function (result) {
+        $cordovaOauth.google(LoginAuths.google.clientId, ["profile", "email"]).then(function (result) {
             console.log("Google Response Object -> " + JSON.stringify(result));
-            signIn.isGoogle = true;
             signIn.accessToken = result.access_token;
-
             $http.get("https://www.googleapis.com/plus/v1/people/me", { params: { access_token: signIn.accessToken } }).then(function (result) {
-                signIn.profileData = result.data;
-                console.log(signIn.profileData)
+                signIn.name = result.data.displayname;
+                for (var i = 0; i < result.data.emails.length; i++) {
+                    if (result.data.emails[i].type == "account") {
+                        signIn.email = result.data.emails[i].value;
+                        break;
+                    }
+                }
+                signIn.id = result.data.id;
+
+                $localStorage.userProfile = signIn;
+                console.log("Google profile info: ", JSON.stringify(signIn));
             }, function (error) {
                 alert("There was a problem getting your profile.  Check the logs for details.");
-                console.log(error)
+                console.log(error);
             });
 
         }, function (error) {
@@ -24,34 +31,34 @@
 
     var facebookSignIn = function () {
         $cordovaOauth.facebook(LoginAuths.facebook.clientId, ["email"]).then(function (result) {
-            signIn.isFacebook = true;
+            console.log("Facebook Response Object -> " + JSON.stringify(result));
             signIn.accessToken = result.access_token;
+            $http.get("https://graph.facebook.com/v2.2/me", { params: { access_token: signIn.accessToken, fields: "id,name,email", format: "json" } }).then(function (result) {
+                signIn.name = result.data.name;
+                signIn.id = result.data.id;
+                signIn.email = result.data.email;
 
-            $http.get("https://graph.facebook.com/v2.2/me", { params: { access_token: signIn.accessToken, fields: "id,name,email", format: "json" }}).then(function(result) {
-
-                signIn.profileData = result.data;
-                console.log(signIn.profileData)
+                $localStorage.userProfile = signIn;
+                console.log("Facebook profile info: ", JSON.stringify(signIn));
             }, function (error) {
                 alert("There was a problem getting your profile.  Check the logs for details.");
-                console.log(error)
+                console.log(error);
             });
-            console.log("Response Object -> " + JSON.stringify(result));
         }, function (error) {
             console.log("Error -> " + error);
         });
     };
 
-    var refreshGoogleToken = function () {
-    };
-
-    var refreshFacebookToken = function () {
-    };
 
     var logOut = function () {
-
+        $localStorage.userProfile = undefined;
     };
 
-    var isUserLoggedIn = function () {
+    var isAuthenticated = function () {
+        if (!!$localStorage.userProfile) {
+            return true;
+        }
+        return false;
     };
 
 
@@ -59,9 +66,7 @@
     return {
         FacebookSignIn: facebookSignIn,
         GoogleSignIn: googleSignIn,
-        RefreshGoogleToken: refreshGoogleToken,
-        RefreshFacebookToken: refreshFacebookToken,
         LogOut: logOut,
-        IsUserLoggedIn: isUserLoggedIn
+        IsAuthenticated: isAuthenticated
     };
 }]);

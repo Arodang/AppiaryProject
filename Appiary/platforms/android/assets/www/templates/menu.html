@@ -17,8 +17,11 @@
         </ion-header-bar>
         <ion-content>
             <ion-list>
-                <ion-item menu-close href="#/app/login">
+                <ion-item menu-close href="#/app/login" ng-show="!isAuthenticated">
                     Login
+                </ion-item>
+                <ion-item menu-close href="#/app/login" ng-click="logout()" ng-show="isAuthenticated">
+                    Log Out
                 </ion-item>
                 <ion-item menu-close href="#/app/apiaryList">
                     Apiary List
