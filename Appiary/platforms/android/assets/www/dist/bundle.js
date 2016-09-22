@@ -892,7 +892,7 @@
 /* 20 */
 /***/ function(module, exports) {
 
-	angular.module('apiary.authentication', []).factory('AuthenticationService', ['$http', '$cordovaOauth', 'LoginAuths', '$localStorage', function ($http, $cordovaOauth, LoginAuths, $localStorage) {
+	angular.module('apiary.authentication', []).factory('AuthenticationService', ['$http', '$cordovaOauth', 'LoginAuths', '$localStorage', '$state', function ($http, $cordovaOauth, LoginAuths, $localStorage, $state) {
 	    var signIn = {};
 
 	    var googleSignIn = function () {
@@ -900,7 +900,8 @@
 	            console.log("Google Response Object -> " + JSON.stringify(result));
 	            signIn.accessToken = result.access_token;
 	            $http.get("https://www.googleapis.com/plus/v1/people/me", { params: { access_token: signIn.accessToken } }).then(function (result) {
-	                signIn.name = result.data.displayname;
+	                console.log("Google profile result ", result);
+	                signIn.name = result.data.displayName;
 	                for (var i = 0; i < result.data.emails.length; i++) {
 	                    if (result.data.emails[i].type == "account") {
 	                        signIn.email = result.data.emails[i].value;
@@ -911,6 +912,8 @@
 
 	                $localStorage.userProfile = signIn;
 	                console.log("Google profile info: ", JSON.stringify(signIn));
+
+	                $state.go("app.apiaryList");
 	            }, function (error) {
 	                alert("There was a problem getting your profile.  Check the logs for details.");
 	                console.log(error);
@@ -931,6 +934,8 @@
 
 	                $localStorage.userProfile = signIn;
 	                console.log("Facebook profile info: ", JSON.stringify(signIn));
+
+	                $state.go("app.apiaryList");
 	            }, function (error) {
 	                alert("There was a problem getting your profile.  Check the logs for details.");
 	                console.log(error);
@@ -946,6 +951,7 @@
 
 	    var isAuthenticated = function () {
 	        if (!!$localStorage.userProfile) {
+	            console.log("Authentication check, profile: ", $localStorage.userProfile);
 	            return true;
 	        }
 	        return false;
