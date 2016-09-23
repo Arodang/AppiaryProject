@@ -62,6 +62,14 @@
     <Compile Include="Migrations\201608221812052_InspectionsMigration.Designer.cs">
       <DependentUpon>201608221812052_InspectionsMigration.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201609230022407_UpdateModels.cs" />
+    <Compile Include="Migrations\201609230022407_UpdateModels.Designer.cs">
+      <DependentUpon>201609230022407_UpdateModels.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201609230029280_GuidToInt.cs" />
+    <Compile Include="Migrations\201609230029280_GuidToInt.Designer.cs">
+      <DependentUpon>201609230029280_GuidToInt.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Models\BaseModel.cs" />
@@ -90,6 +98,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201608221812052_InspectionsMigration.resx">
       <DependentUpon>201608221812052_InspectionsMigration.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201609230022407_UpdateModels.resx">
+      <DependentUpon>201609230022407_UpdateModels.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201609230029280_GuidToInt.resx">
+      <DependentUpon>201609230029280_GuidToInt.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -10,13 +10,15 @@ namespace AppiaryData.Models
     public class User : BaseModel
     {
         [Key, Required]
-        public int UserId { get; set; }
+        public Guid UserId { get; set; }
 
         public string Name { get; set; }
 
         public string Email { get; set; }
 
         public string ProfileId { get; set; }
+
+        public string AccessToken { get; set; }
 
         public List<Apiary> Apiaries { get; set; }
     }
