@@ -17,6 +17,7 @@ namespace Server.Services
             {
                 var user = db.Users.FirstOrDefault(a => a.ProfileId == u.ProfileId && a.Email == u.Email);
                 var token = user.AccessToken = Guid.NewGuid().ToString();
+                db.SaveChanges();
                 var response = new UserResponse() { UserId = user.UserId.ToString(), AccessToken = token };
                 return response;
             }
@@ -30,6 +31,7 @@ namespace Server.Services
         {
             try
             {
+                u.CreatedBy = "user request";
                 var user = db.Users.Add(u);
                 db.SaveChanges();
                 return Login(user);
