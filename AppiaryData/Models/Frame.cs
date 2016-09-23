@@ -1,12 +1,14 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace AppiaryData.Models
 {
     public class Frame : BaseModel
     {
         [Key, Required]
-        public int BoxId { get; set; }
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public Guid FrameId { get; set; }
 
         public int Position { get; set; }
 

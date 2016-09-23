@@ -1,12 +1,14 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace AppiaryData.Models
 {
     public class FrameInspection : BaseModel
     {
         [Key, Required]
-        public int FrameInspectionId { get; set; }
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public Guid FrameInspectionId { get; set; }
 
         public Frame Frame { get; set; }
 

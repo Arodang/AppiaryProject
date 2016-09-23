@@ -19,5 +19,11 @@ namespace AppiaryData.Models
 
         [Required]
         public string CreatedBy { get; set; }
+
+        public BaseModel()
+        {
+            CreatedDateTime = DateTime.Now;
+            LastModifiedDateTime = DateTime.Now;
+        }
     }
 }
