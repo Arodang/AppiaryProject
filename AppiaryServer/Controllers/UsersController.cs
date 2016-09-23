@@ -4,51 +4,80 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Mvc;
 using AppiaryData.Models;
+using AppiaryServer.Services;
+using System.Net.Http;
+using System.Text;
 
 namespace AppiaryServer.Controllers
 {
     [Route("api/[controller]")]
     public class UsersController : Controller
     {
-        AppiaryData.Context.DatabaseContext db;
+        UsersService usersService;
 
-        public UsersController(AppiaryData.Context.DatabaseContext context)
+        public UsersController(UsersService u)
         {
-            db = context;
+            usersService = u;
         }
 
-        // GET: api/values
-        [HttpGet]
-        public IEnumerable<string> Get()
-        {
-
-            return new string[] { "value1", "value2" };
-
-        }
-
-        // GET api/values/5
-        [HttpGet("{id}")]
-        public string Get(int id)
-        {
-            return "value";
-        }
-
-        // POST api/values
+        // POST api/users/login
         [HttpPost]
-        public void Post([FromBody]string value)
+        [Route("login")]
+        public HttpResponseMessage Login([FromBody] User user)
         {
+            var response = new HttpResponseMessage();
+            try
+            {
+                var userResponse = Newtonsoft.Json.JsonConvert.SerializeObject(usersService.Login(user));
+                response.Content = new StringContent(userResponse, Encoding.UTF8, Constants.ApplicationJsonFormat);
+                response.StatusCode = System.Net.HttpStatusCode.OK;
+            }
+            catch(Exception e)
+            {
+                response.StatusCode = System.Net.HttpStatusCode.InternalServerError;
+                response.Content = new StringContent(e.Message, Encoding.UTF8, Constants.ApplicationJsonFormat);
+            }
+            return response;
         }
 
-        // PUT api/values/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody]string value)
+
+        // PUT api/users/create
+        [HttpPut]
+        [Route("create")]
+        public HttpResponseMessage Create([FromBody]User user)
         {
+            var response = new HttpResponseMessage();
+            try
+            {
+                var userResponse = Newtonsoft.Json.JsonConvert.SerializeObject(usersService.CreateUser(user));
+                response.Content = new StringContent(userResponse, Encoding.UTF8, Constants.ApplicationJsonFormat);
+                response.StatusCode = System.Net.HttpStatusCode.OK;
+            }
+            catch (Exception e)
+            {
+                response.StatusCode = System.Net.HttpStatusCode.InternalServerError;
+                response.Content = new StringContent(e.Message, Encoding.UTF8, Constants.ApplicationJsonFormat);
+            }
+            return response;
         }
 
-        // DELETE api/values/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
+        // GET api/values/logout/5/0000-0000-0000-000
+        [HttpGet()]
+        [Route("logout/{id}/{accessToken}")]
+        public HttpResponseMessage Logout(string id, string accessToken)
         {
+            var response = new HttpResponseMessage();
+            try
+            {
+                usersService.Logout(id, accessToken);
+                response.StatusCode = System.Net.HttpStatusCode.OK;
+            }
+            catch (Exception e)
+            {
+                response.StatusCode = System.Net.HttpStatusCode.InternalServerError;
+                response.Content = new StringContent(e.Message, Encoding.UTF8, Constants.ApplicationJsonFormat);
+            }
+            return response;
         }
     }
 }
