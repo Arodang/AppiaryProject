@@ -70,6 +70,10 @@
     <Compile Include="Migrations\201609230029280_GuidToInt.Designer.cs">
       <DependentUpon>201609230029280_GuidToInt.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201609230336226_AutoUpdateUserId.cs" />
+    <Compile Include="Migrations\201609230336226_AutoUpdateUserId.Designer.cs">
+      <DependentUpon>201609230336226_AutoUpdateUserId.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Models\BaseModel.cs" />
@@ -106,6 +110,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201609230029280_GuidToInt.resx">
       <DependentUpon>201609230029280_GuidToInt.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201609230336226_AutoUpdateUserId.resx">
+      <DependentUpon>201609230336226_AutoUpdateUserId.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

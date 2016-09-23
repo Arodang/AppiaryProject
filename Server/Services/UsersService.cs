@@ -9,12 +9,7 @@ namespace Server.Services
 {
     public class UsersService
     {
-        AppiaryData.Context.DatabaseContext db;
-
-        public UsersService(AppiaryData.Context.DatabaseContext context)
-        {
-            db = context;
-        }
+        AppiaryData.Context.DatabaseContext db = new AppiaryData.Context.DatabaseContext();
 
         public UserResponse Login(User u)
         {

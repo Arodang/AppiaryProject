@@ -10,19 +10,16 @@ using System.Web.Http;
 
 namespace Server.Controllers
 {
+    [RoutePrefix("api/users")]
     public class UsersController : ApiController
     {
-        UsersService usersService;
-
-        public UsersController(UsersService u)
-        {
-            usersService = u;
-        }
+        UsersService usersService = new UsersService();
 
         public UsersController() { }
 
         //TEST METHOD
         [HttpGet]
+        [Route("test")]
         public HttpResponseMessage Get()
         {
             return new HttpResponseMessage()
@@ -59,6 +56,7 @@ namespace Server.Controllers
         [Route("create")]
         public HttpResponseMessage Create([FromBody]User user)
         {
+            //This request works: {"name":"Dan","profileid":"12345"}
             var response = new HttpResponseMessage();
             try
             {
