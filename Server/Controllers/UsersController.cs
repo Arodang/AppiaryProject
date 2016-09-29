@@ -17,19 +17,6 @@ namespace Server.Controllers
 
         public UsersController() { }
 
-        //TEST METHOD
-        [HttpGet]
-        [Route("test")]
-        public HttpResponseMessage Get()
-        {
-            return new HttpResponseMessage()
-            {
-                StatusCode = HttpStatusCode.OK,
-                Content = new StringContent(
-                "HELLO WORLD", Encoding.UTF8, Constants.ApplicationJsonFormat)
-            };
-        }
-
         // POST api/users/login
         [HttpPost]
         [Route("login")]
