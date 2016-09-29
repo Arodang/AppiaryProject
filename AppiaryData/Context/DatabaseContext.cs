@@ -10,6 +10,8 @@ namespace AppiaryData.Context
 {
     public class DatabaseContext : DbContext
     {
+        public DbSet<Apiary> Apiaries { get; set; }
+
         public DbSet<Box> Boxes { get; set; }
 
         public DbSet<Frame> Frames { get; set; }
