@@ -13,10 +13,10 @@ namespace Server.Models
 
         public string FrameId { get; set; }
 
-        public int Position { get; set; }
+        public int? Position { get; set; }
 
-        public bool IsHaveFoundation { get; set; }
+        public bool? IsHaveFoundation { get; set; }
 
-        public bool IsFoundationPlastic { get; set; }
+        public bool? IsFoundationPlastic { get; set; }
     }
 }

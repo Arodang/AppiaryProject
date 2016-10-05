@@ -15,9 +15,9 @@ namespace Server.Models
 
         public string Name { get; set; }
 
-        public String HiveType { get; set; }
+        public string HiveType { get; set; }
 
-        public int Position { get; set; }
+        public int? Position { get; set; }
 
         public List<BoxResponse> Boxes { get; set; }
     }

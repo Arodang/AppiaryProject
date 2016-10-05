@@ -15,11 +15,11 @@ namespace Server.Models
 
         public string Name { get; set; }
 
-        public String BoxType { get; set; }
+        public string BoxType { get; set; }
 
-        public int Position { get; set; }
+        public int? Position { get; set; }
 
-        public int NumberOfFramesCanFit { get; set; }
+        public int? NumberOfFramesCanFit { get; set; }
 
         public List<FrameResponse> Frames { get; set; }
     }

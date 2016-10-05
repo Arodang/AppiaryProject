@@ -19,6 +19,8 @@ namespace Server.Models
 
         public string Description { get; set; }
 
-        //public List<HiveResponse> Hives { get; set; }
+        public List<HiveResponse> Hives { get; set; }
+
+        public bool? IsOnWifi { get; set; }
     }
 }
