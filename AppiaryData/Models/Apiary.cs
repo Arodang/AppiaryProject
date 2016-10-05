@@ -20,6 +20,6 @@ namespace AppiaryData.Models
 
         public string Description { get; set; }
 
-        public List<Hive> Hives { get; set; }
+        public virtual List<Hive> Hives { get; set; }
     }
 }

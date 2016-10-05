@@ -24,6 +24,6 @@ namespace AppiaryData.Models
 
         public int NumberOfFramesCanFit { get; set; }
 
-        public List<Frame> Frames { get; set; }
+        public virtual List<Frame> Frames { get; set; }
     }
 }

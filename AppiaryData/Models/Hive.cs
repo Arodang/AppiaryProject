@@ -22,6 +22,6 @@ namespace AppiaryData.Models
 
         public int Position { get; set; }
 
-        public List<Box> Boxes { get; set; }
+        public virtual List<Box> Boxes { get; set; }
     }
 }

@@ -58,6 +58,10 @@
     <Compile Include="Migrations\201609230347448_UpdateToGuid.Designer.cs">
       <DependentUpon>201609230347448_UpdateToGuid.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201610051717189_VirtualCollections.cs" />
+    <Compile Include="Migrations\201610051717189_VirtualCollections.Designer.cs">
+      <DependentUpon>201610051717189_VirtualCollections.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Models\BaseModel.cs" />
@@ -85,6 +89,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201609230347448_UpdateToGuid.resx">
       <DependentUpon>201609230347448_UpdateToGuid.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201610051717189_VirtualCollections.resx">
+      <DependentUpon>201610051717189_VirtualCollections.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
