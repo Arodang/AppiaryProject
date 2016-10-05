@@ -5,12 +5,8 @@ using System.Web;
 
 namespace Server.Models
 {
-    public class FrameResponse
+    public class FrameResponse : BaseResponse
     {
-        public string UserId { get; set; }
-
-        public string AccessToken { get; set; }
-
         public string FrameId { get; set; }
 
         public int? Position { get; set; }

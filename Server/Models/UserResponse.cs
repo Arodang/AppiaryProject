@@ -5,10 +5,8 @@ using System.Web;
 
 namespace Server.Models
 {
-    public class UserResponse
+    public class UserResponse : BaseResponse
     {
-        public string UserId { get; set; }
 
-        public string AccessToken { get; set; }
     }
 }

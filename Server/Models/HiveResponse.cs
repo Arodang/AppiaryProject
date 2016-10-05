@@ -5,11 +5,9 @@ using System.Web;
 
 namespace Server.Models
 {
-    public class HiveResponse
+    public class HiveResponse : BaseResponse
     {
-        public string UserId { get; set; }
-
-        public string AccessToken { get; set; }
+        public string ApiaryId { get; set; }
 
         public string HiveId { get; set; }
 

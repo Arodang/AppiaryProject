@@ -5,12 +5,8 @@ using System.Web;
 
 namespace Server.Models
 {
-    public class ApiaryResponse
+    public class ApiaryResponse : BaseResponse
     {
-        public string UserId { get; set; }
-
-        public string AccessToken { get; set; }
-
         public string ApiaryId { get; set; }
 
         public string Name { get; set; }
@@ -20,7 +16,5 @@ namespace Server.Models
         public string Description { get; set; }
 
         public List<HiveResponse> Hives { get; set; }
-
-        public bool? IsOnWifi { get; set; }
     }
 }
