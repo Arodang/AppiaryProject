@@ -14,7 +14,7 @@ namespace Server.Services
         {
             try
             {
-                var user = db.Users.FirstOrDefault(u => (bool)(u.UserId == new Guid((string)box.UserId) && u.AccessToken == box.AccessToken));
+                var user = db.Users.FirstOrDefault(u => u.UserId == new Guid(box.UserId) && u.AccessToken == box.AccessToken);
 
                 if (user == null)
                 {
@@ -42,7 +42,7 @@ namespace Server.Services
                 hive.Boxes.Add(b);
                 db.SaveChanges();
 
-                var id = box.BoxId;
+                var id = b.BoxId;
 
                 return id.ToString();
 
