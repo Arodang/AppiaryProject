@@ -96,6 +96,7 @@
   <ItemGroup>
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Constants.cs" />
+    <Compile Include="Controllers\BoxesController.cs" />
     <Compile Include="Controllers\HivesController.cs" />
     <Compile Include="Controllers\ApiariesController.cs" />
     <Compile Include="Controllers\UsersController.cs" />

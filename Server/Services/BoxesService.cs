@@ -1,14 +1,12 @@
 ﻿using AppiaryData.Models;
 using Server.Models;
-using Server.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace Server.Services
 {
-    public class BoxsService
+    public class BoxesService
     {
         AppiaryData.Context.DatabaseContext db = new AppiaryData.Context.DatabaseContext();
 
@@ -16,19 +14,19 @@ namespace Server.Services
         {
             try
             {
-                var user = db.Users.FirstOrDefault((System.Linq.Expressions.Expression<Func<User, bool>>)(u => (bool)(u.UserId == new Guid((string)box.UserId) && u.AccessToken == box.AccessToken)));
+                var user = db.Users.FirstOrDefault(u => (bool)(u.UserId == new Guid((string)box.UserId) && u.AccessToken == box.AccessToken));
 
                 if (user == null)
                 {
                     throw new Exception("Invalid User or Access Token");
                 }
 
-                if(string.IsNullOrEmpty((string)box.HiveId))
+                if(string.IsNullOrEmpty(box.HiveId))
                 {
                     throw new Exception("No hive ID");
                 }
 
-                var hive = user.Apiaries.SelectMany(i => i.Hives).FirstOrDefault(a => a.HiveId == new Guid((string)box.HiveId));
+                var hive = user.Apiaries.SelectMany(i => i.Hives).FirstOrDefault(a => a.HiveId == new Guid(box.HiveId));
 
                 var b = new Box()
                 {
@@ -36,7 +34,7 @@ namespace Server.Services
                     CreatedDateTime = DateTime.Now,
                     LastModifiedDateTime = DateTime.Now,
                     Name = box.Name,
-                    BoxType = (Box.BoxTypeEnum)Enum.Parse(typeof(Box.BoxTypeEnum), (string)box.BoxType, true),
+                    BoxType = (Box.BoxTypeEnum)Enum.Parse(typeof(Box.BoxTypeEnum), box.BoxType, true),
                     Position = box.Position ?? -1,
                     NumberOfFramesCanFit = box.NumberOfFramesCanFit ?? 10
                 };
@@ -159,7 +157,7 @@ namespace Server.Services
             }
         }
 
-        internal List<BoxResponse> GetAllBoxs(BoxResponse box)
+        internal List<BoxResponse> GetAllBoxes(BoxResponse box)
         {
             try
             {
@@ -189,7 +187,7 @@ namespace Server.Services
             }
             catch (Exception e)
             {
-                throw new Exception("Unable to get all boxs: " + e.Message);
+                throw new Exception("Unable to get all boxes: " + e.Message);
             }
         }
     }
