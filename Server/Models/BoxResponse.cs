@@ -9,6 +9,8 @@ namespace Server.Models
     {
         public string BoxId { get; set; }
 
+        public string HiveId { get; set; }
+
         public string Name { get; set; }
 
         public string BoxType { get; set; }

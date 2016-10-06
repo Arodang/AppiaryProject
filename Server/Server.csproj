@@ -108,6 +108,7 @@
     <Compile Include="Models\BaseResponse.cs" />
     <Compile Include="Models\UserResponse.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\BoxesService.cs" />
     <Compile Include="Services\HivesService.cs" />
     <Compile Include="Services\ApiariesService.cs" />
     <Compile Include="Services\ConvertService.cs" />
