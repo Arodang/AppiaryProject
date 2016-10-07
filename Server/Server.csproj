@@ -96,6 +96,7 @@
   <ItemGroup>
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Constants.cs" />
+    <Compile Include="Controllers\FramesController.cs" />
     <Compile Include="Controllers\BoxesController.cs" />
     <Compile Include="Controllers\HivesController.cs" />
     <Compile Include="Controllers\ApiariesController.cs" />
@@ -110,6 +111,7 @@
     <Compile Include="Models\BaseResponse.cs" />
     <Compile Include="Models\UserResponse.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\FramesService.cs" />
     <Compile Include="Services\BoxesService.cs" />
     <Compile Include="Services\HivesService.cs" />
     <Compile Include="Services\ApiariesService.cs" />

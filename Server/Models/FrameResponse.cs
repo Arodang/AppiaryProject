@@ -4,6 +4,8 @@
     {
         public string FrameId { get; set; }
 
+        public string BoxId { get; set; }
+
         public int? Position { get; set; }
 
         public bool? IsHaveFoundation { get; set; }
