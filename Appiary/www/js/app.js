@@ -96,6 +96,15 @@ angular.module('starter', ['ionic',
 	            controller: 'ApiaryCreateCtrl'
 	        }
 	    }
+	}).state('app.apiaryEdit', {
+	    url: '/apiary/edit/:apiaryId',
+	    data: { authRequired: true },
+	    views: {
+	        'menuContent': {
+	            templateUrl: 'templates/apiary/apiaryEdit.html',
+	            controller: 'ApiaryEditCtrl'
+	        }
+	    }
 	})
 
 	//HIVE

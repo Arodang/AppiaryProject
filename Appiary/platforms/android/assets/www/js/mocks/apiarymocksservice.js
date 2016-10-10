@@ -64,6 +64,15 @@
         return apiary;
     };
 
+    var editMockApiary = function (apiary) {
+        for (var i = 0; i < apiaryList.length; i++) {
+            if (apiaryList[i].id == apiary.id) {
+                apiaryList[i] = apiary;
+                break;
+            }
+        }
+    }
+
     var getLastCreatedApiary = function () {
         var toReturn = lastCreatedApiary;
         lastCreatedApiary = "";
@@ -75,6 +84,7 @@
         GetMockApiary: getMockApiary,
         DeleteMockApiary: deleteMockApiary,
         CreateMockApiary: createMockApiary,
-        GetLastCreatedApiary: getLastCreatedApiary
+        GetLastCreatedApiary: getLastCreatedApiary,
+        EditMockApiary: editMockApiary
     }
 }]);

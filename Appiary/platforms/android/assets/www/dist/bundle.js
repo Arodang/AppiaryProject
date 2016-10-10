@@ -63,7 +63,8 @@
 	__webpack_require__(17);
 	__webpack_require__(18);
 	__webpack_require__(19);
-	module.exports = __webpack_require__(20);
+	__webpack_require__(20);
+	module.exports = __webpack_require__(21);
 
 
 /***/ },
@@ -144,6 +145,15 @@
 													'menuContent': {
 																	templateUrl: 'templates/apiary/apiaryCreate.html',
 																	controller: 'ApiaryCreateCtrl'
+													}
+									}
+					}).state('app.apiaryEdit', {
+									url: '/apiary/edit/:apiaryId',
+									data: { authRequired: true },
+									views: {
+													'menuContent': {
+																	templateUrl: 'templates/apiary/apiaryEdit.html',
+																	controller: 'ApiaryEditCtrl'
 													}
 									}
 					})
@@ -320,6 +330,31 @@
 /* 6 */
 /***/ function(module, exports) {
 
+	angular.module('apiary.apiary').controller('ApiaryEditCtrl', ['$scope', '$stateParams', 'ApiaryMockDataService', '$ionicHistory', function ($scope, $stateParams, ApiaryMockDataService, $ionicHistory) {
+	    $scope.$on('$ionicView.enter', function (e) {
+	        Console.log("Entering apiary edit");
+	        var apiary = ApiaryMockDataService.GetMockApiary($stateParams.apiaryId);
+
+	        $scope.apiary = apiary;
+	    });
+
+	    $scope.saveApiary = function () {
+	        var apiary = $scope.apiary;
+	        if ($scope.apiary) {
+	            apiary = ApiaryMockDataService.EditMockApiary(apiary);
+	            $ionicHistory.goBack();
+	        }
+	    };
+
+	    $scope.goBack = function () {
+	        $ionicHistory.goBack();
+	    };
+	}]);
+
+/***/ },
+/* 7 */
+/***/ function(module, exports) {
+
 	angular.module('apiary.mock', []).factory('ApiaryMockDataService', ['Polyfill', function (Polyfill) {
 	    var apiaryList = [];
 	    var lastCreatedApiary = "";
@@ -382,6 +417,15 @@
 	        return apiary;
 	    };
 
+	    var editMockApiary = function (apiary) {
+	        for (var i = 0; i < apiaryList.length; i++) {
+	            if (apiaryList[i].id == apiary.id) {
+	                apiaryList[i] = apiary;
+	                break;
+	            }
+	        }
+	    };
+
 	    var getLastCreatedApiary = function () {
 	        var toReturn = lastCreatedApiary;
 	        lastCreatedApiary = "";
@@ -393,12 +437,13 @@
 	        GetMockApiary: getMockApiary,
 	        DeleteMockApiary: deleteMockApiary,
 	        CreateMockApiary: createMockApiary,
-	        GetLastCreatedApiary: getLastCreatedApiary
+	        GetLastCreatedApiary: getLastCreatedApiary,
+	        EditMockApiary: editMockApiary
 	    };
 	}]);
 
 /***/ },
-/* 7 */
+/* 8 */
 /***/ function(module, exports) {
 
 	angular.module('apiary.mock').factory('HiveMockDataService', ['Polyfill', function (Polyfill) {
@@ -486,7 +531,7 @@
 	}]);
 
 /***/ },
-/* 8 */
+/* 9 */
 /***/ function(module, exports) {
 
 	angular.module('apiary.mock').factory('BoxMockDataService', ['Polyfill', function (Polyfill) {
@@ -574,7 +619,7 @@
 	}]);
 
 /***/ },
-/* 9 */
+/* 10 */
 /***/ function(module, exports) {
 
 	angular.module('apiary.mock').factory('FrameMockDataService', ['Polyfill', function (Polyfill) {
@@ -653,7 +698,7 @@
 	}]);
 
 /***/ },
-/* 10 */
+/* 11 */
 /***/ function(module, exports) {
 
 	angular.module('apiary.hive', []).controller('HiveCtrl', ['$scope', '$stateParams', 'HiveMockDataService', 'BoxMockDataService', function ($scope, $stateParams, HiveMockDataService, BoxMockDataService) {
@@ -686,7 +731,7 @@
 	}]);
 
 /***/ },
-/* 11 */
+/* 12 */
 /***/ function(module, exports) {
 
 	angular.module('apiary.hive').controller('HiveCreateCtrl', ['$scope', '$stateParams', 'HiveMockDataService', '$ionicHistory', function ($scope, $stateParams, HiveMockDataService, $ionicHistory) {
@@ -710,7 +755,7 @@
 	}]);
 
 /***/ },
-/* 12 */
+/* 13 */
 /***/ function(module, exports) {
 
 	angular.module('apiary.box', []).controller('BoxCtrl', ['$scope', '$stateParams', 'BoxMockDataService', 'FrameMockDataService', function ($scope, $stateParams, BoxMockDataService, FrameMockDataService) {
@@ -743,7 +788,7 @@
 	}]);
 
 /***/ },
-/* 13 */
+/* 14 */
 /***/ function(module, exports) {
 
 	angular.module('apiary.box').controller('BoxCreateCtrl', ['$scope', '$stateParams', 'BoxMockDataService', '$ionicHistory', function ($scope, $stateParams, BoxMockDataService, $ionicHistory) {
@@ -767,7 +812,7 @@
 	}]);
 
 /***/ },
-/* 14 */
+/* 15 */
 /***/ function(module, exports) {
 
 	angular.module('apiary.frame', []).controller('FrameCtrl', ['$scope', '$stateParams', 'FrameMockDataService', function ($scope, $stateParams, FrameMockDataService) {
@@ -782,7 +827,7 @@
 	}]);
 
 /***/ },
-/* 15 */
+/* 16 */
 /***/ function(module, exports) {
 
 	angular.module('apiary.frame').controller('FrameCreateCtrl', ['$scope', '$stateParams', 'FrameMockDataService', function ($scope, $stateParams, FrameMockDataService, $ionicHistory) {
@@ -805,7 +850,7 @@
 	}]);
 
 /***/ },
-/* 16 */
+/* 17 */
 /***/ function(module, exports) {
 
 	angular.module('apiary.common', []).constant('LoginAuths', {
@@ -820,7 +865,7 @@
 	});
 
 /***/ },
-/* 17 */
+/* 18 */
 /***/ function(module, exports) {
 
 	angular.module('apiary.common').factory('Polyfill', function () {
@@ -840,7 +885,7 @@
 	});
 
 /***/ },
-/* 18 */
+/* 19 */
 /***/ function(module, exports) {
 
 	angular.module('apiary.database', [])
@@ -873,7 +918,7 @@
 	;
 
 /***/ },
-/* 19 */
+/* 20 */
 /***/ function(module, exports) {
 
 	angular.module('apiary.login', []).controller('LoginCtrl', ['$scope', 'AuthenticationService', function ($scope, AuthenticationService) {
@@ -889,7 +934,7 @@
 	}]);
 
 /***/ },
-/* 20 */
+/* 21 */
 /***/ function(module, exports) {
 
 	angular.module('apiary.authentication', []).factory('AuthenticationService', ['$http', '$cordovaOauth', 'LoginAuths', '$localStorage', '$state', function ($http, $cordovaOauth, LoginAuths, $localStorage, $state) {

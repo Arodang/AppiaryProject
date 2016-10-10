@@ -1,10 +1,10 @@
 {
-  "name": "io.cordova.myappb18d22",
+  "name": "appiary",
   "app_id": "",
   "gulpDependantTasks" : [
     "sass", "webpack"
   ],
    "gulpStartupTasks": [
-    "watch"
+    "watch", "sass", "webpack"
   ]
 }
