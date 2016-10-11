@@ -56,6 +56,15 @@
         return frame;
     };
 
+    var editMockFrame = function (frame) {
+        for (var i = 0; i < frameList.length; i++) {
+            if (frameList[i].id == frame.id) {
+                frameList[i] = frame;
+                break;
+            }
+        }
+    }
+
     var getLastCreatedFrame = function () {
         var toReturn = lastCreatedFrame;
         lastCreatedFrame = "";
@@ -72,5 +81,6 @@
         DeleteMockFrame: deleteMockFrame,
         CreateMockFrame: createMockFrame,
         GetLastCreatedFrame: getLastCreatedFrame,
+        EditMockFrame: editMockFrame
     }
 }]);

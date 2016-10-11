@@ -64,6 +64,15 @@
         return hive;
     };
 
+    var editMockHive = function (hive) {
+        for (var i = 0; i < hiveList.length; i++) {
+            if (hiveList[i].id == hive.id) {
+                hiveList[i] = hive;
+                break;
+            }
+        }
+    }
+
     var getLastCreatedHive = function () {
         var toReturn = lastCreatedHive;
         lastCreatedHive = "";
@@ -80,6 +89,7 @@
         DeleteMockHive: deleteMockHive,
         CreateMockHive: createMockHive,
         GetLastCreatedHive: getLastCreatedHive,
-        GetHiveTypes: getHiveTypes
+        GetHiveTypes: getHiveTypes,
+        EditMockHive: editMockHive
     }
 }]);

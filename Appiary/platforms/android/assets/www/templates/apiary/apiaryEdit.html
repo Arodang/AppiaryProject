@@ -20,7 +20,7 @@
                 <button class="col button button-positive" ng-click="goBack()">
                     Cancel
                 </button>
-                <button type="submit" class="col button" ng-click="createApiary()"
+                <button type="submit" class="col button" ng-click="saveApiary()"
                         ng-disabled="!apiary.name||apiary.name.length==0"
                         ng-class="{'button-balanced': apiary.name&&apiary.name.length>0,
                             'button-stable': !apiary.name||apiary.name.length==0 }">
