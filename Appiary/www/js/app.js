@@ -126,6 +126,15 @@ angular.module('starter', ['ionic',
 	            controller: 'HiveCreateCtrl'
 	        }
 	    }
+	}).state('app.hiveEdit', {
+	    url: '/hive/edit/:hiveId',
+	    data: { authRequired: true },
+	    views: {
+	        'menuContent': {
+	            templateUrl: 'templates/hive/hiveEdit.html',
+	            controller: 'HiveEditCtrl'
+	        }
+	    }
 	})
 
 	//BOX
@@ -147,6 +156,15 @@ angular.module('starter', ['ionic',
 	            controller: 'BoxCreateCtrl'
 	        }
 	    }
+	}).state('app.boxEdit', {
+	    url: '/box/edit/:boxId',
+	    data: { authRequired: true },
+	    views: {
+	        'menuContent': {
+	            templateUrl: 'templates/box/boxEdit.html',
+	            controller: 'BoxEditCtrl'
+	        }
+	    }
 	})
 
 	//FRAME
@@ -166,6 +184,15 @@ angular.module('starter', ['ionic',
 	        'menuContent': {
 	            templateUrl: 'templates/frame/frameCreate.html',
 	            controller: 'FrameCreateCtrl'
+	        }
+	    }
+	}).state('app.frameEdit', {
+	    url: '/frame/edit/:frameId',
+	    data: { authRequired: true },
+	    views: {
+	        'menuContent': {
+	            templateUrl: 'templates/frame/frameEdit.html',
+	            controller: 'FrameEditCtrl'
 	        }
 	    }
 	});

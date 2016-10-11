@@ -64,6 +64,15 @@
         return box;
     };
 
+    var editMockBox = function (box) {
+        for (var i = 0; i < boxList.length; i++) {
+            if (boxList[i].id == box.id) {
+                boxList[i] = box;
+                break;
+            }
+        }
+    }
+
     var getLastCreatedBox = function () {
         var toReturn = lastCreatedBox;
         lastCreatedBox = "";
@@ -80,6 +89,7 @@
         DeleteMockBox: deleteMockBox,
         CreateMockBox: createMockBox,
         GetLastCreatedBox: getLastCreatedBox,
-        GetBoxTypes: getBoxTypes
+        GetBoxTypes: getBoxTypes,
+        EditMockBox: editMockBox
     }
 }]);
