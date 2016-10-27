@@ -1,0 +1,152 @@
+<ion-view view-title="Inspection">
+    <ion-content>
+        <form class="list">
+            <div id="inspectionInfoPart1">
+                <!--
+                    temperment
+                    drone count
+                    population
+                        honey
+                        brood
+                    pests
+                    resources
+                        honey
+                        nectar
+                        pollen
+                    brood pattern
+                    queen age
+                    -->
+                <label class="item item-input item-select">
+                    <span class="input-label">
+                        Temperment
+                    </span>
+                    <select ng-model="inspectionConclusion.temperment">
+                        <option ng-repeat="option in tempermentOptions" value="{{option}}" ng-bind="option"></option>
+                    </select>
+                </label>
+                <label class="item item-input item-select">
+                    <span class="input-label">
+                        Drone Count
+                    </span>
+                    <select ng-model="inspectionConclusion.droneCount">
+                        <option ng-repeat="option in droneCountOptions" value="{{option}}" ng-bind="option"></option>
+                    </select>
+                </label>
+                <label class="item item-input item-select">
+                    <span class="input-label">
+                        Honey Box Population
+                    </span>
+                    <select ng-model="inspectionConclusion.honeyBoxPopulation">
+                        <option ng-repeat="option in honeyBoxPopulationOptions" value="{{option}}" ng-bind="option"></option>
+                    </select>
+                </label>
+                <label class="item item-input item-select">
+                    <span class="input-label">
+                        Brood Chamber Population
+                    </span>
+                    <select ng-model="inspectionConclusion.broodChamberPopulation">
+                        <option ng-repeat="option in broodChamberPopulationOptions" value="{{option}}" ng-bind="option"></option>
+                    </select>
+                </label>
+                <label class="item item-input item-select">
+                    <span class="input-label">
+                        Pests Present
+                    </span>
+                    <select ng-model="inspectionConclusion.pests" multiple>
+                        <option ng-repeat="option in pestOptions" value="{{option}}" ng-bind="option"></option>
+                    </select>
+                </label>
+                <label class="item item-input item-select">
+                    <span class="input-label">
+                        Resources: Honey
+                    </span>
+                    <select ng-model="inspectionConclusion.honeyResources">
+                        <option ng-repeat="option in honeyResourcesOptions" value="{{option}}" ng-bind="option"></option>
+                    </select>
+                </label>
+                <label class="item item-input item-select">
+                    <span class="input-label">
+                        Resources: Nectar
+                    </span>
+                    <select ng-model="inspectionConclusion.nectarResources">
+                        <option ng-repeat="option in nectarResourcesOptions" value="{{option}}" ng-bind="option"></option>
+                    </select>
+                </label>
+                <label class="item item-input item-select">
+                    <span class="input-label">
+                        Resources: Pollen
+                    </span>
+                    <select ng-model="inspectionConclusion.pollenResources">
+                        <option ng-repeat="option in pollenResourcesOptions" value="{{option}}" ng-bind="option"></option>
+                    </select>
+                </label>
+                <label class="item item-input item-select">
+                    <span class="input-label">
+                        Brood Pattern
+                    </span>
+                    <select ng-model="inspectionConclusion.broodPattern">
+                        <option ng-repeat="option in broodPatternOptions" value="{{option}}" ng-bind="option"></option>
+                    </select>
+                </label>
+                <label class="item item-input item-select">
+                    <span class="input-label">
+                        Queen Age
+                    </span>
+                    <select ng-model="inspectionConclusion.queenAge">
+                        <option ng-repeat="option in queenAgeOptions" value="{{option}}" ng-bind="option"></option>
+                    </select>
+                </label>
+            </div>
+            <div id="inspectionInfoPart2">
+                <!--
+                    observations
+                        bearding
+                        eggs/larvae
+                        queen
+                        queen cells
+                        drones
+                        pollen
+                    disease
+                    hive condition
+                    notes & obeservations
+                    -->
+                <ion-checkbox ng-model="inspectionConclusion.bearding">Bearding</ion-checkbox>
+                <label class="item item-input item-select">
+                    <span class="input-label">
+                        Eggs/Larvae
+                    </span>
+                    <select name="eggs" ng-model="inspectionConclusion.eggsAmount">
+                        <option ng-repeat="option in amountOptions" value="{{option}}" ng-bind="option"></option>
+                    </select>
+                </label>
+                <ion-checkbox ng-model="inspectionConclusion.queen">Queen</ion-checkbox>
+                <ion-checkbox ng-model="inspectionConclusion.queenCells">Queen Cells</ion-checkbox>
+                <label class="item item-input item-select">
+                    <span class="input-label">
+                        Drones
+                    </span>
+                    <select ng-model="inspectionConclusion.dronesAmount">
+                        <option ng-repeat="option in amountOptions" value="{{option}}" ng-bind="option"></option>
+                    </select>
+                </label>
+                <ion-checkbox ng-model="inspectionConclusion.pollenIncoming">Pollen Incoming</ion-checkbox>
+                <label class="item item-input item-select">
+                    <span class="input-label">
+                        Diseases/Viruses
+                    </span>
+                    <select ng-model="inspectionConclusion.diseases" multiple>
+                        <option ng-repeat="option in diseasesOptions" value="{{option}}" ng-bind="option"></option>
+                    </select>
+                </label>
+                <label class="item item-input item-select">
+                    <span class="input-label">
+                        Hive Condition
+                    </span>
+                    <select ng-model="inspectionConclusion.hiveCondition" multiple>
+                        <option ng-repeat="option in hiveConditionOptions" value="{{option}}" ng-bind="option"></option>
+                    </select>
+                </label>
+            </div>
+        </form>
+    </ion-content>
+</ion-view>
