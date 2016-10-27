@@ -25,7 +25,8 @@ module.exports = {
             './www/js/common/polyfill',
             './www/js/localdatabase/databaseTest',
             './www/js/login/loginController',
-            './www/js/authentication/authenticationService'
+            './www/js/authentication/authenticationService',
+            './www/js/inspection/inspectionController'
         ]
     },
     output: {

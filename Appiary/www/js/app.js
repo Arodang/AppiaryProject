@@ -11,13 +11,15 @@ angular.module('starter', ['ionic',
     'apiary.hive',
     'apiary.box',
     'apiary.frame',
+    'apiary.inspection',
     'apiary.mock',
     'apiary.common',
     'apiary.login',
     'apiary.authentication',
     'ngCordova',
     'ngCordovaOauth',
-    'ngStorage'
+    'ngStorage',
+    'ion-datetime-picker'
 ])
 
 .run(function ($ionicPlatform, AuthenticationService, $rootScope, $state) {
@@ -195,7 +197,22 @@ angular.module('starter', ['ionic',
 	            controller: 'FrameEditCtrl'
 	        }
 	    }
-	});
+	})
+
+    //INSPECTION
+    .state('app.inspection', {
+	    url: '/inspection/:hiveId',
+	    data: { authRequired: true },
+	    views: {
+	        'menuContent': {
+	            templateUrl: 'templates/inspection/inspection.html',
+	            controller: 'InspectionCtrl'
+	        }
+	    }
+	})
+
+
+    ;
     // if none of the above states are matched, use this as the fallback
     $urlRouterProvider.otherwise(function ($injector) {
         var authService = $injector.get("AuthenticationService");
