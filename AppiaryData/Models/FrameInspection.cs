@@ -15,13 +15,14 @@ namespace AppiaryData.Models
         public FrameSideInspection Side1 { get; set; }
 
         public FrameSideInspection Side2 { get; set; }
+
         public struct FrameSideInspection
         {
             public bool IsBuiltOut { get; set; }
 
             public bool IsHaveHoney { get; set; }
 
-            public bool IsHaveNectar {get; set;}
+            public bool IsHaveNectar { get; set; }
 
             public bool IsHavePollen { get; set; }
 
