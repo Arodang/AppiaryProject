@@ -1,0 +1,95 @@
+<ion-view view-title="Inspection">
+    <ion-content>
+        <div id="inspectionActions">
+            <!--
+                feed
+                    sugarwater solution
+                    pollen patty
+                    other
+                add feeder
+                refill feeder
+                add boxes
+                add excluder
+                requeened
+                add other equip
+                do treatment
+                do pest mgmt
+                do hive mgmt
+                did mite count
+                other actions
+                -->
+            <form class="list">
+                <h1 class="title">Inspection Actions</h1>
+                <ion-list>
+                    <ion-checkbox ng-model="inspectionBox.feed">Fed Bees</ion-checkbox>
+                    <div ng-show="inspectionBox.feed">
+                        <ion-checkbox ng-model="inspectionBox.feedSugarwater">Sugarwater Solution</ion-checkbox>
+                        <ion-checkbox ng-model="inspectionBox.feedPollenPatty">Pollen Patty</ion-checkbox>
+                        <label class="item item-input item-floating-label">
+                            <span class="input-label">Other</span>
+                            <input type="text" name="other" placeholder="Other" ng-model="inspectionBox.feedOther">
+                        </label>
+                    </div>
+                    <ion-checkbox ng-model="inspectionBox.addFeeder">Add Feeder</ion-checkbox>
+                    <ion-checkbox ng-model="inspectionBox.refillFeeder">Refill Feeder</ion-checkbox>
+                    <ion-checkbox ng-model="inspectionBox.addBoxes">Add Boxes</ion-checkbox>
+                    <ion-checkbox ng-model="inspectionBox.addExcluder">Add Excluder</ion-checkbox>
+                    <ion-checkbox ng-model="inspectionBox.requeen">Re-queen</ion-checkbox>
+                    <ion-checkbox ng-model="inspectionBox.addOtherEquipment">Add Other Equipment</ion-checkbox>
+                    <div ng-show="inspectionBox.addOtherEquipment">
+                        <label class="item item-input item-floating-label">
+                            <span class="input-label">Equipment Details</span>
+                            <input type="text" name="equipmentDetails" placeholder="Equipment Details" ng-model="inspectionBox.addOtherEquipmentDetails">
+                        </label>
+                    </div>
+                    <ion-checkbox ng-model="inspectionBox.treatment">Hive Treatment</ion-checkbox>
+                    <div ng-show="inspectionBox.treatment">
+                        <label class="item item-input item-floating-label">
+                            <span class="input-label">Treatment Details</span>
+                            <input type="text" name="treatmentDetails" placeholder="Treatment Details" ng-model="inspectionBox.treatmentDetails">
+                        </label>
+                    </div>
+                    <ion-checkbox ng-model="inspectionBox.pestManagement">Pest Management</ion-checkbox>
+                    <div ng-show="inspectionBox.pestManagement">
+                        <label class="item item-input item-floating-label">
+                            <span class="input-label">Pest Management Details</span>
+                            <input type="text" name="pestManagementDetails" placeholder="Pest Management Details" ng-model="inspectionBox.pestManagementDetails">
+                        </label>
+                    </div>
+                    <ion-checkbox ng-model="inspectionBox.hiveManagement">Pest Management</ion-checkbox>
+                    <div ng-show="inspectionBox.hiveManagement">
+                        <label class="item item-input item-floating-label">
+                            <span class="input-label">Hive Management Details</span>
+                            <textarea rows="8" name="hiveManagementDetails" placeholder="Hive Management Details" ng-model="inspectionBox.hiveManagementDetails"></textarea>
+                        </label>
+                    </div>
+                    <ion-checkbox ng-model="inspectionBox.miteCount">Pest Management</ion-checkbox>
+                    <div ng-show="inspectionBox.miteCount">
+                        <label class="item item-input item-floating-label">
+                            <span class="input-label">Mite Count Method</span>
+                            <input type="text" name="miteCountMethod" placeholder="Mite Count Method" ng-model="inspectionBox.miteCountMethod">
+                        </label>
+                        <label class="item item-input item-floating-label">
+                            <span class="input-label">Mite Count Amount</span>
+                            <input type="text" name="miteCountAmount" placeholder="Mite Count Amount" ng-model="inspectionBox.miteCountAmount">
+                        </label>
+                    </div>
+                    <div id="otherActions">
+                        <label class="item item-input item-floating-label">
+                            <span class="input-label">Other Actions</span>
+                            <textarea rows="8" name="otherActions" placeholder="Other Actions" ng-model="inspectionBox.otherActions"></textarea>
+                        </label>
+                    </div>
+                </ion-list>
+            </form>
+            <div class="row" id="cancelSaveButton">
+                <button class="col button button-positive" ng-click="goBack()">
+                    Cancel
+                </button>
+                <button type="submit" class="col button" ng-click="continue()" href="#/app/inspection/conclusion/{{hive.id}}">
+                    Continue
+                </button>
+            </div>
+        </div>
+    </ion-content>
+</ion-view>

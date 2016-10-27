@@ -67,7 +67,8 @@
 	__webpack_require__(21);
 	__webpack_require__(22);
 	__webpack_require__(23);
-	module.exports = __webpack_require__(24);
+	__webpack_require__(24);
+	module.exports = __webpack_require__(25);
 
 
 /***/ },
@@ -80,7 +81,7 @@
 	// 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 	// the 2nd parameter is an array of 'requires'
 	// 'starter.controllers' is found in controllers.js
-	angular.module('starter', ['ionic', 'starter.controllers', 'apiary.apiaryList', 'apiary.apiary', 'apiary.hive', 'apiary.box', 'apiary.frame', 'apiary.mock', 'apiary.common', 'apiary.login', 'apiary.authentication', 'ngCordova', 'ngCordovaOauth', 'ngStorage']).run(function ($ionicPlatform, AuthenticationService, $rootScope, $state) {
+	angular.module('starter', ['ionic', 'starter.controllers', 'apiary.apiaryList', 'apiary.apiary', 'apiary.hive', 'apiary.box', 'apiary.frame', 'apiary.inspection', 'apiary.mock', 'apiary.common', 'apiary.login', 'apiary.authentication', 'ngCordova', 'ngCordovaOauth', 'ngStorage', 'ion-datetime-picker']).run(function ($ionicPlatform, AuthenticationService, $rootScope, $state) {
 					$ionicPlatform.ready(function () {
 									// Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
 									// for form inputs)
@@ -247,6 +248,18 @@
 													'menuContent': {
 																	templateUrl: 'templates/frame/frameEdit.html',
 																	controller: 'FrameEditCtrl'
+													}
+									}
+					})
+
+					//INSPECTION
+					.state('app.inspection', {
+									url: '/inspection/:hiveId',
+									data: { authRequired: true },
+									views: {
+													'menuContent': {
+																	templateUrl: 'templates/inspection/inspection.html',
+																	controller: 'InspectionCtrl'
 													}
 									}
 					});
@@ -1138,6 +1151,37 @@
 	        GoogleSignIn: googleSignIn,
 	        LogOut: logOut,
 	        IsAuthenticated: isAuthenticated
+	    };
+	}]);
+
+/***/ },
+/* 25 */
+/***/ function(module, exports) {
+
+	angular.module('apiary.inspection', ['ion-datetime-picker']).controller('InspectionCtrl', ['$scope', '$stateParams', '$ionicHistory', 'HiveMockDataService', function ($scope, $stateParams, $ionicHistory, HiveMockDataService) {
+	    $scope.$on('$ionicView.enter', function (e) {
+	        var hive = HiveMockDataService.GetMockHive($stateParams.hiveId);
+	        $scope.inspection = {
+	            datetimeValue: Date.now(),
+	            hive: {},
+	            temperature: "",
+	            traffic: "None",
+	            weather: {},
+	            purpose: ""
+	        };
+	        $scope.inspection.hive = hive;
+
+	        $scope.trafficOptions = ["High", "Medium", "Low", "None"];
+	    });
+
+	    $scope.goBack = function () {
+	        $ionicHistory.goBack();
+	    };
+
+	    $scope.continue = function () {
+	        //todo: add call to inspection mock data service to save inspection
+	        //todo: navigate to next page (boxes)
+	        console.log("Inspection at continue ", $scope.inspection);
 	    };
 	}]);
 

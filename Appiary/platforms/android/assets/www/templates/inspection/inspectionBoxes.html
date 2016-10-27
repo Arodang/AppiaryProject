@@ -1,0 +1,23 @@
+﻿<ion-view view-title="Inspection">
+    <ion-content>
+        <div id="inspectionBoxes">
+            <h4 class="title">Box List</h4>
+            <ion-list can-swipe="listCanSwipe">
+                <ion-item ng-repeat="box in boxList" class="item-button-right" href="#/app/insepction/box/{{box.id}}">
+                    <div ng-bind="box.name"></div>
+                    <button class="button button-positive">
+                        Open
+                    </button>
+                </ion-item>
+            </ion-list>
+        </div>
+        <div class="row" id="cancelSaveButton">
+            <button class="col button button-positive" ng-click="goBack()">
+                Cancel
+            </button>
+            <button type="submit" class="col button" ng-click="continue()" href="#/app/inspection/actions/{{hive.id}}">
+                Continue
+            </button>
+        </div>
+    </ion-content>
+</ion-view>

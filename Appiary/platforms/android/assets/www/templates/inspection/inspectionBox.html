@@ -1,0 +1,67 @@
+﻿<ion-view view-title="Inspection">
+    <ion-content>
+        <div class="card">
+            <div class="item item-text-wrap">
+                <div>
+                    <h2>Name:</h2> <span ng-bind="box.name" />
+                </div>
+                <div>
+                    <h2>Position:</h2> <span ng-bind="box.position" />
+                </div>
+                <div>
+                    <h2>Box Type:</h2> <span ng-bind="box.boxType" />
+                </div>
+            </div>
+        </div>
+        <div id="inspectionBox">
+            <form class="list">
+                <ion-list>
+                    <label class="item item-input item-select">
+                        <span class="input-label">
+                            Amount of Bees
+                        </span>
+                        <select name="traffic" ng-model="inspectionBox.bees">
+                            <option ng-repeat="option in amountOptions" value="{{option}}" ng-bind="option"></option>
+                        </select>
+                    </label>
+                    <ion-checkbox ng-model="inspectionBox.isBuiltOut">Wax Built Out</ion-checkbox>
+                    <ion-checkbox ng-model="inspectionBox.honey">Honey</ion-checkbox>
+                    <label class="item item-input item-select" ng-show="inspectionBox.honey">
+                        <span class="input-label">
+                            Amount of Honey
+                        </span>
+                        <select name="traffic" ng-model="inspectionBox.honeyAmount">
+                            <option ng-repeat="option in amountOptions" value="{{option}}" ng-bind="option"></option>
+                        </select>
+                    </label>
+                    <ion-checkbox ng-model="inspectionBox.Nectar">Nectar</ion-checkbox>
+                    <ion-checkbox ng-model="inspectionBox.pollen">Pollen</ion-checkbox>
+                    <ion-checkbox ng-model="inspectionBox.queen">Queen</ion-checkbox>
+                    <ion-checkbox ng-model="inspectionBox.larva">Larva</ion-checkbox>
+                    <ion-checkbox ng-model="inspectionBox.eggs">Eggs</ion-checkbox>
+                    <ion-checkbox ng-model="inspectionBox.cappedBrood">Capped Brood</ion-checkbox>
+                    <ion-checkbox ng-model="inspectionBox.droneBrood">Drone Brood</ion-checkbox>
+                    <ion-checkbox ng-model="inspectionBox.queenCup"Queen Cup></ion-checkbox>
+                    <ion-checkbox ng-model="inspectionBox.cappedQueen">Capped Queen</ion-checkbox>
+                    <ion-checkbox ng-model="inspectionBox.supercedureCell">Supercedure Cell</ion-checkbox>
+                </ion-list>
+            </form>
+        </div>
+        <div id="inspectionFrames">
+            <h4 class="title">Frames</h4>
+            <ion-list can-swipe="listCanSwipe">
+                <ion-item ng-repeat="frame in frameList" class="item-button-right" href="#/app/inspection/frame/{{frame.id}}">
+                    <div>Frame Position: {{frame.position}}</div>
+                    <button class="button button-positive">
+                        Open
+                    </button>
+                </ion-item>
+            </ion-list>
+        </div>
+        <div class="row" id="cancelSaveButton">
+            <button class="col button button-positive" ng-click="goBack()">
+                Back to Box List
+            </button>
+        </div>
+    </ion-content>
+</ion-view>

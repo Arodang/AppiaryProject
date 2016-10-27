@@ -1,0 +1,62 @@
+<ion-view view-title="Inspection">
+    <ion-content>
+        <div id="inspectionInfo">
+            <!--
+                date
+                Time of day
+                temperature
+                traffic at entrance
+                weather
+                purpose
+                -->
+            <h1>Pre-Inspection Details</h1>
+            <form class="list">
+                <div>
+                    <label class="item item-input" >Date and Time</label>
+                    <div class="item" ion-datetime-picker am-pm ng-model="inspection.datetimeValue">
+                        {{inspection.datetimeValue| date: "short"}}
+                    </div>
+                </div>
+                <label class="item item-input">
+                    <span class="input-label">Temperature</span>
+                    <input type="text" name="temperature" placeholder="temperature" ng-model="inspection.temperature">
+                </label>
+                <label class="item item-input item-select">
+                    <span class="input-label">
+                        Traffic at Entrance
+                    </span>
+                    <select name="traffic" ng-model="inspection.traffic">
+                        <option ng-repeat="option in trafficOptions" value="{{option}}" ng-bind="option"></option>
+                    </select>
+                </label>
+                <div>
+                    <label class="item item-input">Weather</label>
+                    <ion-list>
+                        <ion-checkbox ng-model="inspection.weather.sunny">Sunny</ion-checkbox>
+                        <ion-checkbox ng-model="inspection.weather.cloudy">Cloudy</ion-checkbox>
+                        <ion-checkbox ng-model="inspection.weather.partlyCloudy">Partly Cloudy</ion-checkbox>
+                        <ion-checkbox ng-model="inspection.weather.rain">Rain</ion-checkbox>
+                        <ion-checkbox ng-model="inspection.weather.humid">Humid</ion-checkbox>
+                        <ion-checkbox ng-model="inspection.weather.dry">Dry</ion-checkbox>
+                        <ion-checkbox ng-model="inspection.weather.still">Still</ion-checkbox>
+                        <ion-checkbox ng-model="inspection.weather.slightBreeze">Slight Breeze</ion-checkbox>
+                        <ion-checkbox ng-model="inspection.weather.windy">Windy</ion-checkbox>
+                    </ion-list>
+                </div>
+                <label class="item item-input">
+                    <span class="input-label">Purpose</span>
+                    <textarea rows="8" name="purpose" placeholder="Purpose" ng-model="inspection.purpose"></textarea>
+                </label>
+
+                <div class="row" id="cancelSaveButton">
+                    <button class="col button button-positive" ng-click="goBack()">
+                        Cancel
+                    </button>
+                    <button type="submit" class="col button" ng-click="continue()" href="#/app/inspection/boxes/{{hive.id}}">
+                        Continue
+                    </button>
+                </div>
+            </form>
+        </div>
+    </ion-content>
+</ion-view>
