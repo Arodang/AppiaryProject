@@ -76,11 +76,11 @@
     }
 
     return {
-        GetMockFrameList: getMockFrameList,
-        GetMockFrame: getMockFrame,
-        DeleteMockFrame: deleteMockFrame,
-        CreateMockFrame: createMockFrame,
+        GetFrameList: getMockFrameList,
+        GetFrame: getMockFrame,
+        DeleteFrame: deleteMockFrame,
+        CreateFrame: createMockFrame,
         GetLastCreatedFrame: getLastCreatedFrame,
-        EditMockFrame: editMockFrame
+        EditFrame: editMockFrame
     }
 }]);

@@ -7,11 +7,11 @@
     $scope.lastCreatedBoxName = "";
 
     $scope.$on('$ionicView.enter', function (e) {
-        var hive = HiveMockDataService.GetMockHive($stateParams.hiveId);
+        var hive = HiveMockDataService.GetHive($stateParams.hiveId);
 
         $scope.hive = hive;
 
-        $scope.boxList = BoxMockDataService.GetMockBoxList();
+        $scope.boxList = BoxMockDataService.GetBoxList();
         $scope.lastCreatedBoxName = BoxMockDataService.GetLastCreatedBox();
         setTimeout(function () {
             $scope.$apply(function () {
@@ -21,7 +21,7 @@
     });
 
     $scope.deleteItem = function (boxId) {
-        if (BoxMockDataService.DeleteMockBox(boxId)) {
+        if (BoxMockDataService.GetBox(boxId)) {
             console.log("Removed box #" + boxId);
         }
         else {

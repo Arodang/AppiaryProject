@@ -5,7 +5,7 @@
     $scope.listCanSwipe = false;
 
     $scope.$on('$ionicView.enter', function (e) {
-        var frame = FrameMockDataService.GetMockFrame($stateParams.frameId);
+        var frame = FrameMockDataService.GetFrame($stateParams.frameId);
 
         $scope.frame = frame;
     });

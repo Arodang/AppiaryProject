@@ -7,11 +7,11 @@
     $scope.lastCreatedFrameName = "";
 
     $scope.$on('$ionicView.enter', function (e) {
-        var box = BoxMockDataService.GetMockBox($stateParams.boxId);
+        var box = BoxMockDataService.GetBox($stateParams.boxId);
 
         $scope.box = box;
 
-        $scope.frameList = FrameMockDataService.GetMockFrameList();
+        $scope.frameList = FrameMockDataService.GetFrameList();
         $scope.lastCreatedFrameName = FrameMockDataService.GetLastCreatedFrame();
         setTimeout(function () {
             $scope.$apply(function () {
@@ -21,7 +21,7 @@
     });
 
     $scope.deleteItem = function (frameId) {
-        if (FrameMockDataService.DeleteMockFrame(frameId)) {
+        if (FrameMockDataService.GetFrame(frameId)) {
             console.log("Removed frame #" + frameId);
         }
         else {

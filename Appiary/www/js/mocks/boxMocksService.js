@@ -84,12 +84,12 @@
     }
 
     return {
-        GetMockBoxList: getMockBoxList,
-        GetMockBox: getMockBox,
-        DeleteMockBox: deleteMockBox,
-        CreateMockBox: createMockBox,
+        GetBoxList: getMockBoxList,
+        GetBox: getMockBox,
+        DeleteBox: deleteMockBox,
+        CreateBox: createMockBox,
         GetLastCreatedBox: getLastCreatedBox,
         GetBoxTypes: getBoxTypes,
-        EditMockBox: editMockBox
+        EditBox: editMockBox
     }
 }]);

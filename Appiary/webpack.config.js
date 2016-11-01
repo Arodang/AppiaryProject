@@ -26,7 +26,9 @@ module.exports = {
             './www/js/localdatabase/databaseTest',
             './www/js/login/loginController',
             './www/js/authentication/authenticationService',
-            './www/js/inspection/inspectionController'
+            './www/js/inspection/inspectionController',
+            './www/js/inspection/inspectionBoxesController',
+            './www/js/inspection/inspectionBoxController'
         ]
     },
     output: {

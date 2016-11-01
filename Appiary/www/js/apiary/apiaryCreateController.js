@@ -9,7 +9,7 @@
     $scope.createApiary = function () {
         var apiary = $scope.apiary;
         if ($scope.apiary) {
-            apiary = ApiaryMockDataService.CreateMockApiary(apiary);
+            apiary = ApiaryMockDataService.GetApiary(apiary);
             $ionicHistory.goBack();
         }
     };

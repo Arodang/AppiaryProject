@@ -2,16 +2,15 @@
 
 .controller('InspectionCtrl', ['$scope', '$stateParams', '$ionicHistory', 'HiveMockDataService', function ($scope, $stateParams, $ionicHistory, HiveMockDataService) {
     $scope.$on('$ionicView.enter', function (e) {
-        var hive = HiveMockDataService.GetMockHive($stateParams.hiveId);
+        $scope.hiveId = $stateParams.hiveId;
         $scope.inspection = {
             datetimeValue: Date.now(),
-            hive: {},
             temperature: "",
             traffic: "None",
             weather: {},
-            purpose: ""
+            purpose: "",
+            hiveId: $scope.hiveId
         };
-        $scope.inspection.hive = hive;
 
         $scope.trafficOptions = ["High", "Medium", "Low", "None"];
     });
@@ -24,5 +23,6 @@
         //todo: add call to inspection mock data service to save inspection
         //todo: navigate to next page (boxes)
         console.log("Inspection at continue ", $scope.inspection);
+
     };
 }]);

@@ -80,11 +80,11 @@
     };
 
     return {
-        GetMockApiaryList: getMockApiaryList,
-        GetMockApiary: getMockApiary,
-        DeleteMockApiary: deleteMockApiary,
-        CreateMockApiary: createMockApiary,
+        GetApiaryList: getMockApiaryList,
+        GetApiary: getMockApiary,
+        DeleteApiary: deleteMockApiary,
+        CreateApiary: createMockApiary,
         GetLastCreatedApiary: getLastCreatedApiary,
-        EditMockApiary: editMockApiary
+        EditApiary: editMockApiary
     }
 }]);
