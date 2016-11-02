@@ -10,7 +10,7 @@
     $scope.createHive = function () {
         var hive = $scope.hive;
         if ($scope.hive) {
-            hive = HiveMockDataService.CreateMockHive(hive);
+            hive = HiveMockDataService.GetHive(hive);
             $ionicHistory.goBack();
         }
     };

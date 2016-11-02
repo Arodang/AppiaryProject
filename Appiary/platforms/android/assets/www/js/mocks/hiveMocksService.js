@@ -84,12 +84,12 @@
     }
 
     return {
-        GetMockHiveList: getMockHiveList,
-        GetMockHive: getMockHive,
-        DeleteMockHive: deleteMockHive,
-        CreateMockHive: createMockHive,
+        GetHiveList: getMockHiveList,
+        GetHive: getMockHive,
+        DeleteHive: deleteMockHive,
+        CreateHive: createMockHive,
         GetLastCreatedHive: getLastCreatedHive,
         GetHiveTypes: getHiveTypes,
-        EditMockHive: editMockHive
+        EditHive: editMockHive
     }
 }]);

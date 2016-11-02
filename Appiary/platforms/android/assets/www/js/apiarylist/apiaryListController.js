@@ -8,7 +8,7 @@
     $scope.lastCreatedApiaryName = "";
 
     $scope.$on('$ionicView.enter', function (e) {
-        $scope.apiaryList = ApiaryMockDataService.GetMockApiaryList();
+        $scope.apiaryList = ApiaryMockDataService.GetApiaryList();
         $scope.lastCreatedApiaryName = ApiaryMockDataService.GetLastCreatedApiary();
         setTimeout(function () {
             $scope.$apply(function () {
@@ -18,7 +18,7 @@
     });
 
     $scope.deleteItem = function (apiaryId) {
-        if (ApiaryMockDataService.DeleteMockApiary(apiaryId)) {
+        if (ApiaryMockDataService.GetApiary(apiaryId)) {
             console.log("Removed apiary #" + apiaryId);
         }
         else {

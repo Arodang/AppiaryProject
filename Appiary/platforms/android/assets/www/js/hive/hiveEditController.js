@@ -2,7 +2,7 @@
 
 .controller('HiveEditCtrl', ['$scope', '$stateParams', 'HiveMockDataService', '$ionicHistory', function ($scope, $stateParams, HiveMockDataService, $ionicHistory) {
     $scope.$on('$ionicView.enter', function (e) {
-        var hive = HiveMockDataService.GetMockHive($stateParams.hiveId);
+        var hive = HiveMockDataService.GetHive($stateParams.hiveId);
 
         $scope.hive = hive;
     });
@@ -10,7 +10,7 @@
     $scope.saveHive = function () {
         var hive = $scope.hive;
         if ($scope.hive) {
-            hive = HiveMockDataService.EditMockHive(hive);
+            hive = HiveMockDataService.EditHive(hive);
             $ionicHistory.goBack();
         }
     };

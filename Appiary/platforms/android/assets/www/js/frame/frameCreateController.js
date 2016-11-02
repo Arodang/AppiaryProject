@@ -9,7 +9,7 @@
     $scope.createFrame = function () {
         var frame = $scope.frame;
         if ($scope.frame) {
-            frame = FrameMockDataService.CreateMockFrame(frame);
+            frame = FrameMockDataService.GetFrame(frame);
             $ionicHistory.goBack();
         }
     };

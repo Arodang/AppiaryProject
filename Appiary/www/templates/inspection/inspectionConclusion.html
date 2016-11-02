@@ -37,7 +37,7 @@
                         Honey Box Population
                     </span>
                     <select ng-model="inspectionConclusion.honeyBoxPopulation">
-                        <option ng-repeat="option in honeyBoxPopulationOptions" value="{{option}}" ng-bind="option"></option>
+                        <option ng-repeat="option in amountOptions" value="{{option}}" ng-bind="option"></option>
                     </select>
                 </label>
                 <label class="item item-input item-select">
@@ -45,7 +45,7 @@
                         Brood Chamber Population
                     </span>
                     <select ng-model="inspectionConclusion.broodChamberPopulation">
-                        <option ng-repeat="option in broodChamberPopulationOptions" value="{{option}}" ng-bind="option"></option>
+                        <option ng-repeat="option in amountOptions" value="{{option}}" ng-bind="option"></option>
                     </select>
                 </label>
                 <label class="item item-input item-select">
@@ -61,7 +61,7 @@
                         Resources: Honey
                     </span>
                     <select ng-model="inspectionConclusion.honeyResources">
-                        <option ng-repeat="option in honeyResourcesOptions" value="{{option}}" ng-bind="option"></option>
+                        <option ng-repeat="option in amountOptions" value="{{option}}" ng-bind="option"></option>
                     </select>
                 </label>
                 <label class="item item-input item-select">
@@ -69,7 +69,7 @@
                         Resources: Nectar
                     </span>
                     <select ng-model="inspectionConclusion.nectarResources">
-                        <option ng-repeat="option in nectarResourcesOptions" value="{{option}}" ng-bind="option"></option>
+                        <option ng-repeat="option in amountOptions" value="{{option}}" ng-bind="option"></option>
                     </select>
                 </label>
                 <label class="item item-input item-select">
@@ -77,7 +77,7 @@
                         Resources: Pollen
                     </span>
                     <select ng-model="inspectionConclusion.pollenResources">
-                        <option ng-repeat="option in pollenResourcesOptions" value="{{option}}" ng-bind="option"></option>
+                        <option ng-repeat="option in amountOptions" value="{{option}}" ng-bind="option"></option>
                     </select>
                 </label>
                 <label class="item item-input item-select">
@@ -90,7 +90,7 @@
                 </label>
                 <label class="item item-input item-select">
                     <span class="input-label">
-                        Queen Age
+                        Queen Age (Years)
                     </span>
                     <select ng-model="inspectionConclusion.queenAge">
                         <option ng-repeat="option in queenAgeOptions" value="{{option}}" ng-bind="option"></option>
@@ -146,6 +146,14 @@
                         <option ng-repeat="option in hiveConditionOptions" value="{{option}}" ng-bind="option"></option>
                     </select>
                 </label>
+            </div>
+            <div class="row" id="cancelSaveButton">
+                <button class="col button button-positive" ng-click="goBack()">
+                    Back
+                </button>
+                <button class="col button button-energized" ng-click="continue()">
+                    Save and Finish
+                </button>
             </div>
         </form>
     </ion-content>

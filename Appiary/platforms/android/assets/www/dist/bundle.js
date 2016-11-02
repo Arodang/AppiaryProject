@@ -68,7 +68,12 @@
 	__webpack_require__(22);
 	__webpack_require__(23);
 	__webpack_require__(24);
-	module.exports = __webpack_require__(25);
+	__webpack_require__(25);
+	__webpack_require__(26);
+	__webpack_require__(27);
+	__webpack_require__(28);
+	__webpack_require__(29);
+	module.exports = __webpack_require__(30);
 
 
 /***/ },
@@ -262,6 +267,42 @@
 																	controller: 'InspectionCtrl'
 													}
 									}
+					}).state('app.inspectionBoxes', {
+									url: '/inspection/boxes/:hiveId',
+									data: { authRequired: true },
+									views: {
+													'menuContent': {
+																	templateUrl: 'templates/inspection/inspectionBoxes.html',
+																	controller: 'InspectionBoxesCtrl'
+													}
+									}
+					}).state('app.inspectionBox', {
+									url: '/inspection/box/:boxId',
+									data: { authRequired: true },
+									views: {
+													'menuContent': {
+																	templateUrl: 'templates/inspection/inspectionBox.html',
+																	controller: 'InspectionBoxCtrl'
+													}
+									}
+					}).state('app.inspectionActions', {
+									url: '/inspection/actions',
+									data: { authRequired: true },
+									views: {
+													'menuContent': {
+																	templateUrl: 'templates/inspection/inspectionActions.html',
+																	controller: 'InspectionActionsCtrl'
+													}
+									}
+					}).state('app.inspectionConclusion', {
+									url: '/inspection/conclusion',
+									data: { authRequired: true },
+									views: {
+													'menuContent': {
+																	templateUrl: 'templates/inspection/inspectionConclusion.html',
+																	controller: 'InspectionConclusionCtrl'
+													}
+									}
 					});
 					// if none of the above states are matched, use this as the fallback
 					$urlRouterProvider.otherwise(function ($injector) {
@@ -295,7 +336,7 @@
 	    $scope.lastCreatedApiaryName = "";
 
 	    $scope.$on('$ionicView.enter', function (e) {
-	        $scope.apiaryList = ApiaryMockDataService.GetMockApiaryList();
+	        $scope.apiaryList = ApiaryMockDataService.GetApiaryList();
 	        $scope.lastCreatedApiaryName = ApiaryMockDataService.GetLastCreatedApiary();
 	        setTimeout(function () {
 	            $scope.$apply(function () {
@@ -305,7 +346,7 @@
 	    });
 
 	    $scope.deleteItem = function (apiaryId) {
-	        if (ApiaryMockDataService.DeleteMockApiary(apiaryId)) {
+	        if (ApiaryMockDataService.GetApiary(apiaryId)) {
 	            console.log("Removed apiary #" + apiaryId);
 	        } else {
 	            console.log("Failed to remove apiary #" + apiaryId);
@@ -324,11 +365,11 @@
 	    $scope.lastCreatedHiveName = "";
 
 	    $scope.$on('$ionicView.enter', function (e) {
-	        var apiary = ApiaryMockDataService.GetMockApiary($stateParams.apiaryId);
+	        var apiary = ApiaryMockDataService.GetApiary($stateParams.apiaryId);
 
 	        $scope.apiary = apiary;
 
-	        $scope.hiveList = HiveMockDataService.GetMockHiveList();
+	        $scope.hiveList = HiveMockDataService.GetHiveList();
 	        $scope.lastCreatedHiveName = HiveMockDataService.GetLastCreatedHive();
 	        setTimeout(function () {
 	            $scope.$apply(function () {
@@ -338,7 +379,7 @@
 	    });
 
 	    $scope.deleteItem = function (hiveId) {
-	        if (HiveMockDataService.DeleteMockHive(hiveId)) {
+	        if (HiveMockDataService.GetHive(hiveId)) {
 	            console.log("Removed hive #" + hiveId);
 	        } else {
 	            console.log("Failed to remove hive #" + hiveId);
@@ -359,7 +400,7 @@
 	    $scope.createApiary = function () {
 	        var apiary = $scope.apiary;
 	        if ($scope.apiary) {
-	            apiary = ApiaryMockDataService.CreateMockApiary(apiary);
+	            apiary = ApiaryMockDataService.GetApiary(apiary);
 	            $ionicHistory.goBack();
 	        }
 	    };
@@ -375,7 +416,7 @@
 
 	angular.module('apiary.apiary').controller('ApiaryEditCtrl', ['$scope', '$stateParams', 'ApiaryMockDataService', '$ionicHistory', function ($scope, $stateParams, ApiaryMockDataService, $ionicHistory) {
 	    $scope.$on('$ionicView.enter', function (e) {
-	        var apiary = ApiaryMockDataService.GetMockApiary($stateParams.apiaryId);
+	        var apiary = ApiaryMockDataService.GetApiary($stateParams.apiaryId);
 
 	        $scope.apiary = apiary;
 	    });
@@ -383,7 +424,7 @@
 	    $scope.saveApiary = function () {
 	        var apiary = $scope.apiary;
 	        if ($scope.apiary) {
-	            apiary = ApiaryMockDataService.EditMockApiary(apiary);
+	            apiary = ApiaryMockDataService.EditApiary(apiary);
 	            $ionicHistory.goBack();
 	        }
 	    };
@@ -475,12 +516,12 @@
 	    };
 
 	    return {
-	        GetMockApiaryList: getMockApiaryList,
-	        GetMockApiary: getMockApiary,
-	        DeleteMockApiary: deleteMockApiary,
-	        CreateMockApiary: createMockApiary,
+	        GetApiaryList: getMockApiaryList,
+	        GetApiary: getMockApiary,
+	        DeleteApiary: deleteMockApiary,
+	        CreateApiary: createMockApiary,
 	        GetLastCreatedApiary: getLastCreatedApiary,
-	        EditMockApiary: editMockApiary
+	        EditApiary: editMockApiary
 	    };
 	}]);
 
@@ -572,13 +613,13 @@
 	    };
 
 	    return {
-	        GetMockHiveList: getMockHiveList,
-	        GetMockHive: getMockHive,
-	        DeleteMockHive: deleteMockHive,
-	        CreateMockHive: createMockHive,
+	        GetHiveList: getMockHiveList,
+	        GetHive: getMockHive,
+	        DeleteHive: deleteMockHive,
+	        CreateHive: createMockHive,
 	        GetLastCreatedHive: getLastCreatedHive,
 	        GetHiveTypes: getHiveTypes,
-	        EditMockHive: editMockHive
+	        EditHive: editMockHive
 	    };
 	}]);
 
@@ -670,13 +711,13 @@
 	    };
 
 	    return {
-	        GetMockBoxList: getMockBoxList,
-	        GetMockBox: getMockBox,
-	        DeleteMockBox: deleteMockBox,
-	        CreateMockBox: createMockBox,
+	        GetBoxList: getMockBoxList,
+	        GetBox: getMockBox,
+	        DeleteBox: deleteMockBox,
+	        CreateBox: createMockBox,
 	        GetLastCreatedBox: getLastCreatedBox,
 	        GetBoxTypes: getBoxTypes,
-	        EditMockBox: editMockBox
+	        EditBox: editMockBox
 	    };
 	}]);
 
@@ -760,17 +801,73 @@
 	    };
 
 	    return {
-	        GetMockFrameList: getMockFrameList,
-	        GetMockFrame: getMockFrame,
-	        DeleteMockFrame: deleteMockFrame,
-	        CreateMockFrame: createMockFrame,
+	        GetFrameList: getMockFrameList,
+	        GetFrame: getMockFrame,
+	        DeleteFrame: deleteMockFrame,
+	        CreateFrame: createMockFrame,
 	        GetLastCreatedFrame: getLastCreatedFrame,
-	        EditMockFrame: editMockFrame
+	        EditFrame: editMockFrame
 	    };
 	}]);
 
 /***/ },
 /* 11 */
+/***/ function(module, exports) {
+
+	angular.module('apiary.mock').factory('InspectionMockDataService', [function () {
+	    var currentInspection = {};
+
+	    function resetInspection() {
+	        currentInspection = {
+	            inspection: {},
+	            hiveId: 0,
+	            boxInspections: {},
+	            inspectionActions: {},
+	            inspectionConclusion: {}
+	        };
+	    };
+
+	    var saveInspection = function (inspection) {
+	        currentInspection.inspection = inspection;
+	        currentInspection.hiveId = inspection.hiveId;
+	    };
+
+	    var saveInspectionBox = function (boxInspection) {
+	        currentInspection.boxInspections[boxInspection.boxId] = boxInspection;
+	    };
+
+	    var saveInspectionActions = function (inspectionActions) {
+	        currentInspection.inspectionActions = inspectionActions;
+	    };
+
+	    var saveInspectionConclusion = function (inspectionConclusion) {
+	        currentInspection.inspectionConclusion = inspectionConclusion;
+	        saveInspectionToServer();
+	    };
+
+	    var getHiveId = function () {
+	        return currentInspection.hiveId;
+	    };
+
+	    function saveInspectionToServer() {
+	        //Save inspection to server
+	        //Clear current inspection
+	        resetInspection();
+	    };
+
+	    resetInspection();
+
+	    return {
+	        SaveInspection: saveInspection,
+	        SaveInspectionBox: saveInspectionBox,
+	        SaveInspectionActions: saveInspectionActions,
+	        SaveInspectionConclusion: saveInspectionConclusion,
+	        GetHiveId: getHiveId
+	    };
+	}]);
+
+/***/ },
+/* 12 */
 /***/ function(module, exports) {
 
 	angular.module('apiary.hive', []).controller('HiveCtrl', ['$scope', '$stateParams', 'HiveMockDataService', 'BoxMockDataService', function ($scope, $stateParams, HiveMockDataService, BoxMockDataService) {
@@ -780,11 +877,11 @@
 	    $scope.lastCreatedBoxName = "";
 
 	    $scope.$on('$ionicView.enter', function (e) {
-	        var hive = HiveMockDataService.GetMockHive($stateParams.hiveId);
+	        var hive = HiveMockDataService.GetHive($stateParams.hiveId);
 
 	        $scope.hive = hive;
 
-	        $scope.boxList = BoxMockDataService.GetMockBoxList();
+	        $scope.boxList = BoxMockDataService.GetBoxList();
 	        $scope.lastCreatedBoxName = BoxMockDataService.GetLastCreatedBox();
 	        setTimeout(function () {
 	            $scope.$apply(function () {
@@ -794,7 +891,7 @@
 	    });
 
 	    $scope.deleteItem = function (boxId) {
-	        if (BoxMockDataService.DeleteMockBox(boxId)) {
+	        if (BoxMockDataService.GetBox(boxId)) {
 	            console.log("Removed box #" + boxId);
 	        } else {
 	            console.log("Failed to remove box #" + boxId);
@@ -803,7 +900,7 @@
 	}]);
 
 /***/ },
-/* 12 */
+/* 13 */
 /***/ function(module, exports) {
 
 	angular.module('apiary.hive').controller('HiveCreateCtrl', ['$scope', '$stateParams', 'HiveMockDataService', '$ionicHistory', function ($scope, $stateParams, HiveMockDataService, $ionicHistory) {
@@ -816,31 +913,7 @@
 	    $scope.createHive = function () {
 	        var hive = $scope.hive;
 	        if ($scope.hive) {
-	            hive = HiveMockDataService.CreateMockHive(hive);
-	            $ionicHistory.goBack();
-	        }
-	    };
-
-	    $scope.goBack = function () {
-	        $ionicHistory.goBack();
-	    };
-	}]);
-
-/***/ },
-/* 13 */
-/***/ function(module, exports) {
-
-	angular.module('apiary.hive').controller('HiveEditCtrl', ['$scope', '$stateParams', 'HiveMockDataService', '$ionicHistory', function ($scope, $stateParams, HiveMockDataService, $ionicHistory) {
-	    $scope.$on('$ionicView.enter', function (e) {
-	        var hive = HiveMockDataService.GetMockHive($stateParams.hiveId);
-
-	        $scope.hive = hive;
-	    });
-
-	    $scope.saveHive = function () {
-	        var hive = $scope.hive;
-	        if ($scope.hive) {
-	            hive = HiveMockDataService.EditMockHive(hive);
+	            hive = HiveMockDataService.GetHive(hive);
 	            $ionicHistory.goBack();
 	        }
 	    };
@@ -854,6 +927,30 @@
 /* 14 */
 /***/ function(module, exports) {
 
+	angular.module('apiary.hive').controller('HiveEditCtrl', ['$scope', '$stateParams', 'HiveMockDataService', '$ionicHistory', function ($scope, $stateParams, HiveMockDataService, $ionicHistory) {
+	    $scope.$on('$ionicView.enter', function (e) {
+	        var hive = HiveMockDataService.GetHive($stateParams.hiveId);
+
+	        $scope.hive = hive;
+	    });
+
+	    $scope.saveHive = function () {
+	        var hive = $scope.hive;
+	        if ($scope.hive) {
+	            hive = HiveMockDataService.EditHive(hive);
+	            $ionicHistory.goBack();
+	        }
+	    };
+
+	    $scope.goBack = function () {
+	        $ionicHistory.goBack();
+	    };
+	}]);
+
+/***/ },
+/* 15 */
+/***/ function(module, exports) {
+
 	angular.module('apiary.box', []).controller('BoxCtrl', ['$scope', '$stateParams', 'BoxMockDataService', 'FrameMockDataService', function ($scope, $stateParams, BoxMockDataService, FrameMockDataService) {
 	    $scope.frameList = [];
 	    $scope.shouldShowDelete = false;
@@ -861,11 +958,11 @@
 	    $scope.lastCreatedFrameName = "";
 
 	    $scope.$on('$ionicView.enter', function (e) {
-	        var box = BoxMockDataService.GetMockBox($stateParams.boxId);
+	        var box = BoxMockDataService.GetBox($stateParams.boxId);
 
 	        $scope.box = box;
 
-	        $scope.frameList = FrameMockDataService.GetMockFrameList();
+	        $scope.frameList = FrameMockDataService.GetFrameList();
 	        $scope.lastCreatedFrameName = FrameMockDataService.GetLastCreatedFrame();
 	        setTimeout(function () {
 	            $scope.$apply(function () {
@@ -875,7 +972,7 @@
 	    });
 
 	    $scope.deleteItem = function (frameId) {
-	        if (FrameMockDataService.DeleteMockFrame(frameId)) {
+	        if (FrameMockDataService.GetFrame(frameId)) {
 	            console.log("Removed frame #" + frameId);
 	        } else {
 	            console.log("Failed to remove frame #" + frameId);
@@ -884,7 +981,7 @@
 	}]);
 
 /***/ },
-/* 15 */
+/* 16 */
 /***/ function(module, exports) {
 
 	angular.module('apiary.box').controller('BoxCreateCtrl', ['$scope', '$stateParams', 'BoxMockDataService', '$ionicHistory', function ($scope, $stateParams, BoxMockDataService, $ionicHistory) {
@@ -897,31 +994,7 @@
 	    $scope.createBox = function () {
 	        var box = $scope.box;
 	        if ($scope.box) {
-	            box = BoxMockDataService.CreateMockBox(box);
-	            $ionicHistory.goBack();
-	        }
-	    };
-
-	    $scope.goBack = function () {
-	        $ionicHistory.goBack();
-	    };
-	}]);
-
-/***/ },
-/* 16 */
-/***/ function(module, exports) {
-
-	angular.module('apiary.box').controller('BoxEditCtrl', ['$scope', '$stateParams', 'BoxMockDataService', '$ionicHistory', function ($scope, $stateParams, BoxMockDataService, $ionicHistory) {
-	    $scope.$on('$ionicView.enter', function (e) {
-	        var box = BoxMockDataService.GetMockBox($stateParams.boxId);
-
-	        $scope.box = box;
-	    });
-
-	    $scope.saveBox = function () {
-	        var box = $scope.box;
-	        if ($scope.box) {
-	            box = BoxMockDataService.EditMockBox(box);
+	            box = BoxMockDataService.GetBox(box);
 	            $ionicHistory.goBack();
 	        }
 	    };
@@ -935,19 +1008,43 @@
 /* 17 */
 /***/ function(module, exports) {
 
+	angular.module('apiary.box').controller('BoxEditCtrl', ['$scope', '$stateParams', 'BoxMockDataService', '$ionicHistory', function ($scope, $stateParams, BoxMockDataService, $ionicHistory) {
+	    $scope.$on('$ionicView.enter', function (e) {
+	        var box = BoxMockDataService.GetBox($stateParams.boxId);
+
+	        $scope.box = box;
+	    });
+
+	    $scope.saveBox = function () {
+	        var box = $scope.box;
+	        if ($scope.box) {
+	            box = BoxMockDataService.EditBox(box);
+	            $ionicHistory.goBack();
+	        }
+	    };
+
+	    $scope.goBack = function () {
+	        $ionicHistory.goBack();
+	    };
+	}]);
+
+/***/ },
+/* 18 */
+/***/ function(module, exports) {
+
 	angular.module('apiary.frame', []).controller('FrameCtrl', ['$scope', '$stateParams', 'FrameMockDataService', function ($scope, $stateParams, FrameMockDataService) {
 	    $scope.shouldShowDelete = false;
 	    $scope.listCanSwipe = false;
 
 	    $scope.$on('$ionicView.enter', function (e) {
-	        var frame = FrameMockDataService.GetMockFrame($stateParams.frameId);
+	        var frame = FrameMockDataService.GetFrame($stateParams.frameId);
 
 	        $scope.frame = frame;
 	    });
 	}]);
 
 /***/ },
-/* 18 */
+/* 19 */
 /***/ function(module, exports) {
 
 	angular.module('apiary.frame').controller('FrameCreateCtrl', ['$scope', '$stateParams', 'FrameMockDataService', function ($scope, $stateParams, FrameMockDataService, $ionicHistory) {
@@ -959,31 +1056,7 @@
 	    $scope.createFrame = function () {
 	        var frame = $scope.frame;
 	        if ($scope.frame) {
-	            frame = FrameMockDataService.CreateMockFrame(frame);
-	            $ionicHistory.goBack();
-	        }
-	    };
-
-	    $scope.goBack = function () {
-	        $ionicHistory.goBack();
-	    };
-	}]);
-
-/***/ },
-/* 19 */
-/***/ function(module, exports) {
-
-	angular.module('apiary.frame').controller('FrameEditCtrl', ['$scope', '$stateParams', 'FrameMockDataService', '$ionicHistory', function ($scope, $stateParams, FrameMockDataService, $ionicHistory) {
-	    $scope.$on('$ionicView.enter', function (e) {
-	        var frame = FrameMockDataService.GetMockFrame($stateParams.frameId);
-
-	        $scope.frame = frame;
-	    });
-
-	    $scope.saveFrame = function () {
-	        var frame = $scope.frame;
-	        if ($scope.frame) {
-	            frame = FrameMockDataService.EditMockFrame(frame);
+	            frame = FrameMockDataService.GetFrame(frame);
 	            $ionicHistory.goBack();
 	        }
 	    };
@@ -995,6 +1068,30 @@
 
 /***/ },
 /* 20 */
+/***/ function(module, exports) {
+
+	angular.module('apiary.frame').controller('FrameEditCtrl', ['$scope', '$stateParams', 'FrameMockDataService', '$ionicHistory', function ($scope, $stateParams, FrameMockDataService, $ionicHistory) {
+	    $scope.$on('$ionicView.enter', function (e) {
+	        var frame = FrameMockDataService.GetFrame($stateParams.frameId);
+
+	        $scope.frame = frame;
+	    });
+
+	    $scope.saveFrame = function () {
+	        var frame = $scope.frame;
+	        if ($scope.frame) {
+	            frame = FrameMockDataService.EditFrame(frame);
+	            $ionicHistory.goBack();
+	        }
+	    };
+
+	    $scope.goBack = function () {
+	        $ionicHistory.goBack();
+	    };
+	}]);
+
+/***/ },
+/* 21 */
 /***/ function(module, exports) {
 
 	angular.module('apiary.common', []).constant('LoginAuths', {
@@ -1009,7 +1106,7 @@
 	});
 
 /***/ },
-/* 21 */
+/* 22 */
 /***/ function(module, exports) {
 
 	angular.module('apiary.common').factory('Polyfill', function () {
@@ -1029,7 +1126,7 @@
 	});
 
 /***/ },
-/* 22 */
+/* 23 */
 /***/ function(module, exports) {
 
 	angular.module('apiary.database', [])
@@ -1062,7 +1159,7 @@
 	;
 
 /***/ },
-/* 23 */
+/* 24 */
 /***/ function(module, exports) {
 
 	angular.module('apiary.login', []).controller('LoginCtrl', ['$scope', 'AuthenticationService', function ($scope, AuthenticationService) {
@@ -1078,7 +1175,7 @@
 	}]);
 
 /***/ },
-/* 24 */
+/* 25 */
 /***/ function(module, exports) {
 
 	angular.module('apiary.authentication', []).factory('AuthenticationService', ['$http', '$cordovaOauth', 'LoginAuths', '$localStorage', '$state', function ($http, $cordovaOauth, LoginAuths, $localStorage, $state) {
@@ -1155,21 +1252,20 @@
 	}]);
 
 /***/ },
-/* 25 */
+/* 26 */
 /***/ function(module, exports) {
 
-	angular.module('apiary.inspection', ['ion-datetime-picker']).controller('InspectionCtrl', ['$scope', '$stateParams', '$ionicHistory', 'HiveMockDataService', function ($scope, $stateParams, $ionicHistory, HiveMockDataService) {
+	angular.module('apiary.inspection', ['ion-datetime-picker']).controller('InspectionCtrl', ['$scope', '$stateParams', '$state', '$ionicHistory', 'InspectionMockDataService', function ($scope, $stateParams, $state, $ionicHistory, InspectionMockDataService) {
 	    $scope.$on('$ionicView.enter', function (e) {
-	        var hive = HiveMockDataService.GetMockHive($stateParams.hiveId);
+	        $scope.hiveId = $stateParams.hiveId;
 	        $scope.inspection = {
 	            datetimeValue: Date.now(),
-	            hive: {},
 	            temperature: "",
 	            traffic: "None",
 	            weather: {},
-	            purpose: ""
+	            purpose: "",
+	            hiveId: $scope.hiveId
 	        };
-	        $scope.inspection.hive = hive;
 
 	        $scope.trafficOptions = ["High", "Medium", "Low", "None"];
 	    });
@@ -1182,6 +1278,110 @@
 	        //todo: add call to inspection mock data service to save inspection
 	        //todo: navigate to next page (boxes)
 	        console.log("Inspection at continue ", $scope.inspection);
+	        InspectionMockDataService.SaveInspection($scope.inspection);
+	        $state.go('app.inspectionBoxes', { "hiveId": $scope.hiveId });
+	    };
+	}]);
+
+/***/ },
+/* 27 */
+/***/ function(module, exports) {
+
+	angular.module('apiary.inspection').controller('InspectionBoxesCtrl', ['$scope', '$stateParams', '$state', '$ionicHistory', 'HiveMockDataService', 'BoxMockDataService', function ($scope, $stateParams, $state, $ionicHistory, HiveMockDataService, BoxMockDataService) {
+	    $scope.$on('$ionicView.enter', function (e) {
+	        $scope.hive = HiveMockDataService.GetHive($stateParams.hiveId);
+	        $scope.boxList = BoxMockDataService.GetBoxList($stateParams.hiveId);
+	    });
+
+	    $scope.goBack = function () {
+	        $ionicHistory.goBack();
+	    };
+
+	    $scope.continue = function () {
+	        //todo: add call to inspection mock data service to save inspection
+	        //todo: navigate to next page (boxes)
+	        console.log("Inspection at continue from box list");
+	        $state.go('app.inspectionActions');
+	    };
+	}]);
+
+/***/ },
+/* 28 */
+/***/ function(module, exports) {
+
+	angular.module('apiary.inspection').controller('InspectionBoxCtrl', ['$scope', '$stateParams', '$ionicHistory', 'InspectionMockDataService', 'BoxMockDataService', function ($scope, $stateParams, $ionicHistory, InspectionMockDataService, BoxMockDataService) {
+	    $scope.$on('$ionicView.enter', function (e) {
+	        var box = BoxMockDataService.GetBox($stateParams.boxId);
+	        $scope.box = box;
+	        $scope.inspectionBox = {
+	            boxId: $scope.box.id
+	        };
+	        $scope.amountOptions = ["None", "Low", "Medium", "High"];
+	    });
+
+	    $scope.goBack = function () {
+	        $ionicHistory.goBack();
+	    };
+
+	    $scope.continue = function () {
+	        //todo: add call to inspection mock data service to save inspection
+	        //todo: navigate to next page (boxes)
+	        console.log("Inspection at continue from box ");
+	        InspectionMockDataService.SaveInspectionBox($scope.inspectionBox);
+	        $ionicHistory.goBack();
+	    };
+	}]);
+
+/***/ },
+/* 29 */
+/***/ function(module, exports) {
+
+	angular.module('apiary.inspection').controller('InspectionActionsCtrl', ['$scope', '$state', '$ionicHistory', 'InspectionMockDataService', function ($scope, $state, $ionicHistory, InspectionMockDataService) {
+	    $scope.$on('$ionicView.enter', function (e) {
+	        $scope.inspectionActions = {};
+	    });
+
+	    $scope.goBack = function () {
+	        $ionicHistory.goBack();
+	    };
+
+	    $scope.continue = function () {
+	        //todo: add call to inspection mock data service to save inspection
+	        //todo: navigate to next page (conclusion)
+	        console.log("Inspection at continue from actions");
+	        InspectionMockDataService.SaveInspectionActions($scope.inspectionActions);
+	        $state.go('app.inspectionConclusion');
+	    };
+	}]);
+
+/***/ },
+/* 30 */
+/***/ function(module, exports) {
+
+	angular.module('apiary.inspection').controller('InspectionConclusionCtrl', ['$scope', '$state', '$ionicHistory', 'InspectionMockDataService', function ($scope, $state, $ionicHistory, InspectionMockDataService) {
+	    $scope.$on('$ionicView.enter', function (e) {
+	        $scope.inspectionConclusion = {};
+
+	        $scope.tempermentOptions = ["Calm", "Nervous", "Aggressive"];
+	        $scope.droneCountOptions = ["Low (<30)", "Average (30-100)", "High (>100)"];
+	        $scope.amountOptions = ["None", "Low", "Medium", "High"];
+	        $scope.pestOptions = ["None", "Ants", "Mites", "Mice", "Wax Moths", "Hive Beetles", "Other"];
+	        $scope.broodPatternOptions = ["Uniform", "Spotty", "Random", "None"];
+	        $scope.queenAgeOptions = ["None", "<1", "1-2", "2+"];
+	        $scope.diseasesOptions = ["None", "Chalkbrood", "Deformed Wing", "AFB", "EFB", "Other"];
+	        $scope.hiveConditionOptions = ["Normal", "Brace Comb", "Excessive Propolis", "Normal Odor", "Foul Odor", "Equipment Damage"];
+	    });
+
+	    $scope.goBack = function () {
+	        $ionicHistory.goBack();
+	    };
+
+	    $scope.continue = function () {
+	        //todo: add call to inspection mock data service to save inspection
+	        //todo: navigate to hive
+	        console.log("Inspection at continue from box list ");
+	        InspectionMockDataService.SaveInspectionConclusion($scope.inspectionConclusion);
+	        $state.go('app.hive', { "hiveId": InspectionMockDataService.GetHiveId() });
 	    };
 	}]);
 

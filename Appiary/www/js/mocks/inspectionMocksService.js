@@ -14,6 +14,7 @@
 
     var saveInspection = function (inspection) {
         currentInspection.inspection = inspection;
+        currentInspection.hiveId = inspection.hiveId;
     };
 
     var saveInspectionBox = function (boxInspection) {
@@ -28,9 +29,14 @@
         currentInspection.inspectionConclusion = inspectionConclusion;
     };
 
+    var getHiveId = function () {
+        return currentInspection.hiveId;
+    };
+
     function saveInspectionToServer() {
         //Save inspection to server
         //Clear current inspection
+        resetInspection();
     };
 
     resetInspection();
@@ -39,6 +45,7 @@
         SaveInspection: saveInspection,
         SaveInspectionBox: saveInspectionBox,
         SaveInspectionActions: saveInspectionActions,
-        SaveInspectionConclusion: saveInspectionConclusion
+        SaveInspectionConclusion: saveInspectionConclusion,
+        GetHiveId: getHiveId
     };
 }]);

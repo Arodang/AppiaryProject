@@ -10,7 +10,7 @@
     $scope.createBox = function () {
         var box = $scope.box;
         if ($scope.box) {
-            box = BoxMockDataService.CreateMockBox(box);
+            box = BoxMockDataService.GetBox(box);
             $ionicHistory.goBack();
         }
     };

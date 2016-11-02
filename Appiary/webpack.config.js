@@ -12,6 +12,7 @@ module.exports = {
             './www/js/mocks/hiveMocksService',
             './www/js/mocks/boxMocksService',
             './www/js/mocks/frameMocksService',
+            './www/js/mocks/inspectionMocksService',
             './www/js/hive/hiveController',
             './www/js/hive/hiveCreateController',
             './www/js/hive/hiveEditController',
@@ -28,7 +29,9 @@ module.exports = {
             './www/js/authentication/authenticationService',
             './www/js/inspection/inspectionController',
             './www/js/inspection/inspectionBoxesController',
-            './www/js/inspection/inspectionBoxController'
+            './www/js/inspection/inspectionBoxController',
+            './www/js/inspection/inspectionActionsController',
+            './www/js/inspection/inspectionConclusionController'
         ]
     },
     output: {

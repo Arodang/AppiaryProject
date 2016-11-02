@@ -7,11 +7,11 @@
     $scope.lastCreatedHiveName = "";
 
     $scope.$on('$ionicView.enter', function (e) {
-        var apiary = ApiaryMockDataService.GetMockApiary($stateParams.apiaryId);
+        var apiary = ApiaryMockDataService.GetApiary($stateParams.apiaryId);
 
         $scope.apiary = apiary;
 
-        $scope.hiveList = HiveMockDataService.GetMockHiveList();
+        $scope.hiveList = HiveMockDataService.GetHiveList();
         $scope.lastCreatedHiveName = HiveMockDataService.GetLastCreatedHive();
         setTimeout(function () {
             $scope.$apply(function () {
@@ -21,7 +21,7 @@
     });
 
     $scope.deleteItem = function (hiveId) {
-        if (HiveMockDataService.DeleteMockHive(hiveId)) {
+        if (HiveMockDataService.GetHive(hiveId)) {
             console.log("Removed hive #" + hiveId);
         }
         else {

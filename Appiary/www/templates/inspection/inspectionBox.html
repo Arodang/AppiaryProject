@@ -15,7 +15,6 @@
         </div>
         <div id="inspectionBox">
             <form class="list">
-                <ion-list>
                     <label class="item item-input item-select">
                         <span class="input-label">
                             Amount of Bees
@@ -41,10 +40,9 @@
                     <ion-checkbox ng-model="inspectionBox.eggs">Eggs</ion-checkbox>
                     <ion-checkbox ng-model="inspectionBox.cappedBrood">Capped Brood</ion-checkbox>
                     <ion-checkbox ng-model="inspectionBox.droneBrood">Drone Brood</ion-checkbox>
-                    <ion-checkbox ng-model="inspectionBox.queenCup"Queen Cup></ion-checkbox>
+                    <ion-checkbox ng-model="inspectionBox.queenCup">Queen Cup</ion-checkbox>
                     <ion-checkbox ng-model="inspectionBox.cappedQueen">Capped Queen</ion-checkbox>
                     <ion-checkbox ng-model="inspectionBox.supercedureCell">Supercedure Cell</ion-checkbox>
-                </ion-list>
             </form>
         </div>
         <!--<div id="inspectionFrames">
@@ -61,6 +59,9 @@
         <div class="row" id="cancelSaveButton">
             <button class="col button button-positive" ng-click="goBack()">
                 Back to Box List
+            </button>
+            <button class="col button button-energized" ng-click="continue()">
+                Continue
             </button>
         </div>
     </ion-content>

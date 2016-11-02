@@ -1,9 +1,22 @@
 ﻿<ion-view view-title="Inspection">
     <ion-content>
+        <div class="card">
+            <div class="item item-text-wrap">
+                <div>
+                    <h2>Name:</h2> <span ng-bind="hive.name" />
+                </div>
+                <div>
+                    <h2>Position:</h2> <span ng-bind="hive.position" />
+                </div>
+                <div>
+                    <h2>Box Type:</h2> <span ng-bind="hive.hiveType" />
+                </div>
+            </div>
+        </div>
         <div id="inspectionBoxes">
             <h4 class="title">Box List</h4>
             <ion-list can-swipe="listCanSwipe">
-                <ion-item ng-repeat="box in boxList" class="item-button-right" href="#/app/insepction/box/{{box.id}}">
+                <ion-item ng-repeat="box in boxList" class="item-button-right" href="#/app/inspection/box/{{box.id}}">
                     <div ng-bind="box.name"></div>
                     <button class="button button-positive">
                         Open

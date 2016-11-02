@@ -210,8 +210,46 @@ angular.module('starter', ['ionic',
 	        }
 	    }
 	})
-
-
+    .state('app.inspectionBoxes', {
+        url: '/inspection/boxes/:hiveId',
+        data: { authRequired: true },
+        views: {
+            'menuContent': {
+                templateUrl: 'templates/inspection/inspectionBoxes.html',
+                controller: 'InspectionBoxesCtrl'
+            }
+        }
+    })
+    .state('app.inspectionBox', {
+        url: '/inspection/box/:boxId',
+        data: { authRequired: true },
+        views: {
+            'menuContent': {
+                templateUrl: 'templates/inspection/inspectionBox.html',
+                controller: 'InspectionBoxCtrl'
+            }
+        }
+    })
+    .state('app.inspectionActions', {
+        url: '/inspection/actions',
+        data: { authRequired: true },
+        views: {
+            'menuContent': {
+                templateUrl: 'templates/inspection/inspectionActions.html',
+                controller: 'InspectionActionsCtrl'
+            }
+        }
+    })
+    .state('app.inspectionConclusion', {
+        url: '/inspection/conclusion',
+        data: { authRequired: true },
+        views: {
+            'menuContent': {
+                templateUrl: 'templates/inspection/inspectionConclusion.html',
+                controller: 'InspectionConclusionCtrl'
+            }
+        }
+    })
     ;
     // if none of the above states are matched, use this as the fallback
     $urlRouterProvider.otherwise(function ($injector) {
