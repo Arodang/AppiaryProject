@@ -7,13 +7,13 @@ namespace AppiaryData.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.3-40302")]
-    public sealed partial class UpdateToGuid : IMigrationMetadata
+    public sealed partial class InspectionModels : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(UpdateToGuid));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(InspectionModels));
         
         string IMigrationMetadata.Id
         {
-            get { return "201609230347448_UpdateToGuid"; }
+            get { return "201611041757561_InspectionModels"; }
         }
         
         string IMigrationMetadata.Source

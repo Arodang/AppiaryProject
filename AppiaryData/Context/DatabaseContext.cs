@@ -24,7 +24,7 @@ namespace AppiaryData.Context
 
         public DbSet<Inspection> Inspections { get; set; }
 
-        public DbSet<InspectionTakenAction> InspectionTakenActions { get; set; }
+        public DbSet<InspectionActions> InspectionTakenActions { get; set; }
 
         public DbSet<Note> Notes { get; set; }
 

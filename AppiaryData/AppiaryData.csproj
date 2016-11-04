@@ -54,15 +54,17 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Context\DatabaseContext.cs" />
-    <Compile Include="Migrations\201609230347448_UpdateToGuid.cs" />
-    <Compile Include="Migrations\201609230347448_UpdateToGuid.Designer.cs">
-      <DependentUpon>201609230347448_UpdateToGuid.cs</DependentUpon>
+    <Compile Include="Migrations\201611041757561_InspectionModels.cs" />
+    <Compile Include="Migrations\201611041757561_InspectionModels.Designer.cs">
+      <DependentUpon>201611041757561_InspectionModels.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201610051717189_VirtualCollections.cs" />
-    <Compile Include="Migrations\201610051717189_VirtualCollections.Designer.cs">
-      <DependentUpon>201610051717189_VirtualCollections.cs</DependentUpon>
+    <Compile Include="Migrations\201611041829166_UpdatedSeed.cs" />
+    <Compile Include="Migrations\201611041829166_UpdatedSeed.Designer.cs">
+      <DependentUpon>201611041829166_UpdatedSeed.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\BoxInspection.cs" />
+    <Compile Include="Models\InspectionConclusion.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Models\BaseModel.cs" />
     <Compile Include="Models\Apiary.cs" />
@@ -87,11 +89,11 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201609230347448_UpdateToGuid.resx">
-      <DependentUpon>201609230347448_UpdateToGuid.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201611041757561_InspectionModels.resx">
+      <DependentUpon>201611041757561_InspectionModels.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201610051717189_VirtualCollections.resx">
-      <DependentUpon>201610051717189_VirtualCollections.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201611041829166_UpdatedSeed.resx">
+      <DependentUpon>201611041829166_UpdatedSeed.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
