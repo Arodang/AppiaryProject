@@ -3,7 +3,7 @@ namespace AppiaryData.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class VirtualCollections : DbMigration
+    public partial class UpdatedSeed : DbMigration
     {
         public override void Up()
         {

@@ -7,13 +7,13 @@ namespace AppiaryData.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.3-40302")]
-    public sealed partial class VirtualCollections : IMigrationMetadata
+    public sealed partial class UpdatedSeed : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(VirtualCollections));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(UpdatedSeed));
         
         string IMigrationMetadata.Id
         {
-            get { return "201610051717189_VirtualCollections"; }
+            get { return "201611041829166_UpdatedSeed"; }
         }
         
         string IMigrationMetadata.Source
