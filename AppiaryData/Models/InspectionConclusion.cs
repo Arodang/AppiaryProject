@@ -10,7 +10,7 @@ namespace AppiaryData.Models
 {
     public class InspectionConclusion : BaseModel
     {
-        public enum TempermentEnum { Calm, Nervous, Aggressive }
+        public enum TempermentEnum { Calm, Nervous, Aggressive, NA }
 
         public enum PestsPresentEnum { Ants, Mites, Mice, WaxMoths, HiveBeetles, Other, None }
 

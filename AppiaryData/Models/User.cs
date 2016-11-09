@@ -23,5 +23,7 @@ namespace AppiaryData.Models
         public string AccessToken { get; set; }
 
         public virtual List<Apiary> Apiaries { get; set; }
+
+        public virtual List<Inspection> Inspections { get; set; }
     }
 }

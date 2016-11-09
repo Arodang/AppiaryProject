@@ -46,6 +46,10 @@ namespace AppiaryData.Models
 
         public bool HiveManagement { get; set; }
 
+        public string HiveManagementDetails { get; set; }
+
+        public bool MiteCount { get; set; }
+
         public string MiteCountMethod { get; set; }
 
         public string MiteCountAmount { get; set; }

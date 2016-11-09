@@ -62,6 +62,14 @@
     <Compile Include="Migrations\201611041829166_UpdatedSeed.Designer.cs">
       <DependentUpon>201611041829166_UpdatedSeed.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201611071649017_AddUserInspections.cs" />
+    <Compile Include="Migrations\201611071649017_AddUserInspections.Designer.cs">
+      <DependentUpon>201611071649017_AddUserInspections.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201611091609362_enumeratorUpdate.cs" />
+    <Compile Include="Migrations\201611091609362_enumeratorUpdate.Designer.cs">
+      <DependentUpon>201611091609362_enumeratorUpdate.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\BoxInspection.cs" />
     <Compile Include="Models\InspectionConclusion.cs" />
@@ -71,7 +79,7 @@
     <Compile Include="Models\FrameSideInspection.cs" />
     <Compile Include="Models\Inspection.cs" />
     <Compile Include="Models\FrameInspection.cs" />
-    <Compile Include="Models\InspectionTakenAction.cs" />
+    <Compile Include="Models\InspectionActions.cs" />
     <Compile Include="Models\Queen.cs" />
     <Compile Include="Models\Hive.cs" />
     <Compile Include="Models\Box.cs" />
@@ -94,6 +102,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201611041829166_UpdatedSeed.resx">
       <DependentUpon>201611041829166_UpdatedSeed.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201611071649017_AddUserInspections.resx">
+      <DependentUpon>201611071649017_AddUserInspections.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201611091609362_enumeratorUpdate.resx">
+      <DependentUpon>201611091609362_enumeratorUpdate.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
