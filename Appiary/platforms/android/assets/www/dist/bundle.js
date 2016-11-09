@@ -842,6 +842,7 @@
 
 	    var saveInspectionConclusion = function (inspectionConclusion) {
 	        currentInspection.inspectionConclusion = inspectionConclusion;
+	        saveInspectionToServer();
 	    };
 
 	    var getHiveId = function () {
@@ -849,6 +850,9 @@
 	    };
 
 	    function saveInspectionToServer() {
+	        console.log("Current Inspection: ");
+	        console.log(JSON.stringify(currentInspection));
+
 	        //Save inspection to server
 	        //Clear current inspection
 	        resetInspection();
