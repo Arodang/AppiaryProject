@@ -247,7 +247,7 @@ namespace AppiaryData.Migrations
                 apiary
             };
 
-            context.Users.Add(baseUser);
+            context.Users.AddOrUpdate(baseUser);
         }
     }
 }
