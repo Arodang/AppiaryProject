@@ -24,6 +24,6 @@
             //todo: navigate to hive
             console.log("Inspection at continue from box list ");
             InspectionMockDataService.SaveInspectionConclusion($scope.inspectionConclusion);
-            $state.go('app.hive', { "hiveId": InspectionMockDataService.GetHiveId() })
+            $state.go('app.hive', { "hiveId": InspectionMockDataService.GetHiveId() });
         };
     }]);

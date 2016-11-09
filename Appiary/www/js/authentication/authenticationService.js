@@ -67,12 +67,22 @@
         return false;
     };
 
+    var getUserAndAccessToken = function () {
+        if (isAuthenticated()) {
+            return {
+                accessToken: $localStorage.userProfile.appiaryAccessToken,
+                userId: $localStorage.userProfile.appiaryUserId
+            }
+        }
+    };
+
 
 
     return {
         FacebookSignIn: facebookSignIn,
         GoogleSignIn: googleSignIn,
         LogOut: logOut,
-        IsAuthenticated: isAuthenticated
+        IsAuthenticated: isAuthenticated,
+        GetUserAndAccessToken: getUserAndAccessToken
     };
 }]);

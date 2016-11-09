@@ -814,7 +814,7 @@
 /* 11 */
 /***/ function(module, exports) {
 
-	angular.module('apiary.mock').factory('InspectionMockDataService', [function () {
+	angular.module('apiary.mock').factory('InspectionMockDataService', ['AuthenticationService', function (AuthenticationService) {
 	    var currentInspection = {};
 
 	    function resetInspection() {
@@ -852,6 +852,28 @@
 	    function saveInspectionToServer() {
 	        console.log("Current Inspection: ");
 	        console.log(JSON.stringify(currentInspection));
+
+	        //Happy path, assume user exists and is authenticated since we were able to load this page
+	        var user = AuthenticationService.GetUserAndAccessToken();
+
+	        var inspectionStart = currentInspection.inspection;
+
+	        var boxInspections = [];
+	        Object.keys(currentInspection.boxInspections).forEach(function (key, index) {
+	            boxInspections.push(currentInspection.boxInspections[key]);
+	        });
+
+	        var inspection = {
+	            inspectionStart: currentInspection.inspection,
+	            inspectionActions: currentInspection.inspectionActions,
+	            inspectionConclusion: currentInspection.inspectionConclusion,
+	            boxInspections: boxInspections,
+	            UserId: user.userId,
+	            AccessToken: user.accessToken
+	        };
+
+	        console.log("Formatted Inspection: ");
+	        console.log(JSON.stringify(inspection));
 
 	        //Save inspection to server
 	        //Clear current inspection
@@ -1246,11 +1268,21 @@
 	        return false;
 	    };
 
+	    var getUserAndAccessToken = function () {
+	        if (isAuthenticated()) {
+	            return {
+	                accessToken: $localStorage.userProfile.appiaryAccessToken,
+	                userId: $localStorage.userProfile.appiaryUserId
+	            };
+	        }
+	    };
+
 	    return {
 	        FacebookSignIn: facebookSignIn,
 	        GoogleSignIn: googleSignIn,
 	        LogOut: logOut,
-	        IsAuthenticated: isAuthenticated
+	        IsAuthenticated: isAuthenticated,
+	        GetUserAndAccessToken: getUserAndAccessToken
 	    };
 	}]);
 
