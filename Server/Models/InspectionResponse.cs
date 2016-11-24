@@ -1,14 +1,13 @@
-﻿using System;
+﻿using Server.Models;
+using System;
 using System.Collections.Generic;
 
-public class InspectionResponse
+public class InspectionResponse : BaseResponse
 {
     public InspectionStart inspectionStart { get; set; }
     public List<BoxInspection> boxInspections { get; set; }
     public InspectionActions inspectionActions { get; set; }
     public InspectionConclusion inspectionConclusion { get; set; }
-    public string UserId { get; set; }
-    public string AccessToken { get; set; }
 }
 
 public class InspectionStart
