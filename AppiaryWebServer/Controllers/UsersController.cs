@@ -35,8 +35,8 @@ namespace AppiaryWebServer.Controllers
         }
 
 
-        // PUT api/users/create
-        [HttpPut]
+        // POST api/users/create
+        [HttpPost]
         [Route("create")]
         public HttpResponseMessage Create([FromBody]User user)
         {

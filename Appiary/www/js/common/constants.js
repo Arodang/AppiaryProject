@@ -8,4 +8,8 @@
             'clientId': '159318631179311',
             'clientSecret': '982a3518aae3df5ecb6eebb8ccaf0514'
         }
+    })
+    .constant('APIServer',
+    {
+        'url': 'http://dkitestawsexample-env.us-east-1.elasticbeanstalk.com/api/'
     });
