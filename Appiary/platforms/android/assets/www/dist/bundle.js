@@ -1247,7 +1247,8 @@
 	                };
 
 	                $http.post(url, data).success(function (data) {
-	                    $localStorage.userProfile.accessToken = data.accessToken;
+	                    $localStorage.userProfile.userId = data.UserId;
+	                    $localStorage.userProfile.accessToken = data.AccessToken;
 	                    $state.go("app.apiaryList");
 	                }).error(function (data, error) {
 	                    console.log("Error signing in ", data, "\n", error);
@@ -1287,7 +1288,8 @@
 	                };
 
 	                $http.post(url, data).success(function (data) {
-	                    $localStorage.userProfile.accessToken = data.accessToken;
+	                    $localStorage.userProfile.userId = data.UserId;
+	                    $localStorage.userProfile.accessToken = data.AccessToken;
 	                    $state.go("app.apiaryList");
 	                }).error(function (data, error) {
 	                    console.log("Error signing in ", data, "\n", error);
@@ -1318,7 +1320,7 @@
 
 	    var logOut = function () {
 	        var url = apiPath + "logout/" + $localStorage.userProfile.userId + "/" + $localStorage.userProfile.accessToken;
-	        $http.get(apiPath);
+	        $http.get(url);
 	        $localStorage.userProfile = undefined;
 	    };
 
@@ -1339,17 +1341,12 @@
 	        }
 	    };
 
-	    $http.get("http://google.com").success(function (result) {
-	        console.log("Success: ", result);
-	    }).error(function (data, error) {
-	        console.log("ERror: ", data, "\n", error);
-	    });
-
 	    //Add in GoogleCreate: googleCreate,
 	    return {
 	        FacebookSignIn: facebookSignIn,
 	        GoogleSignIn: googleSignIn,
 	        FacebookCreate: facebookCreate,
+	        GoogleCreate: googleCreate,
 	        LogOut: logOut,
 	        IsAuthenticated: isAuthenticated,
 	        GetUserAndAccessToken: getUserAndAccessToken
