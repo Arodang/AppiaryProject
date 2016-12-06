@@ -47,7 +47,7 @@ namespace AppiaryWebServer.Services
             try
             {
                 var user = db.Users.FirstOrDefault(a => a.UserId == new Guid(id) && a.AccessToken == accessToken);
-                user.AccessToken = Guid.Empty.ToString();
+                user.AccessToken = Guid.NewGuid().ToString();
                 db.SaveChanges();
                 return;
             }
